@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   resources :users
   resources :restaurants
 
+  namespace :api, defaults: { format: :json } do
+    resources :recommended_users, only: [:index]
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
