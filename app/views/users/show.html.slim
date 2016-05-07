@@ -1,0 +1,22 @@
+.page-header
+  .btn-toolbar.pull-right
+    .btn-group
+      = link_to users_path, class: 'btn btn-warning' do
+        i.glyphicon.glyphicon-chevron-left
+        = t('button.back')
+      = link_to edit_user_path(@user),
+        class: 'btn btn-warning' do
+        i.glyphicon.glyphicon-edit
+        = t('button.edit')
+      = link_to @user, :method => :delete, :data => { :confirm => 'Are you sure?' },
+        class: 'btn btn-danger' do
+        span.glyphicon.glyphicon-trash
+        = t(:delete)
+  h1
+    = t :show_user
+
+dl.dl-horizontal
+  dt
+    = User.human_attribute_name('email')
+  dd
+    = @user.email

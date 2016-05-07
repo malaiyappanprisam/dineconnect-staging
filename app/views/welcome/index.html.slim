@@ -1,0 +1,11 @@
+.page-header
+  .btn-toolbar.pull-right
+    .btn-group
+  h1
+    = t :welcome
+
+  - unless signed_in?
+    p
+      = link_to new_user_session_path, class: 'btn btn-primary btn-lg' do
+        span.glyphicon.glyphicon-user
+        = t(:sign_in)
