@@ -8,4 +8,5 @@ json.users @users do |user|
   json.date_of_birth user.date_of_birth
   json.age user.age
   json.profession user.profession
+  json.avatar_url Faker::Avatar.image(user.username, "300x300", "jpg")
 end
