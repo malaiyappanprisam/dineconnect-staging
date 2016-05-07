@@ -11,11 +11,17 @@
   table.table.tile.table-striped
     thead
       tr
+        th Last Name
+        th First Name
         th Email
         th.actions Actions
     tbody
     - @users.each do |user|
       tr
+        td
+          = user.last_name
+        td
+          = user.first_name
         td
           = user.email
         td.actions

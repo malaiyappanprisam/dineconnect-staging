@@ -11,32 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160507012426) do
+ActiveRecord::Schema.define(version: 20160507034129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "authentication_tokens", force: :cascade do |t|
-    t.string   "body"
-    t.integer  "user_id"
-    t.datetime "last_used_at"
-    t.string   "ip_address"
-    t.string   "user_agent"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "authentication_tokens", ["user_id"], name: "index_authentication_tokens_on_user_id", using: :btree
-
-  create_table "places", force: :cascade do |t|
-    t.string   "name"
-    t.string   "address"
-    t.string   "city"
-    t.string   "venue_id"
-    t.string   "photoURL"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+  enable_extension "postgis"
 
   create_table "restaurants", force: :cascade do |t|
     t.string   "name"
@@ -46,38 +25,21 @@ ActiveRecord::Schema.define(version: 20160507012426) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.string   "email",                                      null: false
+    t.string   "encrypted_password", limit: 128,             null: false
+    t.string   "confirmation_token", limit: 128
+    t.string   "remember_token",     limit: 128,             null: false
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "facebook_token"
-    t.integer  "age"
-    t.integer  "gender",                             default: 0,  null: false
+    t.string   "username"
+    t.integer  "gender",                         default: 0, null: false
+    t.date     "date_of_birth"
     t.string   "profession"
-    t.string   "nationality"
-    t.string   "meeting_preferences"
-    t.string   "residence_status"
-    t.integer  "payment_preferences",                default: 0,  null: false
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-    t.string   "email",                              default: "", null: false
-    t.string   "encrypted_password",                 default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.string   "remember_token",         limit: 128
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "authentication_tokens", "users"
 end
