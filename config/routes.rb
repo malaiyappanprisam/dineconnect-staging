@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resources :recommended_users, only: [:index]
+    resources :recommended_restaurants, only: [:index]
   end
 
   # Example of regular route:
