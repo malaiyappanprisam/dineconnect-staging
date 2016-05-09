@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   include Clearance::User
 
+  has_many :user_token
+
   enum gender: [:male, :female]
   enum residence_status: [:local, :expat]
   enum interested_to_meet: [:both_male_and_female, :only_male, :only_female]
@@ -16,5 +18,14 @@ class User < ActiveRecord::Base
 
   def humanize_nationality
     Nationality.list[nationality]
+  end
+
+  def generate_access_token(device_id)
+    self.user_token.build(device_id: device_id, 
+                          token: Clearance::Token.new )
+  end
+
+  def access_token(device_id)
+    self.user_token.where(device_id: device_id).first
   end
 end
