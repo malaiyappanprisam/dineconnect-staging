@@ -53,3 +53,4 @@ gem "clearance"
 gem 'activerecord-postgis-adapter'
 gem 'dotenv-rails'
 gem "kaminari"
+gem 'pickadate-rails'

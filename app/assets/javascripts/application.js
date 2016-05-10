@@ -15,4 +15,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require cocoon
+//= require pickadate/picker
+//= require pickadate/picker.date
 //= require_tree .
+
+$(document).on("ready page:load", function() {
+  $('.datepicker').pickadate({ format: "yyyy-mm-dd" });
+});

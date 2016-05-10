@@ -77,6 +77,10 @@ describe UsersController do
                                            gender: "female",
                                            date_of_birth: Date.today,
                                            profession: "developer",
+                                           nationality: "indonesia",
+                                           residence_status: "local",
+                                           interested_to_meet: "only_male",
+                                           payment_preference: "paying",
                                            location: "Jakarta") }
     let(:reloaded_user) { user.reload }
 
@@ -92,6 +96,10 @@ describe UsersController do
         expect(reloaded_user.gender).to eq("female")
         expect(reloaded_user.date_of_birth).to eq(Date.today)
         expect(reloaded_user.profession).to eq("developer")
+        expect(reloaded_user.nationality).to eq("indonesia")
+        expect(reloaded_user.residence_status).to eq("local")
+        expect(reloaded_user.interested_to_meet).to eq("only_male")
+        expect(reloaded_user.payment_preference).to eq("paying")
         expect(reloaded_user.location).to eq("Jakarta")
       end
     end
