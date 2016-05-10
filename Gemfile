@@ -17,6 +17,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'unicorn'
 
+
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -33,6 +35,8 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'spring-commands-rspec'
+  gem 'guard'
+  gem 'guard-rspec', require: false
 end
 
 group :test do
