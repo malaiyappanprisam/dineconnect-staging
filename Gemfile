@@ -28,7 +28,6 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'
   gem "factory_girl_rails"
-  gem "faker"
   gem 'shoulda-matchers', '~> 3.1'
 end
 
@@ -59,3 +58,4 @@ gem 'activerecord-postgis-adapter'
 gem 'dotenv-rails'
 gem "kaminari"
 gem 'pickadate-rails'
+gem "faker"
