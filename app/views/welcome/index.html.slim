@@ -6,6 +6,6 @@
 
   - unless signed_in?
     p
-      = link_to new_user_session_path, class: 'btn btn-primary btn-lg' do
+      = link_to sign_in_path, class: 'btn btn-primary btn-lg' do
         span.glyphicon.glyphicon-user
         = t(:sign_in)
