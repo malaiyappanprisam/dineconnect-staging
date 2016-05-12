@@ -19,6 +19,7 @@ User.all.each do |user|
   user.update(first_name: Faker::Name.first_name,
               last_name: Faker::Name.last_name,
               username: Faker::Internet.user_name,
+              about_me: Faker::Lorem.paragraph(2),
               location: Faker::Address.street_name,
               gender: User.genders[User.genders.keys.sample],
               date_of_birth: Faker::Date.between(30.year.ago, 25.year.ago),
