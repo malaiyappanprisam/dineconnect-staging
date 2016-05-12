@@ -5,6 +5,7 @@ README
 * Clone
 * Create database with `rake db:create`
 * Migrate database with `rake db:migrate`
+* Seed database with `rake db:seed`
 * Use `rspec spec` to run all spec
 
 Please run this script on this repository to ensure you always push green spec.
