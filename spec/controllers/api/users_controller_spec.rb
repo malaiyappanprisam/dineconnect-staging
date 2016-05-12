@@ -16,4 +16,29 @@ describe Api::UsersController do
       expect(assigns(:users)).to be_present
     end
   end
+
+  describe "PATCH /update.json" do
+    let(:user_attributes) { { first_name: "first name" } }
+
+    it "return user detail" do
+      patch :update, id: user.id, user: user_attributes, format: :json
+
+      expect(response).to have_http_status(:ok)
+      expect(user.reload.first_name).to eq "first name"
+    end
+  end
+
+  describe "PATCH /update.json" do
+    let(:user_attributes) { { first_name: "first name" } }
+    let(:stubbed_user) { build_stubbed :user }
+
+    it "return user detail" do
+      allow(User).to receive(:find) { stubbed_user }
+      allow(stubbed_user).to receive(:update) { false }
+
+      patch :update, id: user.id, user: user_attributes, format: :json
+
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+  end
 end
