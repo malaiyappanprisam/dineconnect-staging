@@ -28,10 +28,10 @@ describe User do
   describe "#generate_user_token" do
     it "generate random token" do
       user = create :user
-      user.generate_access_token!("device_id")
+      user.generate_access_token("device_id")
 
       user.reload
-      token = user.user_token.where("device_id = 'device_id'").first
+      token = user.user_token.where(device_id: "device_id").first
 
       expect(token.token).not_to eq nil
       expect(token.device_id).to eq "device_id"

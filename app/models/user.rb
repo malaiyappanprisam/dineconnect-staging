@@ -21,8 +21,8 @@ class User < ActiveRecord::Base
   end
 
   def generate_access_token(device_id)
-    self.user_token.build(device_id: device_id, 
-                          token: Clearance::Token.new )
+    self.user_token.create(device_id: device_id,
+                           token: Clearance::Token.new )
   end
 
   def access_token(device_id)
