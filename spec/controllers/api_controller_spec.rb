@@ -1,29 +1,70 @@
 require "rails_helper"
 
 describe ApiController do
-  controller do
-    def index
-      head 200
-    end
-  end
-
   describe "GET /any_method" do
-    it "render error unauthorized" do
-      stub_const("ENV", ENV.to_hash.merge("API_AUTH_KEY" => "gfedcba"))
+    describe "#check_api_auth_key!" do
+      controller do
+        def index
+          head 200
+        end
+      end
 
-      @request.headers["X-API-AUTH"] = "abcdefg"
-      get :index
+      context "valid" do
+        it "render 200" do
+          stub_const("ENV", ENV.to_hash.merge("API_AUTH_KEY" => "abcdefg"))
 
-      expect(response).to have_http_status(:unauthorized)
+          @request.headers["X-API-AUTH"] = "abcdefg"
+          get :index
+
+          expect(response).to have_http_status(:ok)
+        end
+      end
+
+      context "invalid" do
+        it "render error unauthorized" do
+          stub_const("ENV", ENV.to_hash.merge("API_AUTH_KEY" => "gfedcba"))
+
+          @request.headers["X-API-AUTH"] = "abcdefg"
+          get :index
+
+          expect(response).to have_http_status(:unauthorized)
+        end
+      end
     end
 
-    it "render 200" do
-      stub_const("ENV", ENV.to_hash.merge("API_AUTH_KEY" => "abcdefg"))
+    describe "#authenticate_token!" do
+      controller do
+        def index
+          authenticate_token!
+          head 200
+        end
+      end
 
-      @request.headers["X-API-AUTH"] = "abcdefg"
-      get :index
+      let(:user) { create :user }
+      let!(:user_token) { create :user_token, user: user }
+      before do
+        stub_const("ENV", ENV.to_hash.merge("API_AUTH_KEY" => "abcdefg"))
+        @request.headers["X-API-AUTH"] = "abcdefg"
+      end
 
-      expect(response).to have_http_status(:ok)
+      context "valid" do
+        it "render 200" do
+          @request.headers["X-API-Token"] = user_token.token
+          @request.headers["X-API-Device"] = user_token.device_id
+
+          get :index
+
+          expect(response).to have_http_status(:ok)
+        end
+      end
+
+      context "invalid" do
+        it "render error unauthorized" do
+          get :index
+
+          expect(response).to have_http_status(:unauthorized)
+        end
+      end
     end
   end
 end

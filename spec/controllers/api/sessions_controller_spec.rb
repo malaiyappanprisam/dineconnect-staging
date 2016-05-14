@@ -6,7 +6,7 @@ describe Api::SessionsController do
   before do
     stub_const("ENV", ENV.to_hash.merge("API_AUTH_KEY" => "abcdefg"))
     @request.headers["X-API-AUTH"] = "abcdefg"
-    
+
     create :user, password: "12345", email: "example@example.com"
   end
 
