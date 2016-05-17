@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   resources :restaurants
 
   namespace :api, defaults: { format: :json } do
-    resources :users, only: [:show, :update]
+    resources :users, only: [:show, :update] do
+      member do
+        get :recommended_restaurants
+      end
+    end
     resources :recommended_users, only: [:index]
     resources :recommended_restaurants, only: [:index]
     resources :registrations, path: "register", only: [:create]

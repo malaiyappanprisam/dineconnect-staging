@@ -42,4 +42,15 @@ describe Api::UsersController do
       end
     end
   end
+
+  describe "GET /recommended_restaurants.json" do
+    let!(:restaurants) { create_list :restaurant, 2 }
+
+    it "returns list of recommended restaurants" do
+      get :recommended_restaurants, id: user.id, format: :json
+
+      expect(response).to have_http_status(:ok)
+      expect(assigns(:restaurants)).to be_present
+    end
+  end
 end

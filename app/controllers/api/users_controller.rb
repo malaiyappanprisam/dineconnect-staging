@@ -12,6 +12,10 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def recommended_restaurants
+    @restaurants = Restaurant.order(id: :desc)
+  end
+
   def user_params
     params.require(:user).permit(:first_name, :last_name, :username,
                                  :gender, :date_of_birth, :profession,
