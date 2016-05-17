@@ -20,25 +20,26 @@ describe Api::UsersController do
   describe "PATCH /update.json" do
     let(:user_attributes) { { first_name: "first name" } }
 
-    it "return user detail" do
-      patch :update, id: user.id, user: user_attributes, format: :json
+    context "success" do
+      it "return user detail" do
+        patch :update, id: user.id, user: user_attributes, format: :json
 
-      expect(response).to have_http_status(:ok)
-      expect(user.reload.first_name).to eq "first name"
+        expect(response).to have_http_status(:ok)
+        expect(user.reload.first_name).to eq "first name"
+      end
     end
-  end
 
-  describe "PATCH /update.json" do
-    let(:user_attributes) { { first_name: "first name" } }
-    let(:stubbed_user) { build_stubbed :user }
+    context "failure" do
+      let(:stubbed_user) { build_stubbed :user }
 
-    it "return user detail" do
-      allow(User).to receive(:find) { stubbed_user }
-      allow(stubbed_user).to receive(:update) { false }
+      it "return user detail" do
+        allow(User).to receive(:find) { stubbed_user }
+        allow(stubbed_user).to receive(:update) { false }
 
-      patch :update, id: user.id, user: user_attributes, format: :json
+        patch :update, id: user.id, user: user_attributes, format: :json
 
-      expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
     end
   end
 end
