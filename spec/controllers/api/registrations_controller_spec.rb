@@ -15,8 +15,9 @@ describe Api::RegistrationsController do
             last_name: "last",
             email: "email@email.com",
             date_of_birth: "1983-01-01",
-            gender: 0,
-            password: "B"
+            gender: "male",
+            password: "B",
+            interested_to_meet: "only_female"
           }
         }
 
@@ -36,6 +37,7 @@ describe Api::RegistrationsController do
         expect(user.email).to eq "email@email.com"
         expect(user.age).to eq 33
         expect(user.gender).to eq "male"
+        expect(user.interested_to_meet).to eq("only_female")
       end
     end
 

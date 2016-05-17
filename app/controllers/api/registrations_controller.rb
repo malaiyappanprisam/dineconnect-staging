@@ -12,6 +12,8 @@ class Api::RegistrationsController < ApiController
   private
 
   def user_params
-    params.require(:registration).permit(:first_name, :last_name, :email, :date_of_birth, :gender, :password)
+    params.require(:registration).permit(:first_name, :last_name, :email,
+                                         :date_of_birth, :gender, :password,
+                                         :interested_to_meet)
   end
 end
