@@ -13,6 +13,11 @@ Rails.application.routes.draw do
         get :recommended_restaurants
       end
     end
+    resources :restaurants, only: [] do
+      member do
+        get :recommended_users
+      end
+    end
     resources :recommended_users, only: [:index]
     resources :recommended_restaurants, only: [:index]
     resources :registrations, path: "register", only: [:create]
