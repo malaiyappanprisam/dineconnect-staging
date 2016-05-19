@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     resources :recommended_restaurants, only: [:index]
     resources :registrations, path: "register", only: [:create]
     resources :sessions, path: "login", only: [:create]
+
+    post "/check_auth", to: "tokens#check", as: "check_auth"
   end
 
   # Example of regular route:

@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'json'
 
 describe Api::SessionsController do
-
   before do
     stub_const("ENV", ENV.to_hash.merge("API_AUTH_KEY" => "abcdefg"))
     @request.headers["X-API-AUTH"] = "abcdefg"
@@ -11,7 +10,7 @@ describe Api::SessionsController do
   end
 
   describe "POST /login" do
-    context "Success", :focus do
+    context "Success" do
       before do 
         json = {
           session: {
