@@ -12,5 +12,5 @@ json.nationality user.humanize_nationality.to_s
 json.residence_status user.residence_status.to_s
 json.interested_to_meet user.interested_to_meet.to_s
 json.payment_preference user.payment_preference.to_s
-json.avatar_url Faker::Avatar.image(user.username, "300x300", "jpg")
+json.avatar_url "https://api.adorable.io/avatars/300/#{user.id}.png"
 json.location user.location.to_s
