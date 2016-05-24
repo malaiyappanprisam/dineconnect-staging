@@ -17,6 +17,7 @@ describe Api::RecommendedRestaurantsController do
 
       expect(response).to have_http_status(:ok)
       expect(assigns(:restaurants)).to be_present
+      expect(assigns(:users)).to be_present
     end
   end
 end

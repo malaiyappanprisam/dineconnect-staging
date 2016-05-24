@@ -1,1 +1,1 @@
-json.restaurants @restaurants, partial: 'api/restaurants/restaurant', as: :restaurant
+json.restaurants @restaurants, partial: "api/restaurants/restaurant", as: :restaurant
