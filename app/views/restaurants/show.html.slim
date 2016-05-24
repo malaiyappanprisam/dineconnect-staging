@@ -32,3 +32,9 @@ dl.dl-horizontal
     = Restaurant.human_attribute_name('area')
   dd
     = @restaurant.area
+
+dl.dl-horizontal
+  dt
+    = Restaurant.human_attribute_name('price')
+  dd
+    = "#{@restaurant.average_cost} for #{@restaurant.people_count} people"

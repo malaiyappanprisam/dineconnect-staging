@@ -11,30 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160524155916) do
+ActiveRecord::Schema.define(version: 20160524163953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
 
-  create_table "invites", force: :cascade do |t|
-    t.integer  "invitee_id"
-    t.integer  "user_id"
-    t.integer  "restaurant_id"
-    t.integer  "status"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "invites", ["invitee_id"], name: "index_invites_on_invitee_id", using: :btree
-  add_index "invites", ["user_id"], name: "index_invites_on_user_id", using: :btree
-
   create_table "restaurants", force: :cascade do |t|
     t.string   "name"
     t.text     "address"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "area"
+    t.integer  "people_count"
+    t.decimal  "average_cost"
   end
 
   create_table "user_tokens", force: :cascade do |t|
