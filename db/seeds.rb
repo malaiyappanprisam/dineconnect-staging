@@ -9,7 +9,8 @@ if User.count < 20
     Restaurant.create!(
       {
         name: Faker::Company.name,
-        address: Faker::Address.street_address
+        address: Faker::Address.street_address,
+        area: Faker::Address.city
       }
     )
   end
@@ -28,4 +29,8 @@ User.all.each do |user|
               residence_status: User.residence_statuses.values.sample,
               interested_to_meet: User.interested_to_meets.values.sample,
               payment_preference: User.payment_preferences.values.sample)
+end
+
+Restaurant.all.each do |restaurant|
+  restaurant.update(area: Faker::Address.city)
 end
