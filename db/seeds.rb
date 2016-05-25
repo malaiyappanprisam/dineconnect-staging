@@ -32,5 +32,8 @@ User.all.each do |user|
 end
 
 Restaurant.all.each do |restaurant|
-  restaurant.update(area: Faker::Address.city)
+  restaurant.update(area: Faker::Address.city,
+                    average_cost: Faker::Commerce.price,
+                    people_count: Faker::Number.between(1, 3),
+                    known_for_list: "#{["western", "chinese"].sample}, #{["chicken", "steak", "fast food"].sample}")
 end

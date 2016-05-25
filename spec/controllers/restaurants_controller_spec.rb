@@ -72,11 +72,28 @@ describe RestaurantsController do
 
   describe "PATCH /update" do
     context "success" do
+      let(:restaurant_params) do
+        {
+          name: "abc",
+          address: "address",
+          area: "area",
+          average_cost: "50",
+          people_count: "2",
+          known_for_list: "western, pasta"
+        }
+      end
+
       it "edit restaurant and redirect to index page" do
-        patch :update, id: restaurant.id, restaurant: { name: "abc" }
+        patch :update, id: restaurant.id, restaurant: restaurant_params
 
         expect(response).to redirect_to(restaurants_path)
         expect(restaurant.reload.name).to eq("abc")
+        expect(restaurant.reload.address).to eq("address")
+        expect(restaurant.reload.area).to eq("area")
+        expect(restaurant.reload.average_cost).to eq(50.0)
+        expect(restaurant.reload.people_count).to eq(2)
+        expect(restaurant.reload.known_for_list).to include("western")
+        expect(restaurant.reload.known_for_list).to include("pasta")
       end
     end
 

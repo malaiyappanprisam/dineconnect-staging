@@ -50,12 +50,13 @@ end
 
 # added general gem
 gem "slim-rails"
-gem 'bootstrap-sass', '~> 3.3.6'
-gem 'simple_form'
-gem 'cocoon'
+gem "bootstrap-sass", "~> 3.3.6"
+gem "simple_form"
+gem "cocoon"
 gem "clearance"
-gem 'activerecord-postgis-adapter'
-gem 'dotenv-rails'
+gem "activerecord-postgis-adapter"
+gem "dotenv-rails"
 gem "kaminari"
-gem 'pickadate-rails'
+gem "pickadate-rails"
 gem "faker"
+gem "acts-as-taggable-on", "~> 3.4"
