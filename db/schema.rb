@@ -11,11 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525034523) do
+ActiveRecord::Schema.define(version: 20160526135441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "open_schedules", force: :cascade do |t|
+    t.integer  "restaurant_id"
+    t.integer  "day"
+    t.integer  "hour_open"
+    t.integer  "hour_close"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "open_schedules", ["restaurant_id"], name: "index_open_schedules_on_restaurant_id", using: :btree
 
   create_table "restaurants", force: :cascade do |t|
     t.string   "name"

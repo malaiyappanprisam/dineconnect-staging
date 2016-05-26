@@ -7,3 +7,8 @@ json.people_count restaurant.people_count.to_s
 json.known_for restaurant.known_for_list
 json.cover_url "http://lorempixel.com/360/360/food/#{(restaurant.id > 9 ? 1 + (restaurant.id % 10) : restaurant.id)}/"
 json.favorited_users @users.map(&:id).sample(6)
+json.open_schedules restaurant.open_schedules do |open_schedule|
+  json.day open_schedule.day
+  json.hour_open open_schedule.hour_open
+  json.hour_close open_schedule.hour_close
+end

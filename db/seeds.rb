@@ -32,8 +32,13 @@ User.all.each do |user|
 end
 
 Restaurant.all.each do |restaurant|
+  open_schedules = OpenSchedule.days.keys.to_a.map do |day|
+    { day: day, hour_open: Faker::Number.between(7, 10),
+      hour_close: Faker::Number.between(22, 23) }
+  end
   restaurant.update(area: Faker::Address.city,
                     average_cost: Faker::Commerce.price,
                     people_count: Faker::Number.between(1, 3),
-                    known_for_list: "#{["western", "chinese"].sample}, #{["chicken", "steak", "fast food"].sample}")
+                    known_for_list: "#{["western", "chinese"].sample}, #{["chicken", "steak", "fast food"].sample}",
+                    open_schedules_attributes: open_schedules)
 end
