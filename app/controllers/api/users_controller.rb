@@ -21,6 +21,6 @@ class Api::UsersController < ApplicationController
                                  :gender, :date_of_birth, :profession,
                                  :nationality, :residence_status,
                                  :interested_to_meet, :payment_preference,
-                                 :location)
+                                 :location, :about_me)
   end
 end
