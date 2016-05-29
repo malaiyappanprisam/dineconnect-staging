@@ -12,5 +12,5 @@ json.nationality user.humanize_nationality.to_s
 json.residence_status user.residence_status.to_s
 json.interested_to_meet user.interested_to_meet.to_s
 json.payment_preference user.payment_preference.to_s
-json.avatar_url "https://api.adorable.io/avatars/300/#{user.id}.png"
+json.avatar_url user.avatar_id ? attachment_url(user, :avatar, :fill, 300, 300, format: "png") : "https://api.adorable.io/avatars/300/#{user.id}.png"
 json.location user.location.to_s

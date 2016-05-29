@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   include Clearance::User
 
+  attachment :avatar
+
   has_many :user_token
 
   enum gender: [:male, :female]

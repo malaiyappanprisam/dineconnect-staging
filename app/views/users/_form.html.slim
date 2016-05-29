@@ -18,6 +18,7 @@
       = f.input :interested_to_meet, collection: User.interested_to_meets.keys, include_blank: false
       = f.input :payment_preference, collection: User.payment_preferences.keys, include_blank: false
       = f.input :location
+      = f.input :avatar, as: :attachment
 
       .form-actions
         .form-group

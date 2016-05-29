@@ -48,6 +48,6 @@ class UsersController < ApplicationController
                                  :date_of_birth, :profession,
                                  :nationality, :residence_status,
                                  :interested_to_meet, :payment_preference,
-                                 :location)
+                                 :location, :avatar)
   end
 end
