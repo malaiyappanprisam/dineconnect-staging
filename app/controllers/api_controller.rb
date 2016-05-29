@@ -1,7 +1,7 @@
 class ApiController < ActionController::Base
+  protect_from_forgery with: :null_session
   class AuthenticationError < Exception; end
 
-  skip_before_action :verify_authenticity_token
   before_action :check_api_auth_key!
 
   rescue_from AuthenticationError do

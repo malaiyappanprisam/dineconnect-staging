@@ -44,3 +44,10 @@ dl.dl-horizontal
     = Restaurant.human_attribute_name('price')
   dd
     = "#{@restaurant.average_cost} for #{@restaurant.people_count} people"
+
+dl.dl-horizontal
+  dt
+    = Restaurant.human_attribute_name('known_for')
+  dd
+    = @restaurant.known_for_list.to_a.join(", ")
+
