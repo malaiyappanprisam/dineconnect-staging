@@ -16,6 +16,7 @@ class Api::UsersController < ApplicationController
 
   def recommended_restaurants
     @restaurants = Restaurant.order(id: :desc)
+    @users = User.limit(20).order(id: :asc)
   end
 
   def user_params
