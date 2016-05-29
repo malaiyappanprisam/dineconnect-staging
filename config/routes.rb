@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resources :sessions, path: "login", only: [:create]
 
     post "/check_auth", to: "tokens#check", as: "check_auth"
+    patch "/profile/detail", to: "profile#detail", as: "profile_detail"
   end
 
   # Example of regular route:
