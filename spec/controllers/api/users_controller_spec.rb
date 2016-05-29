@@ -18,7 +18,7 @@ describe Api::UsersController do
   end
 
   describe "PATCH /update.json" do
-    let(:user_attributes) { { first_name: "first name" } }
+    let(:user_attributes) { { first_name: "first name", about_me: "about me" } }
 
     context "success" do
       it "return user detail" do
@@ -26,6 +26,7 @@ describe Api::UsersController do
 
         expect(response).to have_http_status(:ok)
         expect(user.reload.first_name).to eq "first name"
+        expect(user.reload.about_me).to eq "about me"
       end
     end
 
