@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
     post "/check_auth", to: "tokens#check", as: "check_auth"
     patch "/profile/detail", to: "profile#detail", as: "profile_detail"
+    patch "/profile/avatar", to: "profile#avatar", as: "profile_avatar"
   end
 
   # Example of regular route:

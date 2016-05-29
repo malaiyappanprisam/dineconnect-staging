@@ -11,6 +11,15 @@ class Api::ProfileController < ApiController
     end
   end
 
+  def avatar
+    @user = current_user
+    if @user.update(avatar_params)
+      render json: {}, status: :ok
+    else
+      render json: { errors: @user.errors }.to_json, status: :unprocessable_entity
+    end
+  end
+
   private
   def user_params
     params.require(:user).permit(:first_name, :last_name, :username,
@@ -18,6 +27,10 @@ class Api::ProfileController < ApiController
                                  :nationality, :residence_status,
                                  :interested_to_meet, :payment_preference,
                                  :location, :about_me)
+  end
+
+  def avatar_params
+    params.require(:user).permit(:avatar)
   end
 
   def current_user

@@ -37,4 +37,22 @@ describe Api::ProfileController do
       end
     end
   end
+
+  describe "PATCH /profile/avatar.json" do
+    let(:file) { fixture_file_upload(Rails.root.join('spec/fixtures/files/example.jpg'), 'image/jpeg') }
+    let(:user_params) { { avatar: file } }
+
+    context "success" do
+      it "returns ok and update user" do
+        patch :avatar, format: :json, user: user_params
+
+        expect(response).to have_http_status(:ok)
+        expect(user.reload.avatar).to be_present
+      end
+    end
+
+    context "failure" do
+
+    end
+  end
 end
