@@ -1,4 +1,4 @@
-json.user do 
+json.user do
   json.id @user.id
   json.token @token.token
   json.email @user.email

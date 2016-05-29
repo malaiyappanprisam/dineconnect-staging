@@ -52,6 +52,16 @@ describe Api::ProfileController do
     end
 
     context "failure" do
+      let(:stubbed_user) { build_stubbed :user }
+      it "returns unprocessable_entity and not update user" do
+        allow(controller).to receive(:current_user) { stubbed_user }
+        allow(stubbed_user).to receive(:update) { false }
+
+        patch :avatar, format: :json, user: user_params
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(user.reload.avatar).to be_blank
+      end
 
     end
   end

@@ -8,24 +8,23 @@ describe Api::RegistrationsController do
 
   describe "POST /register" do
     context "success" do
-      before do
-        json = {
-          registration: {
-            first_name: "first",
-            last_name: "last",
-            email: "email@email.com",
-            date_of_birth: "1983-01-01",
-            gender: "male",
-            password: "B",
-            interested_to_meet: "only_female"
-          }
+      let(:file) { fixture_file_upload(Rails.root.join('spec/fixtures/files/example.jpg'), 'image/jpeg') }
+      let(:registration_params) do
+        {
+          first_name: "first",
+          last_name: "last",
+          email: "email@email.com",
+          date_of_birth: "1983-01-01",
+          gender: "male",
+          password: "B",
+          interested_to_meet: "only_female",
+          avatar: file
         }
-
-
-        post :create, json.to_json, json.merge(format: :json)
       end
 
-      subject { response }
+      before do
+        post :create, registration: registration_params, format: :json
+      end
 
       it "return 200" do
         expect(response).to have_http_status :ok
@@ -40,6 +39,5 @@ describe Api::RegistrationsController do
         expect(user.interested_to_meet).to eq("only_female")
       end
     end
-
   end
 end
