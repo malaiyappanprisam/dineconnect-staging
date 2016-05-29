@@ -7,6 +7,7 @@ README
 * Migrate database with `rake db:migrate`
 * Seed database with `rake db:seed`
 * Create user by running `rails console`, then `User.create(email: "youremail@example.com", password: "test2017")`
+* Create user by running `heroku run rails console`, then `User.create(email: "youremail@example.com", password: "test2017")` (on production)
 * Login as normal
 * Use `rspec spec` to run all spec
 
