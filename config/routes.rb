@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     end
     resources :recommended_users, only: [:index]
     resources :recommended_restaurants, only: [:index]
+    resources :nationalities, only: [:index]
     resources :registrations, path: "register", only: [:create]
     resources :sessions, path: "login", only: [:create]
 
