@@ -27,6 +27,12 @@ class User < ActiveRecord::Base
                            token: Clearance::Token.new )
   end
 
+  def generate_channel_group
+    return channel_group if channel_group.present?
+
+    update!(channel_group: "#{id}_#{Clearance::Token.new[0..5]}")
+  end
+
   def access_token(device_id)
     self.user_token.where(device_id: device_id).first
   end

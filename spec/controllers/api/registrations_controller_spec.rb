@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "refile/file_double"
 
 describe Api::RegistrationsController do
   before do
@@ -8,7 +9,7 @@ describe Api::RegistrationsController do
 
   describe "POST /register" do
     context "success" do
-      let(:file) { fixture_file_upload(Rails.root.join('spec/fixtures/files/example.jpg'), 'image/jpeg') }
+      let(:file) { Refile::FileDouble.new("dummy", "logo.png", content_type: "image/png") }
       let(:registration_params) do
         {
           first_name: "first",

@@ -11,11 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160529080331) do
+ActiveRecord::Schema.define(version: 20160531144056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "invites", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "invitee_id"
+    t.string   "channel"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "invites", ["invitee_id"], name: "index_invites_on_invitee_id", using: :btree
+  add_index "invites", ["user_id", "invitee_id"], name: "index_invites_on_user_id_and_invitee_id", unique: true, using: :btree
+  add_index "invites", ["user_id"], name: "index_invites_on_user_id", using: :btree
 
   create_table "open_schedules", force: :cascade do |t|
     t.integer  "restaurant_id"
@@ -87,6 +99,7 @@ ActiveRecord::Schema.define(version: 20160529080331) do
     t.integer  "payment_preference",             default: 0, null: false
     t.text     "about_me"
     t.string   "avatar_id"
+    t.string   "channel_group"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree

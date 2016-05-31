@@ -25,7 +25,7 @@ describe User do
     end
   end
 
-  describe "#generate_user_token" do
+  describe "#generate_access_token" do
     it "generate random token" do
       user = create :user
       user.generate_access_token("device_id")
@@ -36,6 +36,26 @@ describe User do
       expect(token.token).not_to eq nil
       expect(token.device_id).to eq "device_id"
     end
+  end
 
+  describe "#generate_channel_group" do
+    it "generate channel group" do
+      user = create :user
+      user.generate_channel_group
+
+      user.reload
+
+      expect(user.channel_group).to be_present
+    end
+
+    context "not empty" do
+      it "doesn't change anything" do
+        user = create :user, channel_group: "abcde"
+
+        expect do
+          user.generate_channel_group
+        end.not_to change(user, :channel_group)
+      end
+    end
   end
 end
