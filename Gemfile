@@ -64,3 +64,4 @@ gem "acts-as-taggable-on", "~> 3.4"
 gem "refile", github: "refile/refile", require: ["refile/rails", "refile/simple_form"]
 gem "refile-mini_magick"
 gem "refile-s3"
+gem "font_assets"
