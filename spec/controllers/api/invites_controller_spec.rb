@@ -49,18 +49,18 @@ describe Api::InvitesController do
 
   describe "POST /accept.json" do
     context "success" do
+      let(:invite) { create :invite, user: another_user, invitee: user }
       it "returns ok and create invite" do
-        create :invite, user: another_user, invitee: user
-        post :accept, format: :json, invite: { user_id: another_user.id }
+        post :accept, format: :json, id: invite.id
 
         expect(response).to have_http_status(:ok)
       end
     end
 
     context "failure" do
+      let(:invite) { create :invite, user: another_user, invitee: user, status: :reject }
       it "returns unprocessable_entity" do
-        create :invite, user: another_user, invitee: user, status: :reject
-        post :accept, format: :json, invite: { user_id: another_user.id }
+        post :accept, format: :json, id: invite.id
 
         expect(response).to have_http_status(:unprocessable_entity)
       end
@@ -69,18 +69,18 @@ describe Api::InvitesController do
 
   describe "POST /reject.json" do
     context "success" do
+      let(:invite) { create :invite, user: another_user, invitee: user }
       it "returns ok and create invite" do
-        create :invite, user: another_user, invitee: user
-        post :reject, format: :json, invite: { user_id: another_user.id }
+        post :reject, format: :json, id: invite.id
 
         expect(response).to have_http_status(:ok)
       end
     end
 
     context "failure" do
+      let(:invite) { create :invite, user: another_user, invitee: user, status: :accept }
       it "returns unprocessable_entity" do
-        create :invite, user: another_user, invitee: user, status: :accept
-        post :reject, format: :json, invite: { user_id: another_user.id }
+        post :reject, format: :json, id: invite.id
 
         expect(response).to have_http_status(:unprocessable_entity)
       end

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     resources :recommended_restaurants, only: [:index]
     resources :nationalities, only: [:index]
     resources :invites, only: [:index, :create, :destroy] do
-      collection do
+      member do
         post :accept
         post :reject
       end

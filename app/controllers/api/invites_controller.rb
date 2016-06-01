@@ -18,7 +18,7 @@ class Api::InvitesController < ApiController
   end
 
   def accept
-    invite = Invite.find_by!(accept_reject_params)
+    invite = Invite.find(params[:id])
     if invite.update(status: :accept)
       render nothing: true, status: :ok
     else
@@ -27,7 +27,7 @@ class Api::InvitesController < ApiController
   end
 
   def reject
-    invite = Invite.find_by!(accept_reject_params)
+    invite = Invite.find(params[:id])
     if invite.update(status: :reject)
       render nothing: true, status: :ok
     else
@@ -44,10 +44,6 @@ class Api::InvitesController < ApiController
   private
   def invite_params
     params.require(:invite).permit(:invitee_id).merge(user: current_user)
-  end
-
-  def accept_reject_params
-    params.require(:invite).permit(:user_id).merge(invitee: current_user)
   end
 
   def current_user
