@@ -21,7 +21,12 @@ Rails.application.routes.draw do
     resources :recommended_users, only: [:index]
     resources :recommended_restaurants, only: [:index]
     resources :nationalities, only: [:index]
-    resources :invites, only: [:create]
+    resources :invites, only: [:create] do
+      collection do
+        post :accept
+        post :reject
+      end
+    end
     resources :registrations, path: "register", only: [:create]
     resources :sessions, path: "login", only: [:create]
 
