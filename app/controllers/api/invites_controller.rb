@@ -2,6 +2,11 @@ class Api::InvitesController < ApiController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_token!
 
+  def index
+    @invites = current_user.invites_by_other.includes(:user)
+    @users = @invites.map(&:user).uniq
+  end
+
   def create
     invite = Invite.new(invite_params)
     if invite.save

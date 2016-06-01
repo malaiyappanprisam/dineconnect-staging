@@ -1,6 +1,8 @@
 require "rails_helper"
 
 describe User do
+  it { should have_many(:invites_by_other).class_name("Invite").with_foreign_key("invitee_id").order("updated_at desc, status asc") }
+
   describe "#age" do
     before do
       Timecop.freeze(Date.parse("2016-05-07"))

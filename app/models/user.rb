@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   attachment :avatar
 
   has_many :user_token
+  has_many :invites_by_other, -> { order("updated_at desc, status asc") }, class_name: "Invite", foreign_key: :invitee_id
 
   enum gender: [:male, :female]
   enum residence_status: [:local, :expat]

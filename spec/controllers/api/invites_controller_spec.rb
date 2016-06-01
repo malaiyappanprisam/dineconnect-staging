@@ -11,6 +11,17 @@ describe Api::InvitesController do
     @request.headers["X-API-Device"] = user_token.device_id
   end
 
+  describe "GET /index.json" do
+    it "returns list of people that invite me" do
+      create :invite, user: another_user, invitee: user
+      get :index, format: :json
+
+      expect(response).to have_http_status(:ok)
+      expect(assigns(:invites)).to be_present
+      expect(assigns(:users)).to be_present
+    end
+  end
+
   describe "POST /create.json" do
     context "success" do
       it "returns ok and create invite" do
