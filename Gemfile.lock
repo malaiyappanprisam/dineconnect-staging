@@ -102,6 +102,7 @@ GEM
       i18n (~> 0.5)
     ffi (1.9.10)
     formatador (0.2.5)
+    get_process_mem (0.2.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     guard (2.14.0)
@@ -166,6 +167,9 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     puma (3.4.0)
+    puma_worker_killer (0.0.6)
+      get_process_mem (~> 0.2)
+      puma (>= 2.7, < 4)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -328,6 +332,7 @@ DEPENDENCIES
   pg
   pickadate-rails
   puma
+  puma_worker_killer
   rails (= 4.2.6)
   rails_12factor
   refile!
