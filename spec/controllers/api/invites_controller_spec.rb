@@ -75,4 +75,15 @@ describe Api::InvitesController do
       end
     end
   end
+
+  describe "DELETE /destroy.json" do
+    context "success" do
+      let(:invite) { create :invite, user: another_user, invitee: user }
+      it "returns ok and delete invite" do
+        delete :destroy, format: :json, id: invite.id
+
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
 end

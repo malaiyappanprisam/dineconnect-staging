@@ -30,6 +30,12 @@ class Api::InvitesController < ApiController
     end
   end
 
+  def destroy
+    invite = Invite.find(params[:id])
+    invite.destroy
+    render nothing: true, status: :ok
+  end
+
   private
   def invite_params
     params.require(:invite).permit(:invitee_id).merge(user: current_user)
