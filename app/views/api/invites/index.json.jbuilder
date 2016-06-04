@@ -4,6 +4,7 @@ json.invites @invites do |invite|
   json.invitee_id invite.invitee_id
   json.restaurant_id invite.restaurant_id
   json.status invite.status
+  json.payment_preference invite.payment_preference
 end
 
 json.users @users, partial: "api/users/user", as: :user
