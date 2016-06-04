@@ -30,6 +30,10 @@ Rails.application.routes.draw do
     resources :registrations, path: "register", only: [:create]
     resources :sessions, path: "login", only: [:create]
 
+    get "/explore/people", to: "explore#people", as: "explore_people"
+    get "/explore/nearby", to: "explore#nearby", as: "explore_nearby"
+    get "/explore/places", to: "explore#places", as: "explore_places"
+
     post "/check_auth", to: "tokens#check", as: "check_auth"
     patch "/profile/detail", to: "profile#detail", as: "profile_detail"
     patch "/profile/avatar", to: "profile#avatar", as: "profile_avatar"
