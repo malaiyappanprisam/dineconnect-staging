@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601011834) do
+ActiveRecord::Schema.define(version: 20160604114922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,12 +21,15 @@ ActiveRecord::Schema.define(version: 20160601011834) do
     t.integer  "user_id"
     t.integer  "invitee_id"
     t.string   "channel"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "status",     default: 0
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "status",             default: 0
+    t.integer  "restaurant_id"
+    t.integer  "payment_preference"
   end
 
   add_index "invites", ["invitee_id"], name: "index_invites_on_invitee_id", using: :btree
+  add_index "invites", ["restaurant_id"], name: "index_invites_on_restaurant_id", using: :btree
   add_index "invites", ["user_id", "invitee_id"], name: "index_invites_on_user_id_and_invitee_id", unique: true, using: :btree
   add_index "invites", ["user_id"], name: "index_invites_on_user_id", using: :btree
 
@@ -106,4 +109,5 @@ ActiveRecord::Schema.define(version: 20160601011834) do
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
+  add_foreign_key "invites", "restaurants"
 end

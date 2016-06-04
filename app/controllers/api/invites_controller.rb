@@ -3,8 +3,9 @@ class Api::InvitesController < ApiController
   before_action :authenticate_token!
 
   def index
-    @invites = current_user.invites_by_other.includes(:user)
-    @users = @invites.map(&:user).uniq
+    @invites = current_user.invites_by_other.includes(:user, :restaurant)
+    @users = @invites.map(&:user).uniq.compact
+    @restaurants = @invites.map(&:restaurant).uniq.compact
   end
 
   def create
@@ -43,7 +44,10 @@ class Api::InvitesController < ApiController
 
   private
   def invite_params
-    params.require(:invite).permit(:invitee_id).merge(user: current_user)
+    params
+      .require(:invite)
+      .permit(:invitee_id, :restaurant_id, :payment_preference)
+      .merge(user: current_user)
   end
 
   def current_user

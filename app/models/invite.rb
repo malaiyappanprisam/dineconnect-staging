@@ -1,8 +1,10 @@
 class Invite < ActiveRecord::Base
   enum status: [:pending, :accept, :reject]
+  enum payment_preference: [:anything_goes, :paying, :not_paying, :split_bill]
 
   belongs_to :user
   belongs_to :invitee, class_name: "User"
+  belongs_to :restaurant
 
   validates :user_id, uniqueness: { scope: :invitee_id }
   validates :invitee, presence: true

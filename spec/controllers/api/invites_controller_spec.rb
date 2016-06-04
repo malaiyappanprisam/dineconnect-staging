@@ -4,6 +4,7 @@ describe Api::InvitesController do
   let(:user) { create :user }
   let!(:user_token) { create :user_token, user: user }
   let(:another_user) { create :user }
+  let(:restaurant) { create :restaurant }
   before do
     stub_const("ENV", ENV.to_hash.merge("API_AUTH_KEY" => "abcdefg"))
     @request.headers["X-API-AUTH"] = "abcdefg"
@@ -13,24 +14,35 @@ describe Api::InvitesController do
 
   describe "GET /index.json" do
     it "returns list of people that invite me" do
-      create :invite, user: another_user, invitee: user
+      create :invite, user: another_user, invitee: user, restaurant: restaurant
       get :index, format: :json
 
       expect(response).to have_http_status(:ok)
       expect(assigns(:invites)).to be_present
       expect(assigns(:users)).to be_present
+      expect(assigns(:restaurants)).to be_present
     end
   end
 
   describe "POST /create.json" do
     context "success" do
+      let(:invite_params) do
+        {
+          invitee_id: another_user.id,
+          restaurant_id: restaurant.id,
+          payment_preference: "paying"
+        }
+      end
+      let(:invite) { Invite.last }
       it "returns ok and create invite" do
         expect do
-          post :create, format: :json, invite: { invitee_id: another_user.id }
+          post :create, format: :json, invite: invite_params
         end.to change(Invite, :count).by(1)
 
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)["channel_group"]).to eq user.reload.channel_group
+        expect(invite.restaurant).to eq(restaurant)
+        expect(invite.payment_preference).to eq("paying")
       end
     end
 
