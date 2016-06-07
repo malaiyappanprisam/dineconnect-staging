@@ -21,6 +21,7 @@ describe Api::InvitesController do
       expect(assigns(:invites)).to be_present
       expect(assigns(:users)).to be_present
       expect(assigns(:restaurants)).to be_present
+      expect(assigns(:users)).to include(user)
     end
   end
 

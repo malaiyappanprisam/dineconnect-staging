@@ -4,7 +4,8 @@ class Api::InvitesController < ApiController
 
   def index
     @invites = current_user.invites_by_other.includes(:user, :restaurant)
-    @users = @invites.map(&:user).uniq.compact
+    users = @invites.map(&:user).uniq.compact
+    @users = users.push(current_user)
     @restaurants = @invites.map(&:restaurant).uniq.compact
   end
 
