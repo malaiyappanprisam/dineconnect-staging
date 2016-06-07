@@ -51,3 +51,21 @@ dl.dl-horizontal
   dd
     = @restaurant.known_for_list.to_a.join(", ")
 
+
+.col-sm-6
+  h3 Open Schedules
+  table.table
+    thead
+      tr
+        th Day
+        th Hour Open
+        th Hour Close
+    tbody
+      - @restaurant.open_schedules.each do |open_schedule|
+        tr
+          td
+            = open_schedule.day
+          td
+            = open_schedule.hour_open
+          td
+            = open_schedule.hour_close

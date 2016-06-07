@@ -8,8 +8,27 @@
       = f.input :area
       = f.input :average_cost
       = f.input :people_count
-      = f.input :known_for_list, value: f.object.known_for_list.to_a.join(", ")
+      = f.input :known_for_list,
+        input_html: { value: f.object.known_for_list.to_a.join(", ") }
       = f.input :cover, as: :attachment
+
+    .col-sm-12
+      h3 Open Schedules
+
+      table.table
+        thead
+          tr
+            th Day Open
+            th Hour Open
+            th Hour Close
+            th Actions
+        tbody
+          = f.simple_fields_for :open_schedules do |open_schedule|
+            = render 'open_schedule_fields', f: open_schedule
+          tr#open_schedules
+      .links
+        = link_to_add_association "Add Open Schedule", f, :open_schedules,
+          :'data-association-insertion-node' => '#open_schedules', class: 'btn btn-primary'
 
       .form-actions
         .form-group

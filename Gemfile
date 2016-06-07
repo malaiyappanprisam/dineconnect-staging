@@ -16,10 +16,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # gem 'bcrypt', '~> 3.1.7'
 
-gem 'unicorn'
-
-
-
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -53,7 +49,6 @@ end
 gem "slim-rails"
 gem "bootstrap-sass", "~> 3.3.6"
 gem "simple_form"
-gem "cocoon"
 gem "clearance"
 gem "activerecord-postgis-adapter"
 gem "dotenv-rails"
@@ -65,3 +60,4 @@ gem "refile", github: "refile/refile", require: ["refile/rails", "refile/simple_
 gem "refile-mini_magick"
 gem "refile-s3"
 gem "font_assets"
+gem "cocoon"

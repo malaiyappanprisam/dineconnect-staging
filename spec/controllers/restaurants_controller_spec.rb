@@ -79,7 +79,10 @@ describe RestaurantsController do
           area: "area",
           average_cost: "50",
           people_count: "2",
-          known_for_list: "western, pasta"
+          known_for_list: "western, pasta",
+          open_schedules_attributes: [
+            { day: "sunday", hour_open: 9, hour_close: 23 }
+          ]
         }
       end
 
@@ -94,6 +97,9 @@ describe RestaurantsController do
         expect(restaurant.reload.people_count).to eq(2)
         expect(restaurant.reload.known_for_list).to include("western")
         expect(restaurant.reload.known_for_list).to include("pasta")
+        expect(restaurant.reload.open_schedules.first).to have_attributes(
+          day: "sunday", hour_open: 9, hour_close: 23
+        )
       end
     end
 

@@ -2,10 +2,10 @@ class Api::RegistrationsController < ApiController
 
   def create
     user = User.new user_params
-    if user.save!
-      render nothing: true
+    if user.save
+      render nothing: true, status: :ok
     else
-      render json: user.errors.to_json, status: 401
+      render json: user.errors.to_json, status: :unprocessable_entity
     end
   end
 

@@ -1,0 +1,10 @@
+tr.nested-fields
+  td
+    = f.input :id, as: :hidden
+    = f.input :day, collection: OpenSchedule.days.keys, include_blank: false
+  td
+    = f.input :hour_open, collection: (0..23).to_a, include_blank: false
+  td
+    = f.input :hour_close, collection: (0..23).to_a, include_blank: false
+  td
+    = link_to_remove_association "remove schedule", f

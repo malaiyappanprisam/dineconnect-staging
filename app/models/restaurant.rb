@@ -3,7 +3,7 @@ class Restaurant < ActiveRecord::Base
 
   acts_as_taggable_on :known_fors
   validates :name, presence: true
-  has_many :open_schedules
+  has_many :open_schedules, -> { order(:day) }
 
   accepts_nested_attributes_for(:open_schedules)
 end
