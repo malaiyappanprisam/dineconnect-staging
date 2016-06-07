@@ -8,6 +8,7 @@
       = f.input :area
       = f.input :average_cost
       = f.input :people_count
+      = f.input :location, as: :string
       = f.input :known_for_list,
         input_html: { value: f.object.known_for_list.to_a.join(", ") }
       = f.input :cover, as: :attachment

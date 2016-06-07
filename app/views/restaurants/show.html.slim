@@ -51,6 +51,12 @@ dl.dl-horizontal
   dd
     = @restaurant.known_for_list.to_a.join(", ")
 
+dl.dl-horizontal
+  dt
+    = Restaurant.human_attribute_name('location')
+  dd
+    = @restaurant.location
+
 
 .col-sm-6
   h3 Open Schedules

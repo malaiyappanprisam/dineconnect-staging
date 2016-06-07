@@ -12,4 +12,10 @@ describe Restaurant do
     expect(restaurant.known_for_list).to include("western")
     expect(restaurant.known_for_list).to include("pasta")
   end
+
+  it "accepts location" do
+    restaurant = Restaurant.new(location: "-6.214432, 106.813197")
+    expect(restaurant.location_original).to eq("POINT (106.813197 -6.214432)")
+    expect(restaurant.location).to eq("-6.214432, 106.813197")
+  end
 end

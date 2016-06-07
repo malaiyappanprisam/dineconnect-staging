@@ -46,6 +46,7 @@ class RestaurantsController < ApplicationController
     params.require(:restaurant).permit(:name, :address, :area,
                                        :average_cost, :people_count,
                                        :known_for_list, :cover,
+                                       :location,
                                        open_schedules_attributes: [
                                          :id, :day, :hour_open,
                                          :hour_close, :_destroy
