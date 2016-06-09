@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   resources :users
   resources :restaurants
+  resources :food_types
 
   namespace :api, defaults: { format: :json } do
     resources :users, only: [:show, :update] do

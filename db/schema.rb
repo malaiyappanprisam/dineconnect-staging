@@ -11,11 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160607230150) do
+ActiveRecord::Schema.define(version: 20160609150848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "food_types", force: :cascade do |t|
+    t.integer  "restaurant_id"
+    t.string   "name"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "food_types", ["restaurant_id"], name: "index_food_types_on_restaurant_id", using: :btree
 
   create_table "invites", force: :cascade do |t|
     t.integer  "user_id"

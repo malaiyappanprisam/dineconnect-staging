@@ -5,6 +5,7 @@ json.area restaurant.area.to_s
 json.average_cost restaurant.average_cost.to_f
 json.people_count restaurant.people_count.to_s
 json.known_for restaurant.known_for_list.to_a
+json.food_types restaurant.food_types.pluck(:name)
 json.location restaurant.location.to_s
 json.cover_url restaurant.cover_id ? attachment_url(restaurant, :cover, :fill, 360, 360, format: "png") : "http://lorempixel.com/360/360/food/#{(restaurant.id > 9 ? 1 + (restaurant.id % 10) : restaurant.id)}/"
 json.favorited_users @users.map(&:id).sample(6)

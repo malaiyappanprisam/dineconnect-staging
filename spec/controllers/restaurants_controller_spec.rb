@@ -71,6 +71,7 @@ describe RestaurantsController do
   end
 
   describe "PATCH /update" do
+    let(:food_type) { create :food_type, name: "western" }
     context "success" do
       let(:restaurant_params) do
         {
@@ -79,7 +80,8 @@ describe RestaurantsController do
           area: "area",
           average_cost: "50",
           people_count: "2",
-          known_for_list: "western, pasta",
+          known_for_list: "burger, pasta",
+          food_type_ids: [food_type.id],
           open_schedules_attributes: [
             { day: "sunday", hour_open: 9, hour_close: 23 }
           ]
@@ -95,8 +97,9 @@ describe RestaurantsController do
         expect(restaurant.reload.area).to eq("area")
         expect(restaurant.reload.average_cost).to eq(50.0)
         expect(restaurant.reload.people_count).to eq(2)
-        expect(restaurant.reload.known_for_list).to include("western")
+        expect(restaurant.reload.known_for_list).to include("burger")
         expect(restaurant.reload.known_for_list).to include("pasta")
+        expect(restaurant.reload.food_types.map(&:name)).to include("western")
         expect(restaurant.reload.open_schedules.first).to have_attributes(
           day: "sunday", hour_open: 9, hour_close: 23
         )

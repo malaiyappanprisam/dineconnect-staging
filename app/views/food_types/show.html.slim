@@ -1,0 +1,22 @@
+.page-header
+  .btn-toolbar.pull-right
+    .btn-group
+      = link_to food_types_path, class: 'btn btn-warning' do
+        i.glyphicon.glyphicon-chevron-left
+        = t('button.back')
+      = link_to edit_food_type_path(@food_type),
+        class: 'btn btn-warning' do
+        i.glyphicon.glyphicon-edit
+        = t('button.edit')
+      = link_to @food_type, :method => :delete, :data => { :confirm => 'Are you sure?' },
+        class: 'btn btn-danger' do
+        span.glyphicon.glyphicon-trash
+        = t(:delete)
+  h1
+    = t :show_food_type
+
+dl.dl-horizontal
+  dt
+    = FoodType.human_attribute_name('name')
+  dd
+    = @food_type.name

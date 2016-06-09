@@ -31,11 +31,14 @@ html
                     = link_to users_path do
                       .glyphicon.glyphicon-list
                       = User.model_name.human
-
                   li
                     = link_to restaurants_path do
                       .glyphicon.glyphicon-list
                       = Restaurant.model_name.human
+                  li
+                    = link_to food_types_path do
+                      .glyphicon.glyphicon-list
+                      = FoodType.model_name.human
             ul.nav.navbar-nav.pull-right
               li
                 = link_to sign_out_path, method: :delete do
