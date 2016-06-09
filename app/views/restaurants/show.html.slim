@@ -53,9 +53,15 @@ dl.dl-horizontal
 
 dl.dl-horizontal
   dt
-    = Restaurant.human_attribute_name('food_type')
+    = Restaurant.human_attribute_name('food_types')
   dd
     = @restaurant.food_types.pluck(:name).join(", ")
+
+dl.dl-horizontal
+  dt
+    = Restaurant.human_attribute_name('facilities')
+  dd
+    = @restaurant.facilities.pluck(:name).join(", ")
 
 dl.dl-horizontal
   dt

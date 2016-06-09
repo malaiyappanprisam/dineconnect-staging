@@ -2,7 +2,7 @@ class RestaurantsController < ApplicationController
   before_action :require_login
 
   def index
-    @restaurants = Restaurant.page(params[:page])
+    @restaurants = Restaurant.order(updated_at: :desc).page(params[:page])
   end
 
   def new
@@ -47,6 +47,7 @@ class RestaurantsController < ApplicationController
                                        :average_cost, :people_count,
                                        :known_for_list, :cover,
                                        :location, food_type_ids: [],
+                                       facility_ids: [],
                                        open_schedules_attributes: [
                                          :id, :day, :hour_open,
                                          :hour_close, :_destroy

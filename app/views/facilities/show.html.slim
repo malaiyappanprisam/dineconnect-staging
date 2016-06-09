@@ -1,0 +1,22 @@
+.page-header
+  .btn-toolbar.pull-right
+    .btn-group
+      = link_to facilities_path, class: 'btn btn-warning' do
+        i.glyphicon.glyphicon-chevron-left
+        = t('button.back')
+      = link_to edit_facility_path(@facility),
+        class: 'btn btn-warning' do
+        i.glyphicon.glyphicon-edit
+        = t('button.edit')
+      = link_to @facility, :method => :delete, :data => { :confirm => 'Are you sure?' },
+        class: 'btn btn-danger' do
+        span.glyphicon.glyphicon-trash
+        = t(:delete)
+  h1
+    = t :show_facility
+
+dl.dl-horizontal
+  dt
+    = Facility.human_attribute_name('name')
+  dd
+    = @facility.name

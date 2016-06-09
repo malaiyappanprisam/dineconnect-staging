@@ -3,6 +3,7 @@ require 'rails_helper'
 describe Restaurant do
   it { should have_many(:open_schedules) }
   it { should have_and_belong_to_many(:food_types) }
+  it { should have_and_belong_to_many(:facilities) }
 
   it { should accept_nested_attributes_for(:open_schedules) }
 

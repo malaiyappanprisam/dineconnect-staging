@@ -5,6 +5,7 @@ class Restaurant < ActiveRecord::Base
   validates :name, presence: true
   has_many :open_schedules, -> { order(:day) }
   has_and_belongs_to_many :food_types
+  has_and_belongs_to_many :facilities
 
   accepts_nested_attributes_for(:open_schedules)
 
