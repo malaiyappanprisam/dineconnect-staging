@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :invite do
-    user nil
-    invitee nil
+    user
+    association :invitee, factory: :user
     channel "MyString"
   end
 end

@@ -41,7 +41,7 @@ describe Api::InvitesController do
         end.to change(Invite, :count).by(1)
 
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)["channel_group"]).to eq user.reload.channel_group
+        expect(assigns(:invite)).to be_present
         expect(invite.restaurant).to eq(restaurant)
         expect(invite.payment_preference).to eq("paying")
       end

@@ -12,6 +12,10 @@ class Invite < ActiveRecord::Base
   validate :freeze_status_accept_or_reject
   before_create :fill_channel_group_for_user
 
+  def channel_name
+    "#{user_id}_#{invitee_id}"
+  end
+
   private
 
   def fill_channel_group_for_user

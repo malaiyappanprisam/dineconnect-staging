@@ -10,10 +10,9 @@ class Api::InvitesController < ApiController
   end
 
   def create
-    invite = Invite.new(invite_params)
-    if invite.save
-      render(json: { channel_group: invite.user.reload.channel_group },
-             status: :ok)
+    @invite = Invite.new(invite_params)
+    if @invite.save
+      render "api/invites/invite"
     else
       render nothing: true, status: :unprocessable_entity
     end

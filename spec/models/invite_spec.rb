@@ -45,4 +45,12 @@ describe Invite do
       end
     end
   end
+
+  describe "#channel_name" do
+    it "returns <user_id>_<invitee_id>" do
+      invite = create :invite
+
+      expect(invite.channel_name).to eq("#{invite.user_id}_#{invite.invitee_id}")
+    end
+  end
 end
