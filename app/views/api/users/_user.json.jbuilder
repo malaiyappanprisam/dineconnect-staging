@@ -1,4 +1,7 @@
 json.id user.id
+if @token.present?
+  json.token @token.token
+end
 json.email user.email.to_s
 json.username user.username.to_s
 json.first_name user.first_name.to_s
