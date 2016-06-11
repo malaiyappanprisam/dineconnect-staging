@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   enum interested_to_meet: [:both_male_and_female, :only_male, :only_female]
   enum payment_preference: [:anything_goes, :paying, :not_paying, :split_bill]
 
+  after_create :generate_channel_group
+
   def age
     if date_of_birth
       ((Date.today - date_of_birth) / 365).to_i
@@ -25,7 +27,7 @@ class User < ActiveRecord::Base
 
   def generate_access_token(device_id)
     self.user_token.create(device_id: device_id,
-                           token: Clearance::Token.new )
+                           token: Clearance::Token.new)
   end
 
   def generate_channel_group
