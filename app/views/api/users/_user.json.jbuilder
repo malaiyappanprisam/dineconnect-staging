@@ -14,3 +14,4 @@ json.interested_to_meet user.interested_to_meet.to_s
 json.payment_preference user.payment_preference.to_s
 json.avatar_url user.avatar_id ? attachment_url(user, :avatar, :fill, 300, 300, format: "png") : "https://api.adorable.io/avatars/300/#{user.id}.png"
 json.location user.location.to_s
+json.channel_group user.channel_group.to_s
