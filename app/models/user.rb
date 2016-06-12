@@ -39,4 +39,9 @@ class User < ActiveRecord::Base
   def access_token(device_id)
     self.user_token.where(device_id: device_id).first
   end
+
+  def chatrooms
+    Invite.where("user_id = ? OR invitee_id = ?", self.id, self.id)
+      .where("status = ?", Invite.statuses[:accept])
+  end
 end

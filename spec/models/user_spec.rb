@@ -69,4 +69,17 @@ describe User do
       end
     end
   end
+
+  describe "#chatrooms" do
+    it "returns all accepted invitation for logged in user" do
+      user = create :user
+      invite_1 = create :invite, user: user, status: :accept
+      invite_2 = create :invite, invitee: user, status: :accept
+      invite_3 = create :invite, invitee: user, status: :pending
+
+      expect(user.reload.chatrooms).to include(invite_1)
+      expect(user.reload.chatrooms).to include(invite_2)
+      expect(user.reload.chatrooms).not_to include(invite_3)
+    end
+  end
 end

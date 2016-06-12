@@ -27,4 +27,8 @@ class ApiController < ActionController::Base
       head :unauthorized
     end
   end
+
+  def current_user
+    @current_user
+  end
 end

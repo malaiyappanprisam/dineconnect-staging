@@ -29,6 +29,7 @@ Rails.application.routes.draw do
         post :reject
       end
     end
+    resources :chatrooms, only: [:index]
     resources :registrations, path: "register", only: [:create]
     resources :sessions, path: "login", only: [:create]
 
