@@ -14,7 +14,7 @@ class ApiController < ActionController::Base
     token = request.headers["X-API-Token"]
     device_id = request.headers["X-API-Device"]
     user_token = UserToken.find_by(token: token, device_id: device_id)
-    if token.present? && device_id.present? && user_token.present?
+    if token.present? && device_id.present? && user_token.present? && user_token.user.present?
       @current_user = user_token.user
     else
       raise AuthenticationError
