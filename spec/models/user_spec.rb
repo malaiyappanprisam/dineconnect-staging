@@ -1,7 +1,21 @@
 require "rails_helper"
 
 describe User do
-  it { should have_many(:invites_by_other).class_name("Invite").with_foreign_key("invitee_id").order("updated_at desc, status asc") }
+  it { should have_many(:user_token).dependent(:destroy) }
+  it do
+    should have_many(:invites_by_other)
+      .class_name("Invite")
+      .with_foreign_key("invitee_id")
+      .order("updated_at desc, status asc")
+      .dependent(:destroy)
+  end
+  it do
+    should have_many(:invites_by_me)
+      .class_name("Invite")
+      .with_foreign_key("user_id")
+      .order("updated_at desc, status asc")
+      .dependent(:destroy)
+  end
 
   describe "after_create" do
     it "generate channel_group" do

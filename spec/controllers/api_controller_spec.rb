@@ -64,6 +64,19 @@ describe ApiController do
 
           expect(response).to have_http_status(:unauthorized)
         end
+
+        context "user is deleted" do
+          it "render error unauthorized" do
+            user.destroy
+
+            @request.headers["X-API-Token"] = user_token.token
+            @request.headers["X-API-Device"] = user_token.device_id
+
+            get :index
+
+            expect(response).to have_http_status(:unauthorized)
+          end
+        end
       end
     end
   end
