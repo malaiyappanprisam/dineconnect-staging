@@ -1,5 +1,6 @@
-class Api::UsersController < ApplicationController
+class Api::UsersController < ApiController
   skip_before_action :verify_authenticity_token
+  before_action :authenticate_token!
 
   def show
     @users = [User.find(params[:id])]

@@ -1,4 +1,5 @@
 class Api::ExploreController < ApiController
+  before_action :authenticate_token!
 
   def people
     @users = User.order(id: :desc)
