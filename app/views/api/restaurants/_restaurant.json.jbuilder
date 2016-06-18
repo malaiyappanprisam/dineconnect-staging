@@ -14,4 +14,6 @@ json.open_schedules restaurant.open_schedules do |open_schedule|
   json.day open_schedule.day
   json.hour_open open_schedule.hour_open
   json.hour_close open_schedule.hour_close
+  json.time_open open_schedule.time_open.to_s
+  json.time_close open_schedule.time_close.to_s
 end

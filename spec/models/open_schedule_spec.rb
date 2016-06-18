@@ -4,25 +4,11 @@ describe OpenSchedule do
   it { should belong_to(:restaurant) }
 
   describe "validations" do
-    it do
-      should validate_numericality_of(:hour_open).
-        is_greater_than_or_equal_to(0).
-        is_less_than_or_equal_to(23)
-    end
-
-    it do
-      should validate_numericality_of(:hour_close).
-        is_greater_than_or_equal_to(0).
-        is_less_than_or_equal_to(23)
-    end
-
-    context "hour_close is less than hour_open" do
-      subject { described_class.new(hour_close: 1, hour_open: 2) }
-
-      it "invalid" do
-        expect(subject).not_to be_valid
-        expect(subject.errors[:hour_close]).to include("can't be less than hour open")
-      end
-    end
+    it { should validate_presence_of(:time_open) }
+    it { should validate_presence_of(:time_close) }
+    it { should allow_values("23:30", "00:30").for(:time_open) }
+    it { should_not allow_values("24:30", "25:30").for(:time_open) }
+    it { should allow_values("23:30", "00:30").for(:time_close) }
+    it { should_not allow_values("24:30", "25:30").for(:time_close) }
   end
 end

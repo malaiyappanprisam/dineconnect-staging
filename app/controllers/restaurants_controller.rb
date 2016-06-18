@@ -50,7 +50,8 @@ class RestaurantsController < ApplicationController
                                        facility_ids: [],
                                        open_schedules_attributes: [
                                          :id, :day, :hour_open,
-                                         :hour_close, :_destroy
+                                         :hour_close, :time_open,
+                                         :time_close, :_destroy
                                        ])
   end
 end

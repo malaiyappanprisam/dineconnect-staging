@@ -85,7 +85,7 @@ describe RestaurantsController do
           food_type_ids: [food_type.id],
           facility_ids: [facility.id],
           open_schedules_attributes: [
-            { day: "sunday", hour_open: 9, hour_close: 23 }
+            { day: "sunday", time_open: "9:30", time_close: "23:30" }
           ]
         }
       end
@@ -104,7 +104,8 @@ describe RestaurantsController do
         expect(restaurant.reload.food_types.map(&:name)).to include("western")
         expect(restaurant.reload.facilities.map(&:name)).to include("wifi")
         expect(restaurant.reload.open_schedules.first).to have_attributes(
-          day: "sunday", hour_open: 9, hour_close: 23
+          day: "sunday", time_open: Tod::TimeOfDay.parse("09:30"),
+          time_close: Tod::TimeOfDay.parse("23:30")
         )
       end
     end
