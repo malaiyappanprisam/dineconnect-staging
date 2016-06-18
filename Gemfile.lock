@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/knapo/jquery-inputmask-rails.git
+  revision: 38366e494459d6f662a4e1f0d4c9bc916fd1d901
+  specs:
+    jquery-inputmask-rails (0.3.3)
+      railties (>= 3.1, <= 5.0)
+
+GIT
   remote: git://github.com/refile/refile.git
   revision: e844cc96ed5d07d07f6bde96b6429c01cd291b9a
   specs:
@@ -326,6 +333,7 @@ DEPENDENCIES
   guard
   guard-rspec
   jbuilder (~> 2.0)
+  jquery-inputmask-rails!
   jquery-rails
   kaminari
   pg

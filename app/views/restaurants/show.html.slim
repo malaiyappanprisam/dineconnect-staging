@@ -84,6 +84,6 @@ dl.dl-horizontal
           td
             = open_schedule.day
           td
-            = open_schedule.time_open
+            = open_schedule.time_open.try(:strftime, "%H:%M")
           td
-            = open_schedule.time_close
+            = open_schedule.time_close.try(:strftime, "%H:%M")

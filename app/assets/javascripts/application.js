@@ -17,8 +17,13 @@
 //= require cocoon
 //= require pickadate/picker
 //= require pickadate/picker.date
+//= require inputmask
+//= require jquery.inputmask
+//= require inputmask.extensions
+//= require inputmask.date.extensions
 //= require_tree .
 
 $(document).on("ready page:load", function() {
   $('.datepicker').pickadate({ format: "yyyy-mm-dd" });
+  $('.time-input').inputmask("hh:mm");
 });
