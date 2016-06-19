@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :invites_by_me, -> { order("updated_at desc, status asc") }, class_name: "Invite", foreign_key: :user_id, dependent: :destroy
 
   enum gender: [:male, :female]
-  enum residence_status: [:local, :expat]
+  enum residence_status: [:local, :expat, :out_of_town]
   enum interested_to_meet: [:both_male_and_female, :only_male, :only_female]
   enum payment_preference: [:anything_goes, :paying, :not_paying, :split_bill]
 
