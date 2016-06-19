@@ -24,6 +24,10 @@
 //= require_tree .
 
 $(document).on("ready page:load", function() {
-  $('.datepicker').pickadate({ format: "yyyy-mm-dd" });
+  $('.datepicker').pickadate({
+    format: "yyyy-mm-dd",
+    selectMonths: true,
+    selectYears: 60
+  });
   $('.time-input').inputmask("hh:mm");
 });
