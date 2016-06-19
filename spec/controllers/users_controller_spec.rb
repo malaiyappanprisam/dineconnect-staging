@@ -33,7 +33,7 @@ describe UsersController do
           post :create, user: attributes_for(:user)
         end.to change(User, :count).by(1)
 
-        expect(response).to redirect_to(users_path)
+        expect(response).to redirect_to(user_path(User.last))
       end
     end
 
@@ -75,6 +75,7 @@ describe UsersController do
                                            last_name: "Last",
                                            username: "username",
                                            gender: "female",
+                                           about_me: "about me",
                                            date_of_birth: Date.today,
                                            profession: "developer",
                                            nationality: "indonesia",
@@ -88,12 +89,13 @@ describe UsersController do
       it "edit user and redirect to index page" do
         patch :update, id: user.id, user: user_attributes
 
-        expect(response).to redirect_to(users_path)
+        expect(response).to redirect_to(user_path(user.id))
         expect(reloaded_user.email).to eq("abc@abc.com")
         expect(reloaded_user.first_name).to eq("First")
         expect(reloaded_user.last_name).to eq("Last")
         expect(reloaded_user.username).to eq("username")
         expect(reloaded_user.gender).to eq("female")
+        expect(reloaded_user.about_me).to eq("about me")
         expect(reloaded_user.date_of_birth).to eq(Date.today)
         expect(reloaded_user.profession).to eq("developer")
         expect(reloaded_user.nationality).to eq("indonesia")

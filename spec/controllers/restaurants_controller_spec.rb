@@ -35,7 +35,7 @@ describe RestaurantsController do
           post :create, restaurant: attributes_for(:restaurant)
         end.to change(Restaurant, :count).by(1)
 
-        expect(response).to redirect_to(restaurants_path)
+        expect(response).to redirect_to(restaurant_path(Restaurant.last))
       end
     end
 
@@ -93,7 +93,7 @@ describe RestaurantsController do
       it "edit restaurant and redirect to index page" do
         patch :update, id: restaurant.id, restaurant: restaurant_params
 
-        expect(response).to redirect_to(restaurants_path)
+        expect(response).to redirect_to(restaurant_path(restaurant.id))
         expect(restaurant.reload.name).to eq("abc")
         expect(restaurant.reload.address).to eq("address")
         expect(restaurant.reload.area).to eq("area")

@@ -65,6 +65,12 @@ dl.dl-horizontal
 
 dl.dl-horizontal
   dt
+    = User.human_attribute_name('about_me')
+  dd
+    = simple_format(@user.about_me)
+
+dl.dl-horizontal
+  dt
     = User.human_attribute_name('age')
   dd
     = @user.age
