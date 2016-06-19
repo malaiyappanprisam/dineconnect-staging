@@ -17,6 +17,12 @@ describe User do
       .dependent(:destroy)
   end
 
+  it "accepts interested_in" do
+    user = User.new(interested_in_list: "western, pasta")
+    expect(user.interested_in_list).to include("western")
+    expect(user.interested_in_list).to include("pasta")
+  end
+
   describe "after_create" do
     it "generate channel_group" do
       user = build :user

@@ -48,6 +48,7 @@ class UsersController < ApplicationController
                                  :about_me, :date_of_birth, :profession,
                                  :nationality, :residence_status,
                                  :interested_to_meet, :payment_preference,
+                                 :interested_in_list,
                                  :location, :avatar)
   end
 end

@@ -12,15 +12,25 @@ describe Api::ProfileController do
   end
 
   describe "PATCH /profile/detail.json" do
-    let(:user_params) { { first_name: "Test", last_name: "User" } }
+    let(:user_params) do
+      {
+        first_name: "Test",
+        last_name: "User",
+        interested_in_list: "burger, pizza"
+      }
+    end
+
+    let(:reloaded_user) { user.reload }
 
     context "valid params" do
       it "returns ok and update user" do
         patch :detail, format: :json, user: user_params
 
         expect(response).to have_http_status(:ok)
-        expect(user.reload.first_name).to eq("Test")
-        expect(user.reload.last_name).to eq("User")
+        expect(reloaded_user.first_name).to eq("Test")
+        expect(reloaded_user.last_name).to eq("User")
+        expect(reloaded_user.interested_in_list).to include("pizza")
+        expect(reloaded_user.interested_in_list).to include("burger")
       end
     end
 
