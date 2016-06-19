@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   attachment :avatar
 
   acts_as_taggable_on :interested_ins
+  acts_as_taggable_on :favorite_foods
   has_many :user_token, dependent: :destroy
   has_many :invites_by_other, -> { order("updated_at desc, status asc") }, class_name: "Invite", foreign_key: :invitee_id, dependent: :destroy
   has_many :invites_by_me, -> { order("updated_at desc, status asc") }, class_name: "Invite", foreign_key: :user_id, dependent: :destroy

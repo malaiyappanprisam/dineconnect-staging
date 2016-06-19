@@ -26,7 +26,8 @@ class Api::ProfileController < ApiController
                                  :gender, :date_of_birth, :profession,
                                  :nationality, :residence_status,
                                  :interested_to_meet, :payment_preference,
-                                 :location, :about_me, :interested_in_list)
+                                 :location, :about_me, :interested_in_list,
+                                 :favorite_food_list)
   end
 
   def avatar_params

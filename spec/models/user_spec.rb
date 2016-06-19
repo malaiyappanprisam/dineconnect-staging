@@ -23,6 +23,12 @@ describe User do
     expect(user.interested_in_list).to include("pasta")
   end
 
+  it "accepts favorite_food" do
+    user = User.new(favorite_food_list: "pizza, pasta")
+    expect(user.favorite_food_list).to include("pizza")
+    expect(user.favorite_food_list).to include("pasta")
+  end
+
   describe "after_create" do
     it "generate channel_group" do
       user = build :user
