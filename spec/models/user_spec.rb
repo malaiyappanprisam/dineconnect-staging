@@ -96,4 +96,101 @@ describe User do
       expect(user.reload.chatrooms).not_to include(invite_3)
     end
   end
+
+  describe "#recommended_users" do
+    let!(:male_user_in_both) { create :user, gender: :male, interested_to_meet: :both_male_and_female }
+    let!(:male_user_in_male) { create :user, gender: :male, interested_to_meet: :only_male }
+    let!(:male_user_in_female) { create :user, gender: :male, interested_to_meet: :only_female }
+    let!(:female_user_in_both) { create :user, gender: :female, interested_to_meet: :both_male_and_female }
+    let!(:female_user_in_male) { create :user, gender: :female, interested_to_meet: :only_male }
+    let!(:female_user_in_female) { create :user, gender: :female, interested_to_meet: :only_female }
+
+    context "user male, interested in both" do
+      let!(:user) { create :user, gender: :male, interested_to_meet: :both_male_and_female }
+
+      it "returns recommended users list except user itself" do
+        expect(user.recommended_users).to include(male_user_in_both)
+        expect(user.recommended_users).to include(male_user_in_male)
+        expect(user.recommended_users).to_not include(male_user_in_female)
+        expect(user.recommended_users).to include(female_user_in_both)
+        expect(user.recommended_users).to include(female_user_in_male)
+        expect(user.recommended_users).to_not include(female_user_in_female)
+      end
+    end
+
+    context "user male, interested in male" do
+      let!(:user) { create :user, gender: :male, interested_to_meet: :only_male }
+
+      it "returns recommended users list except user itself" do
+        expect(user.recommended_users).to include(male_user_in_both)
+        expect(user.recommended_users).to include(male_user_in_male)
+        expect(user.recommended_users).to_not include(male_user_in_female)
+        expect(user.recommended_users).to_not include(female_user_in_both)
+        expect(user.recommended_users).to_not include(female_user_in_male)
+        expect(user.recommended_users).to_not include(female_user_in_female)
+      end
+    end
+
+    context "user male, interested in female" do
+      let!(:user) { create :user, gender: :male, interested_to_meet: :only_female }
+
+      it "returns recommended users list except user itself" do
+        expect(user.recommended_users).to_not include(male_user_in_both)
+        expect(user.recommended_users).to_not include(male_user_in_male)
+        expect(user.recommended_users).to_not include(male_user_in_female)
+        expect(user.recommended_users).to include(female_user_in_both)
+        expect(user.recommended_users).to include(female_user_in_male)
+        expect(user.recommended_users).to_not include(female_user_in_female)
+      end
+    end
+
+    context "user female, interested in both" do
+      let!(:user) { create :user, gender: :female, interested_to_meet: :both_male_and_female }
+
+      it "returns recommended users list except user itself" do
+        expect(user.recommended_users).to include(male_user_in_both)
+        expect(user.recommended_users).to_not include(male_user_in_male)
+        expect(user.recommended_users).to include(male_user_in_female)
+        expect(user.recommended_users).to include(female_user_in_both)
+        expect(user.recommended_users).to_not include(female_user_in_male)
+        expect(user.recommended_users).to include(female_user_in_female)
+      end
+    end
+
+    context "user female, interested in male" do
+      let!(:user) { create :user, gender: :female, interested_to_meet: :only_male }
+
+      it "returns recommended users list except user itself" do
+        expect(user.recommended_users).to include(male_user_in_both)
+        expect(user.recommended_users).to_not include(male_user_in_male)
+        expect(user.recommended_users).to include(male_user_in_female)
+        expect(user.recommended_users).to_not include(female_user_in_both)
+        expect(user.recommended_users).to_not include(female_user_in_male)
+        expect(user.recommended_users).to_not include(female_user_in_female)
+      end
+    end
+
+    context "user female, interested in female" do
+      let!(:user) { create :user, gender: :female, interested_to_meet: :only_female }
+
+      it "returns recommended users list except user itself" do
+        expect(user.recommended_users).to_not include(male_user_in_both)
+        expect(user.recommended_users).to_not include(male_user_in_male)
+        expect(user.recommended_users).to_not include(male_user_in_female)
+        expect(user.recommended_users).to include(female_user_in_both)
+        expect(user.recommended_users).to_not include(female_user_in_male)
+        expect(user.recommended_users).to include(female_user_in_female)
+      end
+    end
+  end
+
+  describe "#explore_people" do
+    let!(:user) { create :user }
+    let!(:users) { create_list :user, 2 }
+    it "returns users except current_user" do
+      expect(user.explore_people).to include(users.first)
+      expect(user.explore_people).to include(users.second)
+      expect(user.explore_people).to_not include(user)
+    end
+  end
 end

@@ -4,6 +4,7 @@ describe Api::ExploreController do
   let(:user) { create :user }
   let!(:user_token) { create :user_token, user: user }
   let!(:restaurants) { create_list :restaurant, 2 }
+  let!(:users) { create_list :user, 2 }
   before do
     stub_const("ENV", ENV.to_hash.merge("API_AUTH_KEY" => "abcdefg"))
     @request.headers["X-API-AUTH"] = "abcdefg"

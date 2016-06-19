@@ -45,4 +45,45 @@ class User < ActiveRecord::Base
     Invite.where("user_id = ? OR invitee_id = ?", self.id, self.id)
       .where("status = ?", Invite.statuses[:accept])
   end
+
+  def recommended_users
+    User.where.not(id: self.id)
+      .where(gender: gender_preferences)
+      .where(interested_to_meet: interested_to_meet_preferences)
+      .order(created_at: :desc)
+  end
+
+  def explore_people
+    User.where.not(id: self.id)
+      .order(created_at: :desc)
+  end
+
+  private
+  def gender_preferences
+    if self.both_male_and_female?
+      [ User.genders[:male], User.genders[:female] ]
+    elsif self.only_male?
+      [ User.genders[:male] ]
+    elsif self.only_female?
+      [ User.genders[:female] ]
+    else
+      []
+    end
+  end
+
+  def interested_to_meet_preferences
+    if self.male?
+      [
+        User.interested_to_meets[:both_male_and_female],
+        User.interested_to_meets[:only_male]
+      ]
+    elsif self.female?
+      [
+        User.interested_to_meets[:both_male_and_female],
+        User.interested_to_meets[:only_female]
+      ]
+    else
+      []
+    end
+  end
 end
