@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   end
 
   def humanize_nationality
-    Nationality.list[nationality]
+    Nationality.list[self.nationality]
   end
 
   def generate_access_token(device_id)

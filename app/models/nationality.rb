@@ -84,7 +84,6 @@ class Nationality
         'germany' => 'German',
         'ghana' => 'Ghanaian',
         'gibraltar' => 'Gibraltar',
-        'great britain' => 'British',
         'greece' => 'Greek',
         'greenland' => 'Greenlandic',
         'grenada' => 'Grenadian',
@@ -242,7 +241,7 @@ class Nationality
         'yemen' => 'Yemeni',
         'zambia' => 'Zambian',
         'zimbabwe' => 'Zimbabwean',
-      }.sort_by {|k,v| v}
+      }
     end
   end
 end
