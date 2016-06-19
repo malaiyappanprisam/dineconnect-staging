@@ -19,6 +19,8 @@ describe Api::RegistrationsController do
           gender: "male",
           password: "B",
           interested_to_meet: "only_female",
+          interested_in_list: "pizza, burger",
+          favorite_food_list: "tempe, tahu",
           avatar: file
         }
       end
@@ -38,6 +40,10 @@ describe Api::RegistrationsController do
         expect(user.age).to eq 33
         expect(user.gender).to eq "male"
         expect(user.interested_to_meet).to eq("only_female")
+        expect(user.interested_in_list).to include("pizza")
+        expect(user.interested_in_list).to include("burger")
+        expect(user.favorite_food_list).to include("tempe")
+        expect(user.favorite_food_list).to include("tahu")
       end
     end
   end
