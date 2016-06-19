@@ -167,7 +167,6 @@ class Nationality
         'panama' => 'Panamanian',
         'papua new guinea' => 'Papua New Guinean',
         'paraguay' => 'Paraguayan',
-        'people\'s republic of china' => 'Chinese',
         'peru' => 'Peruvian',
         'philippines' => 'Filipino',
         'pitcairn island' => 'Pitcairn Island',
@@ -243,7 +242,7 @@ class Nationality
         'yemen' => 'Yemeni',
         'zambia' => 'Zambian',
         'zimbabwe' => 'Zimbabwean',
-      }
+      }.sort_by {|k,v| v}
     end
   end
 end
