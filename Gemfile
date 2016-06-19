@@ -33,6 +33,7 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'guard'
   gem 'guard-rspec', require: false
+  gem "letter_opener"
 end
 
 group :test do
