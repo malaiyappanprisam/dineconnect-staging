@@ -39,15 +39,18 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  #config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.delivery_method = :letter_opener
 
-  config.action_mailer.delivery_method = :smtp
+  #config.action_mailer.perform_deliveries = true
+  #config.action_mailer.raise_delivery_errors = true
+  #config.action_mailer.default charset: "utf-8"
+  #config.action_mailer.delivery_method = :smtp
 
-  config.action_mailer.smtp_settings = {
-    address: ENV["SMTP_ADDRESS"],
-    port: ENV["SMTP_PORT"],
-    username: ENV["SMTP_USERNAME"],
-    password: ENV["SMTP_PASSWORD"]
-  }
+  #config.action_mailer.smtp_settings = {
+  #  address: ENV["SMTP_ADDRESS"],
+  #  port: ENV["SMTP_PORT"],
+  #  user_name: ENV["SMTP_USERNAME"],
+  #  password: ENV["SMTP_PASSWORD"]
+  #}
 end
 Rails.application.routes.default_url_options[:host] = 'dineconnect-backend.dev'
