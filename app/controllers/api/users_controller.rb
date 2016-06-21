@@ -21,7 +21,6 @@ class Api::UsersController < ApiController
   end
 
   def favorited_restaurants
-    @users = [current_user]
     @restaurants = current_user.get_voted(Restaurant)
   end
 
