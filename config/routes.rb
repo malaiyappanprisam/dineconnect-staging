@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :update] do
       member do
         get :recommended_restaurants
+        get :favorited_restaurants
       end
     end
     resources :restaurants, only: [] do
@@ -29,6 +30,7 @@ Rails.application.routes.draw do
         post :reject
       end
     end
+    resources :restaurant_favorites, only: [:create, :destroy]
     resources :chatrooms, only: [:index]
     resources :registrations, path: "register", only: [:create]
     resources :sessions, path: "login", only: [:create]

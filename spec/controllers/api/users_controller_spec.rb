@@ -58,4 +58,17 @@ describe Api::UsersController do
       expect(assigns(:users)).to be_present
     end
   end
+
+  describe "GET /favorited_restaurants.json" do
+    let!(:restaurant) { create :restaurant }
+
+    it "returns list of recommended restaurants" do
+      restaurant.liked_by user
+      get :favorited_restaurants, id: user.id, format: :json
+
+      expect(response).to have_http_status(:ok)
+      expect(assigns(:restaurants)).to be_present
+      expect(assigns(:users)).to be_present
+    end
+  end
 end

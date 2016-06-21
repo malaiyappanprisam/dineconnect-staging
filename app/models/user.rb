@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 
   attachment :avatar
 
+  acts_as_voter
+
   acts_as_taggable_on :interested_ins
   acts_as_taggable_on :favorite_foods
   has_many :user_token, dependent: :destroy

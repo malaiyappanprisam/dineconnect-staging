@@ -20,6 +20,11 @@ class Api::UsersController < ApiController
     @users = User.limit(20).order(id: :asc)
   end
 
+  def favorited_restaurants
+    @users = [current_user]
+    @restaurants = current_user.get_voted(Restaurant)
+  end
+
   def user_params
     params.require(:user).permit(:first_name, :last_name, :username,
                                  :gender, :date_of_birth, :profession,
