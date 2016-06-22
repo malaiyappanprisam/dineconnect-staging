@@ -3,6 +3,7 @@ class Api::RecommendedRestaurantsController < ApiController
 
   def index
     @restaurants = Restaurant.limit(20).order(id: :desc)
-    @users = User.limit(20).order(id: :asc)
+    @users = User.favorited_on(@restaurants)
+    @users.push(current_user)
   end
 end

@@ -38,6 +38,21 @@ describe User do
     end
   end
 
+  describe ".favorited_on" do
+    let(:user_1) { create :user }
+    let(:user_2) { create :user }
+    let(:user_3) { create :user }
+    let(:restaurant) { create :restaurant }
+    subject { User.favorited_on([restaurant]) }
+    it "returns list of users that favorited on restaurant by limit" do
+      restaurant.liked_by user_1
+      restaurant.liked_by user_2
+
+      expect(subject).to include(user_1)
+      expect(subject).to include(user_2)
+      expect(subject).not_to include(user_3)
+    end
+  end
   describe "#age" do
     before do
       Timecop.freeze(Date.parse("2016-05-07"))

@@ -17,11 +17,14 @@ class Api::UsersController < ApiController
 
   def recommended_restaurants
     @restaurants = Restaurant.order(id: :desc)
-    @users = User.limit(20).order(id: :asc)
+    @users = User.favorited_on(@restaurants)
+    @users.push(current_user)
   end
 
   def favorited_restaurants
     @restaurants = current_user.get_voted(Restaurant)
+    @users = User.favorited_on(@restaurants)
+    @users.push(current_user)
   end
 
   def user_params

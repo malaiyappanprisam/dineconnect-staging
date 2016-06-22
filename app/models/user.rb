@@ -18,6 +18,17 @@ class User < ActiveRecord::Base
 
   after_create :generate_channel_group
 
+  def self.favorited_on(restaurants, limit = 6)
+    users = []
+    favorited_user_ids = restaurants.map do |restaurant|
+      restaurant.find_votes_for.limit(limit).pluck(:voter_id)
+    end.flatten
+    if !favorited_user_ids.empty?
+      users = User.where(id: favorited_user_ids)
+    end
+    users
+  end
+
   def age
     if date_of_birth
       ((Date.today - date_of_birth) / 365).to_i
