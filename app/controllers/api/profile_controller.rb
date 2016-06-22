@@ -20,6 +20,15 @@ class Api::ProfileController < ApiController
     end
   end
 
+  def password
+    @user = current_user
+    if @user.update_password_with_confirmation(password_params)
+      render json: {}, status: :ok
+    else
+      render json: { errors: @user.errors.full_messages }.to_json, status: :unprocessable_entity
+    end
+  end
+
   private
   def user_params
     params.require(:user).permit(:first_name, :last_name, :username,
@@ -32,6 +41,10 @@ class Api::ProfileController < ApiController
 
   def avatar_params
     params.require(:user).permit(:avatar)
+  end
+
+  def password_params
+    params.require(:user).permit(:password, :password_confirmation)
   end
 
   def current_user

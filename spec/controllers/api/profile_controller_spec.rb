@@ -1,4 +1,5 @@
 require "rails_helper"
+require "refile/file_double"
 
 describe Api::ProfileController do
   let(:user) { create :user }
@@ -73,6 +74,38 @@ describe Api::ProfileController do
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(user.reload.avatar).to be_blank
+      end
+    end
+  end
+
+  describe "PATCH /profile/password.json" do
+    context "success" do
+      let(:user_params) do
+        {
+          password: "somenewpassword",
+          password_confirmation: "somenewpassword",
+        }
+      end
+
+      it "returns ok and update the password" do
+        patch :password, format: :json, user: user_params
+
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "failure" do
+      let(:user_params) do
+        {
+          password: "somenewpassword",
+          password_confirmation: "abcsomenewpassword",
+        }
+      end
+
+      it "returns unprocessable_entity" do
+        patch :password, format: :json, user: user_params
+
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
     end

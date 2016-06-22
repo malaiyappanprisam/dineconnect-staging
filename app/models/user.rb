@@ -73,6 +73,15 @@ class User < ActiveRecord::Base
       .order(created_at: :desc)
   end
 
+  def update_password_with_confirmation(password_params)
+    if password_params[:password] != password_params[:password_confirmation]
+      errors.add(:base, "password not match")
+      false
+    else
+      update_password(password_params[:password])
+    end
+  end
+
   private
   def gender_preferences
     if self.both_male_and_female?

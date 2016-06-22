@@ -53,6 +53,7 @@ describe User do
       expect(subject).not_to include(user_3)
     end
   end
+
   describe "#age" do
     before do
       Timecop.freeze(Date.parse("2016-05-07"))
@@ -218,6 +219,29 @@ describe User do
       expect(user.explore_people).to include(users.first)
       expect(user.explore_people).to include(users.second)
       expect(user.explore_people).to_not include(user)
+    end
+  end
+
+  describe "#update_password_with_confirmation" do
+    let(:user) { create :user }
+
+    it "errors if confirmation not same as password" do
+      password_params = {
+        password: "mypassword1234",
+        password_confirmation: "mypassword12345"
+      }
+      user.update_password_with_confirmation(password_params)
+      expect(user.errors[:base]).to include("password not match")
+    end
+
+    it "change password if its right" do
+      password_params = {
+        password: "mypassword1234",
+        password_confirmation: "mypassword1234"
+      }
+      expect do
+        user.update_password_with_confirmation(password_params)
+      end.to change(user, :encrypted_password)
     end
   end
 end
