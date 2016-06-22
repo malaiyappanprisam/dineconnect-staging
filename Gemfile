@@ -44,7 +44,6 @@ group :production do
   gem 'rails_12factor'
   gem 'puma'
   gem "puma_worker_killer"
-  gem "rack-timeout"
 end
 
 # added general gem
@@ -68,3 +67,4 @@ gem "jquery-inputmask-rails", github: "knapo/jquery-inputmask-rails"
 gem "sidekiq"
 gem "newrelic_rpm"
 gem "acts_as_votable"
+gem "rack-timeout"
