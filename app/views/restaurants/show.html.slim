@@ -19,7 +19,7 @@ dl.dl-horizontal
   dt
     = Restaurant.human_attribute_name('cover')
   dd
-    = attachment_image_tag(@restaurant, :cover, :fill, 300, 300)
+    = attachment_image_tag(@restaurant, :cover, :fill, 300, 300, format: "jpg")
 
 dl.dl-horizontal
   dt

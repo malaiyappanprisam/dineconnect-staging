@@ -19,7 +19,7 @@ dl.dl-horizontal
   dt
     = User.human_attribute_name('avatar')
   dd
-    = attachment_image_tag(@user, :avatar, :fill, 300, 300)
+    = attachment_image_tag(@user, :avatar, :fill, 300, 300, format: "jpg")
 
 dl.dl-horizontal
   dt
