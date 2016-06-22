@@ -44,6 +44,7 @@ group :production do
   gem 'rails_12factor'
   gem 'puma'
   gem "puma_worker_killer"
+  gem "rack-timeout"
 end
 
 # added general gem
