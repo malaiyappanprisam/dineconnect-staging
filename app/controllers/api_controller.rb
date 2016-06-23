@@ -1,5 +1,7 @@
 class ApiController < ActionController::Base
   protect_from_forgery with: :null_session
+  skip_before_action :verify_authenticity_token, if: :json_request?  
+
   class AuthenticationError < Exception; end
 
   before_action :check_api_auth_key!
@@ -22,6 +24,10 @@ class ApiController < ActionController::Base
   end
 
   private
+  def json_request? 
+    request.format.json?
+  end
+
   def check_api_auth_key!
     unless request.headers["X-API-AUTH"] == ENV["API_AUTH_KEY"]
       head :unauthorized
