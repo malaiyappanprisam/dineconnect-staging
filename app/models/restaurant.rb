@@ -11,6 +11,15 @@ class Restaurant < ActiveRecord::Base
 
   accepts_nested_attributes_for(:open_schedules)
 
+  scope :nearby, -> lat, long, distance = 10_000 do
+    sql = <<-sql
+    ST_Dwithin(restaurants.location::geography,
+    ST_GeogFromText('POINT(#{long} #{lat})'), ?)
+    sql
+
+    where(sql, distance)
+  end
+
   def location=(latlong)
     longlat = latlong.to_s.gsub(/\s+/, "").split(",").reverse.join(" ")
     self[:location] = "POINT (#{longlat})"

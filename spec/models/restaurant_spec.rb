@@ -20,4 +20,15 @@ describe Restaurant do
     expect(restaurant.location_original).to eq("POINT (106.813197 -6.214432)")
     expect(restaurant.location).to eq("-6.214432, 106.813197")
   end
+
+  describe "scope" do
+    describe "#nearby" do
+      let!(:restaurant) { create :restaurant, location: "-6.214432, 106.813197" }
+      it "returns nearby restaurant" do
+        nearby_restaurant = Restaurant.nearby("-6.214432", "106.813198")
+
+        expect(nearby_restaurant).to include(restaurant)
+      end
+    end
+  end
 end
