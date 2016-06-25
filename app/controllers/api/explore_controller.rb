@@ -9,8 +9,10 @@ class Api::ExploreController < ApiController
     @restaurants = Restaurant
     if params[:lat].present? && params[:long].present?
       @restaurants = @restaurants.nearby(params[:lat], params[:long], params[:distance])
+      @restaurants = @restaurants.limit(20).order(id: :desc)
+    else
+      @restaurants = @restaurants.none
     end
-    @restaurants = @restaurants.limit(20).order(id: :desc)
 
     @users = current_user.explore_people
     @users.push(*User.favorited_on(@restaurants))

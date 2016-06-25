@@ -27,7 +27,7 @@ describe Api::ExploreController do
 
       expect(response).to have_http_status(:ok)
       expect(assigns(:users)).to be_present
-      expect(assigns(:restaurants)).to be_present
+      expect(assigns(:restaurants)).to be_blank
     end
 
     context "with lat long" do
