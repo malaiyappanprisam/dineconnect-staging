@@ -43,6 +43,8 @@ Rails.application.routes.draw do
     patch "/profile/detail", to: "profile#detail", as: "profile_detail"
     patch "/profile/avatar", to: "profile#avatar", as: "profile_avatar"
     patch "/profile/password", to: "profile#password", as: "profile_password"
+    post "/profile/photos", to: "profile/photos#create", as: "profile_photos"
+    delete "/profile/photos/:id", to: "profile/photos#destroy", as: "destroy_profile_photos"
   end
 
   # Example of regular route:

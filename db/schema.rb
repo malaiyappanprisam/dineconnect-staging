@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160623210907) do
+ActiveRecord::Schema.define(version: 20160625092837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,14 @@ ActiveRecord::Schema.define(version: 20160623210907) do
   end
 
   add_index "open_schedules", ["restaurant_id"], name: "index_open_schedules_on_restaurant_id", using: :btree
+
+  create_table "photos", force: :cascade do |t|
+    t.integer  "photoable_id"
+    t.string   "photoable_type"
+    t.string   "file_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
 
   create_table "restaurants", force: :cascade do |t|
     t.string    "name"

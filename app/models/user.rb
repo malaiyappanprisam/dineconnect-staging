@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
   has_many :user_token, dependent: :destroy
   has_many :invites_by_other, -> { order("updated_at desc, status asc") }, class_name: "Invite", foreign_key: :invitee_id, dependent: :destroy
   has_many :invites_by_me, -> { order("updated_at desc, status asc") }, class_name: "Invite", foreign_key: :user_id, dependent: :destroy
+  has_many :photos, as: :photoable
+
+  accepts_attachments_for :photos, attachment: :file, append: true
 
   enum gender: [:male, :female]
   enum residence_status: [:local, :expat, :out_of_town]

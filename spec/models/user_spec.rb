@@ -16,6 +16,7 @@ describe User do
       .order("updated_at desc, status asc")
       .dependent(:destroy)
   end
+  it { should have_many(:photos) }
 
   it "accepts interested_in" do
     user = User.new(interested_in_list: "western, pasta")
