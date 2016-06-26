@@ -68,6 +68,16 @@ describe UsersController do
     end
   end
 
+  describe "GET /reset_password" do
+    it "returns http response :ok" do
+      get :reset_password, id: user.id
+
+      expect(response).to have_http_status(:ok)
+      expect(response).to render_template(:edit)
+      expect(assigns(:user)).to eq(user)
+    end
+  end
+
   describe "PATCH /update" do
     let(:user_attributes) { attributes_for(:user,
                                            email: "abc@abc.com",

@@ -4,6 +4,10 @@
       = link_to users_path, class: 'btn btn-warning' do
         i.glyphicon.glyphicon-chevron-left
         = t('button.back')
+      = link_to reset_password_user_path(@user),
+        class: 'btn btn-warning' do
+        i.glyphicon.glyphicon-edit
+        = t('button.reset_password')
   h1
     = t :edit_user
 

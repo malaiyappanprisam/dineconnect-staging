@@ -8,6 +8,10 @@
         class: 'btn btn-warning' do
         i.glyphicon.glyphicon-edit
         = t('button.edit')
+      = link_to reset_password_user_path(@user),
+        class: 'btn btn-warning' do
+        i.glyphicon.glyphicon-edit
+        = t('button.reset_password')
       = link_to @user, :method => :delete, :data => { :confirm => 'Are you sure?' },
         class: 'btn btn-danger' do
         span.glyphicon.glyphicon-trash
