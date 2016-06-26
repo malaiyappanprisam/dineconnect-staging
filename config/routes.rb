@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
   resources :users
-  resources :restaurants
+  resources :restaurants do
+    resources :photos, only: [:destroy]
+  end
   resources :food_types
   resources :facilities
 

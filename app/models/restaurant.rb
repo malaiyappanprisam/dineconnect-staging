@@ -8,8 +8,10 @@ class Restaurant < ActiveRecord::Base
   has_many :open_schedules, -> { order(:day) }
   has_and_belongs_to_many :food_types
   has_and_belongs_to_many :facilities
+  has_many :photos, as: :photoable
 
   accepts_nested_attributes_for(:open_schedules)
+  accepts_attachments_for :photos, attachment: :file, append: true
 
   scope :nearby, -> lat, long, distance = 10_000 do
     sql = <<-sql

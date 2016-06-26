@@ -3,6 +3,11 @@
 
   .col
     .col-sm-6
+      = f.input :cover, as: :attachment
+      .form-group
+        .col-sm-3.control-label
+        .col-sm-9
+          = attachment_image_tag(@restaurant, :cover, :fill, 300, 300, format: "jpg")
       = f.input :name
       = f.input :address
       = f.input :area
@@ -15,7 +20,20 @@
         collection: FoodType.all, label_method: :name, value_method: :id
       = f.association :facilities, as: :check_boxes,
         collection: Facility.all, label_method: :name, value_method: :id
-      = f.input :cover, as: :attachment
+      = f.input :photos_files, as: :attachment, multiple: true
+      .form-group
+        .col-sm-3.control-label
+        .col-sm-9
+          - @restaurant.photos.each do |photo|
+            .col-md-4.col-sm-6
+              .thumbnail
+                = attachment_image_tag(photo, :file, :fill, 150, 150, format: "jpg")
+                .caption
+                  = link_to restaurant_photo_path(restaurant_id: @restaurant.id, id: photo.id), method: :delete, data: { confirm: "Are you sure?" },
+                    class: "btn btn-sm btn-danger" do
+                    span.glyphicon.glyphicon-trash
+                    | Delete
+
 
     .col-sm-12
       h3 Open Schedules

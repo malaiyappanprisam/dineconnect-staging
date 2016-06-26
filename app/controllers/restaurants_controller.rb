@@ -47,7 +47,7 @@ class RestaurantsController < ApplicationController
                                        :average_cost, :people_count,
                                        :known_for_list, :cover,
                                        :location, food_type_ids: [],
-                                       facility_ids: [],
+                                       facility_ids: [], photos_files: [],
                                        open_schedules_attributes: [
                                          :id, :day, :hour_open,
                                          :hour_close, :time_open,
