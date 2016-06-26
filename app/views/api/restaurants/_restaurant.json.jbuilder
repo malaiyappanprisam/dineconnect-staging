@@ -8,6 +8,8 @@ json.known_for restaurant.known_for_list.to_a
 json.food_types restaurant.food_types.pluck(:name)
 json.facilities restaurant.facilities.pluck(:name)
 json.location restaurant.location.to_s
+json.long restaurant.long.to_s
+json.lat restaurant.lat.to_s
 json.cover_url restaurant.cover_id ? attachment_url(restaurant, :cover, :fill, 360, 360, format: "jpg") : "http://lorempixel.com/360/360/food/#{(restaurant.id > 9 ? 1 + (restaurant.id % 10) : restaurant.id)}/"
 json.favorited_users restaurant.find_votes_for.pluck(:voter_id)
 json.is_favorited !!(@current_user.try(:voted_for?, restaurant))

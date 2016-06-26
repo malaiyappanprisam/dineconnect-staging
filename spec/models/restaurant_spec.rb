@@ -19,6 +19,8 @@ describe Restaurant do
     restaurant = Restaurant.new(location: "-6.214432, 106.813197")
     expect(restaurant.location_original).to eq("POINT (106.813197 -6.214432)")
     expect(restaurant.location).to eq("-6.214432, 106.813197")
+    expect(restaurant.lat).to eq("-6.214432")
+    expect(restaurant.long).to eq("106.813197")
   end
 
   describe "scope" do

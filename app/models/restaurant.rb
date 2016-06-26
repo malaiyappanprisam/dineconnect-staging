@@ -32,4 +32,12 @@ class Restaurant < ActiveRecord::Base
   def location_original
     self[:location].to_s
   end
+
+  def long
+    self[:location].to_s.gsub("POINT (", "").gsub(")", "").split(" ").first
+  end
+
+  def lat
+    self[:location].to_s.gsub("POINT (", "").gsub(")", "").split(" ").second
+  end
 end
