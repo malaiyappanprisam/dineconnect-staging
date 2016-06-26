@@ -63,7 +63,7 @@ describe UsersController do
       get :edit, id: user.id
 
       expect(response).to have_http_status(:ok)
-      expect(response).to render_template(:reset_password)
+      expect(response).to render_template(:edit)
       expect(assigns(:user)).to eq(user)
     end
   end
@@ -73,7 +73,7 @@ describe UsersController do
       get :reset_password, id: user.id
 
       expect(response).to have_http_status(:ok)
-      expect(response).to render_template(:edit)
+      expect(response).to render_template(:reset_password)
       expect(assigns(:user)).to eq(user)
     end
   end
