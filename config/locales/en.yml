@@ -1,2 +1,18 @@
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      user: "Members"
+      restaurant: "Restaurants"
+      food_type: "Food Types"
+      facility: "Facilities"
+    attributes:
+      user:
+        first_name: "First Name"
+        last_name: "Last Name"
+        about_me: "About Me"
+        date_of_birth: "Date of Birth"
+        residence_status: "Residence Status"
+        interested_to_meet: "Interested To Meet"
+        payment_preference: "Payment Preference"
+  add_user: "Add Members"
+  new_user: "New Members"
