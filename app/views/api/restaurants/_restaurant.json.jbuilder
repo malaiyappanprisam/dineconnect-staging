@@ -20,3 +20,4 @@ json.open_schedules restaurant.open_schedules do |open_schedule|
   json.time_open open_schedule.time_open.try(:strftime, "%H:%M")
   json.time_close open_schedule.time_close.try(:strftime, "%H:%M")
 end
+json.photos restaurant.photos.map { |photo| { id: photo.id, url: attachment_url(photo, :file, :fill, 300, 300, format: "jpg") } }
