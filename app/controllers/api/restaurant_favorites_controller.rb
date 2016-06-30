@@ -14,7 +14,7 @@ class Api::RestaurantFavoritesController < ApiController
 
   def destroy
     @restaurant = Restaurant.find(params[:id])
-    @restaurant.disliked_by current_user
+    @restaurant.unliked_by current_user
     render nothing: true, status: :ok
   end
 end
