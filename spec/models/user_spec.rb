@@ -221,6 +221,60 @@ describe User do
       expect(user.explore_people).to include(users.second)
       expect(user.explore_people).to_not include(user)
     end
+
+    context "with payment_preference" do
+      let!(:anything_goes) { create :user, payment_preference: :anything_goes }
+      let!(:paying) { create :user, payment_preference: :paying }
+      let!(:not_paying) { create :user, payment_preference: :not_paying }
+      let!(:split_bill) { create :user, payment_preference: :split_bill }
+      it "returns user with specified payment preference" do
+        expect(user.explore_people(payment_preference: :anything_goes)).to include(anything_goes)
+        expect(user.explore_people(payment_preference: :anything_goes)).to_not include(paying)
+        expect(user.explore_people(payment_preference: :anything_goes)).to_not include(not_paying)
+        expect(user.explore_people(payment_preference: :anything_goes)).to_not include(split_bill)
+
+        expect(user.explore_people(payment_preference: :paying)).to_not include(anything_goes)
+        expect(user.explore_people(payment_preference: :paying)).to include(paying)
+        expect(user.explore_people(payment_preference: :paying)).to_not include(not_paying)
+        expect(user.explore_people(payment_preference: :paying)).to_not include(split_bill)
+
+        expect(user.explore_people(payment_preference: :not_paying)).to_not include(anything_goes)
+        expect(user.explore_people(payment_preference: :not_paying)).to_not include(paying)
+        expect(user.explore_people(payment_preference: :not_paying)).to include(not_paying)
+        expect(user.explore_people(payment_preference: :not_paying)).to_not include(split_bill)
+
+        expect(user.explore_people(payment_preference: :split_bill)).to_not include(anything_goes)
+        expect(user.explore_people(payment_preference: :split_bill)).to_not include(paying)
+        expect(user.explore_people(payment_preference: :split_bill)).to_not include(not_paying)
+        expect(user.explore_people(payment_preference: :split_bill)).to include(split_bill)
+      end
+    end
+
+    context "with interested in" do
+      let!(:male) { create :user, gender: :male }
+      let!(:female) { create :user, gender: :female }
+
+      it "returns user with specified interested in" do
+        expect(user.explore_people(interested_in: :both_male_and_female)).to include(male)
+        expect(user.explore_people(interested_in: :both_male_and_female)).to include(female)
+
+        expect(user.explore_people(interested_in: :only_male)).to include(male)
+        expect(user.explore_people(interested_in: :only_male)).to_not include(female)
+
+        expect(user.explore_people(interested_in: :only_female)).to_not include(male)
+        expect(user.explore_people(interested_in: :only_female)).to include(female)
+      end
+    end
+
+    context "with age range" do
+      let(:age_18_24) { create :user, date_of_birth: 19.years.ago }
+      let(:age_25_30) { create :user, date_of_birth: 27.years.ago }
+      let(:age_31_35) { create :user, date_of_birth: 32.years.ago }
+      let(:age_35_above) { create :user, date_of_birth: 36.years.ago }
+
+      it "returns user with specified age range" do
+      end
+    end
   end
 
   describe "#update_password_with_confirmation" do

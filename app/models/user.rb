@@ -71,8 +71,11 @@ class User < ActiveRecord::Base
       .order(created_at: :desc)
   end
 
-  def explore_people
+  def explore_people(payment_preference: :anything_goes,
+                     interested_in: :both_male_and_female)
     User.where.not(id: self.id)
+      .where(payment_preference: User.payment_preferences[payment_preference.to_sym])
+      .where(gender: interested_in_preferences(interested_in))
       .order(created_at: :desc)
   end
 
@@ -86,12 +89,20 @@ class User < ActiveRecord::Base
   end
 
   private
+  def interested_in_preferences(preference)
+    user_gender_preferences(preference)
+  end
+
   def gender_preferences
-    if self.both_male_and_female?
+    user_gender_preferences(self.interested_to_meet)
+  end
+
+  def user_gender_preferences(preference)
+    if preference.to_sym == :both_male_and_female
       [ User.genders[:male], User.genders[:female] ]
-    elsif self.only_male?
+    elsif preference.to_sym == :only_male
       [ User.genders[:male] ]
-    elsif self.only_female?
+    elsif preference.to_sym == :only_female
       [ User.genders[:female] ]
     else
       []
