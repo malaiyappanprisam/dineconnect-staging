@@ -273,6 +273,30 @@ describe User do
       let(:age_35_above) { create :user, date_of_birth: 36.years.ago }
 
       it "returns user with specified age range" do
+        expect(user.explore_people).to include(age_18_24)
+        expect(user.explore_people).to include(age_25_30)
+        expect(user.explore_people).to include(age_31_35)
+        expect(user.explore_people).to include(age_35_above)
+
+        expect(user.explore_people(age_from: 18, age_to: 25)).to include(age_18_24)
+        expect(user.explore_people(age_from: 18, age_to: 25)).not_to include(age_25_30)
+        expect(user.explore_people(age_from: 18, age_to: 25)).not_to include(age_31_35)
+        expect(user.explore_people(age_from: 18, age_to: 25)).not_to include(age_35_above)
+
+        expect(user.explore_people(age_from: 25, age_to: 31)).not_to include(age_18_24)
+        expect(user.explore_people(age_from: 25, age_to: 31)).to include(age_25_30)
+        expect(user.explore_people(age_from: 25, age_to: 31)).not_to include(age_31_35)
+        expect(user.explore_people(age_from: 25, age_to: 31)).not_to include(age_35_above)
+
+        expect(user.explore_people(age_from: 31, age_to: 35)).not_to include(age_18_24)
+        expect(user.explore_people(age_from: 31, age_to: 35)).not_to include(age_25_30)
+        expect(user.explore_people(age_from: 31, age_to: 35)).to include(age_31_35)
+        expect(user.explore_people(age_from: 31, age_to: 35)).not_to include(age_35_above)
+
+        expect(user.explore_people(age_from: 35, age_to: 99)).not_to include(age_18_24)
+        expect(user.explore_people(age_from: 35, age_to: 99)).not_to include(age_25_30)
+        expect(user.explore_people(age_from: 35, age_to: 99)).not_to include(age_31_35)
+        expect(user.explore_people(age_from: 35, age_to: 99)).to include(age_35_above)
       end
     end
   end

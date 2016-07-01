@@ -72,10 +72,13 @@ class User < ActiveRecord::Base
   end
 
   def explore_people(payment_preference: :anything_goes,
-                     interested_in: :both_male_and_female)
+                     interested_in: :both_male_and_female,
+                     age_from: 1, age_to: 100)
+    age_range = age_to.years.ago.to_date..age_from.years.ago.to_date
     User.where.not(id: self.id)
       .where(payment_preference: User.payment_preferences[payment_preference.to_sym])
       .where(gender: interested_in_preferences(interested_in))
+      .where(date_of_birth: age_range)
       .order(created_at: :desc)
   end
 
