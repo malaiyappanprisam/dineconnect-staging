@@ -229,22 +229,22 @@ describe User do
       let!(:split_bill) { create :user, payment_preference: :split_bill }
       it "returns user with specified payment preference" do
         expect(user.explore_people(payment_preference: :anything_goes)).to include(anything_goes)
-        expect(user.explore_people(payment_preference: :anything_goes)).to_not include(paying)
-        expect(user.explore_people(payment_preference: :anything_goes)).to_not include(not_paying)
-        expect(user.explore_people(payment_preference: :anything_goes)).to_not include(split_bill)
+        expect(user.explore_people(payment_preference: :anything_goes)).to include(paying)
+        expect(user.explore_people(payment_preference: :anything_goes)).to include(not_paying)
+        expect(user.explore_people(payment_preference: :anything_goes)).to include(split_bill)
 
-        expect(user.explore_people(payment_preference: :paying)).to_not include(anything_goes)
+        expect(user.explore_people(payment_preference: :paying)).to include(anything_goes)
         expect(user.explore_people(payment_preference: :paying)).to include(paying)
-        expect(user.explore_people(payment_preference: :paying)).to_not include(not_paying)
-        expect(user.explore_people(payment_preference: :paying)).to_not include(split_bill)
+        expect(user.explore_people(payment_preference: :paying)).to include(not_paying)
+        expect(user.explore_people(payment_preference: :paying)).to include(split_bill)
 
-        expect(user.explore_people(payment_preference: :not_paying)).to_not include(anything_goes)
-        expect(user.explore_people(payment_preference: :not_paying)).to_not include(paying)
-        expect(user.explore_people(payment_preference: :not_paying)).to include(not_paying)
+        expect(user.explore_people(payment_preference: :not_paying)).to include(anything_goes)
+        expect(user.explore_people(payment_preference: :not_paying)).to include(paying)
+        expect(user.explore_people(payment_preference: :not_paying)).to_not include(not_paying)
         expect(user.explore_people(payment_preference: :not_paying)).to_not include(split_bill)
 
-        expect(user.explore_people(payment_preference: :split_bill)).to_not include(anything_goes)
-        expect(user.explore_people(payment_preference: :split_bill)).to_not include(paying)
+        expect(user.explore_people(payment_preference: :split_bill)).to include(anything_goes)
+        expect(user.explore_people(payment_preference: :split_bill)).to include(paying)
         expect(user.explore_people(payment_preference: :split_bill)).to_not include(not_paying)
         expect(user.explore_people(payment_preference: :split_bill)).to include(split_bill)
       end

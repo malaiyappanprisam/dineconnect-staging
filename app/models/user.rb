@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
                      age_from: 1, age_to: 100)
     age_range = age_to.years.ago.to_date..age_from.years.ago.to_date
     User.where.not(id: self.id)
-      .where(payment_preference: User.payment_preferences[payment_preference.to_sym])
+      .where(payment_preference: user_payment_preferences(payment_preference))
       .where(gender: interested_in_preferences(interested_in))
       .where(date_of_birth: age_range)
       .order(created_at: :desc)
@@ -98,6 +98,30 @@ class User < ActiveRecord::Base
 
   def gender_preferences
     user_gender_preferences(self.interested_to_meet)
+  end
+
+  def user_payment_preferences(preference)
+    if preference.to_sym == :anything_goes || preference.to_sym == :paying
+      [
+        User.payment_preferences[:anything_goes],
+        User.payment_preferences[:paying],
+        User.payment_preferences[:not_paying],
+        User.payment_preferences[:split_bill]
+      ]
+    elsif preference.to_sym == :not_paying
+      [
+        User.payment_preferences[:anything_goes],
+        User.payment_preferences[:paying]
+      ]
+    elsif preference.to_sym == :split_bill
+      [
+        User.payment_preferences[:anything_goes],
+        User.payment_preferences[:paying],
+        User.payment_preferences[:split_bill]
+      ]
+    else
+      []
+    end
   end
 
   def user_gender_preferences(preference)
