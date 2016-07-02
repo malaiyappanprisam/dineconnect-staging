@@ -42,4 +42,22 @@ class Restaurant < ActiveRecord::Base
   def lat
     self[:location].to_s.gsub("POINT (", "").gsub(")", "").split(" ").second
   end
+
+  def self.explore_places(filter: nil,
+                          food_type_ids: "",
+                          facility_ids: "")
+    restaurants = Restaurant
+    if search.present?
+      restaurants = restaurants.fuzzy_search(name: filter)
+    end
+    if food_type_ids.present?
+      food_type_ids_array = food_type_ids.split(",").map(&:to_i)
+      restaurants = restaurants.joins(:food_types).where(food_types_restaurants: { food_type_id: food_type_ids_array })
+    end
+    if facility_ids.present?
+      facility_ids_array = facility_ids.split(",").map(&:to_i)
+      restaurants = restaurants.joins(:facilities).where(facilities_restaurants: { facility_id: facility_ids_array })
+    end
+    restaurants = restaurants.limit(20).order(id: :desc)
+  end
 end

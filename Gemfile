@@ -67,4 +67,5 @@ gem "jquery-inputmask-rails", github: "knapo/jquery-inputmask-rails"
 gem "newrelic_rpm"
 gem "acts_as_votable"
 gem "rack-timeout"
-gem 'sucker_punch', '~> 2.0'
+gem "sucker_punch", "~> 2.0"
+gem "textacular", "~> 3.0"

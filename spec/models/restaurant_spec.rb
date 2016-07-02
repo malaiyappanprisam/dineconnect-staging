@@ -34,4 +34,42 @@ describe Restaurant do
       end
     end
   end
+
+  describe "#explore_places" do
+    context "with filter" do
+      let!(:restaurant) { create :restaurant, name: "Burger King" }
+
+      it "returns restaurant that contain that name" do
+        expect(Restaurant.explore_places(filter: "burger")).to include(restaurant)
+      end
+    end
+
+    context "with food_type_ids" do
+      let!(:food_types) { create_list :food_type, 2 }
+      let!(:restaurant_1) { create :restaurant, food_types: [food_types.first] }
+      let!(:restaurant_2) { create :restaurant, food_types: [food_types.second] }
+      let!(:restaurant_3) { create :restaurant }
+      let(:food_type_ids) { food_types.map(&:id).join(", ") }
+
+      it "returns restaurant that have that food type" do
+        expect(Restaurant.explore_places(food_type_ids: food_type_ids)).to include(restaurant_1)
+        expect(Restaurant.explore_places(food_type_ids: food_type_ids)).to include(restaurant_2)
+        expect(Restaurant.explore_places(food_type_ids: food_type_ids)).not_to include(restaurant_3)
+      end
+    end
+
+    context "with facility_ids" do
+      let!(:facilities) { create_list :facility, 2 }
+      let!(:restaurant_1) { create :restaurant, facilities: [facilities.first] }
+      let!(:restaurant_2) { create :restaurant, facilities: [facilities.second] }
+      let!(:restaurant_3) { create :restaurant }
+      let(:facility_ids) { facilities.map(&:id).join(", ") }
+
+      it "returns restaurant that have that facility" do
+        expect(Restaurant.explore_places(facility_ids: facility_ids)).to include(restaurant_1)
+        expect(Restaurant.explore_places(facility_ids: facility_ids)).to include(restaurant_2)
+        expect(Restaurant.explore_places(facility_ids: facility_ids)).not_to include(restaurant_3)
+      end
+    end
+  end
 end

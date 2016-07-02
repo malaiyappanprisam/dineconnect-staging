@@ -50,4 +50,17 @@ describe Api::ExploreController do
       expect(assigns(:users)).to be_present
     end
   end
+
+  describe "GET /places_options.json" do
+    it "returns ok" do
+      create :food_type
+      create :facility
+
+      get :places_options, format: :json
+
+      expect(response).to have_http_status(:ok)
+      expect(assigns(:food_types)).to be_present
+      expect(assigns(:facilities)).to be_present
+    end
+  end
 end
