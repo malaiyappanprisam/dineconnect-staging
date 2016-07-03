@@ -298,6 +298,12 @@ describe User do
         expect(user.explore_people(age_from: 35, age_to: 99)).not_to include(age_31_35)
         expect(user.explore_people(age_from: 35, age_to: 99)).to include(age_35_above)
       end
+
+      context "with string age" do
+        it "doesn't error" do
+          expect(user.explore_people(age_from: "35", age_to: "99")).to include(age_35_above)
+        end
+      end
     end
   end
 
