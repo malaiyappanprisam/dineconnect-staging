@@ -38,9 +38,11 @@ describe Restaurant do
   describe "#explore_places" do
     context "with filter" do
       let!(:restaurant) { create :restaurant, name: "Burger King" }
+      let!(:noise_restaurant) { create :restaurant, name: "Pizza King" }
 
       it "returns restaurant that contain that name" do
         expect(Restaurant.explore_places(filter: "burger")).to include(restaurant)
+        expect(Restaurant.explore_places(filter: "burger")).not_to include(noise_restaurant)
       end
     end
 

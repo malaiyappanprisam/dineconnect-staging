@@ -47,7 +47,7 @@ class Restaurant < ActiveRecord::Base
                           food_type_ids: "",
                           facility_ids: "")
     restaurants = Restaurant
-    if search.present?
+    if filter.present?
       restaurants = restaurants.fuzzy_search(name: filter)
     end
     if food_type_ids.present?
