@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe FoodTypesController do
-  let(:user) { create :user }
+  let(:user) { create :user, role: :admin }
   let(:food_type) { create :food_type }
 
   before do

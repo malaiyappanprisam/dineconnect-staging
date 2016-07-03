@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe UsersController do
-  let(:user) { create :user }
+  let(:user) { create :user, role: :admin }
 
   before do
     sign_in_as(user)

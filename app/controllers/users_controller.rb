@@ -3,14 +3,17 @@ class UsersController < ApplicationController
 
   def index
     @users = User.page(params[:page])
+    authorize @users
   end
 
   def new
     @user = User.new
+    authorize @user
   end
 
   def create
     @user = User.new(user_params)
+    authorize @user
     if @user.save
       redirect_to user_path(@user), info: "Success"
     else
@@ -20,18 +23,22 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    authorize @user
   end
 
   def edit
     @user = User.find(params[:id])
+    authorize @user
   end
 
   def reset_password
     @user = User.find(params[:id])
+    authorize @user
   end
 
   def update
     @user = User.find(params[:id])
+    authorize @user
     if @user.update(user_params)
       redirect_to user_path(@user), info: "Success"
     else
@@ -41,6 +48,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+    authorize @user
     @user.destroy
     redirect_to users_path, info: "Success"
   end

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe RestaurantsController do
-  let(:user) { create :user }
+  let(:user) { create :user, role: :admin }
   let(:restaurant) { create :restaurant }
 
   before do

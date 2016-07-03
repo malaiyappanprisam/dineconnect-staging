@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   enum residence_status: [:local, :expat, :out_of_town]
   enum interested_to_meet: [:both_male_and_female, :only_male, :only_female]
   enum payment_preference: [:anything_goes, :paying, :not_paying, :split_bill]
+  enum role: [:user, :admin]
 
   after_create :generate_channel_group
 

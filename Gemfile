@@ -38,6 +38,7 @@ end
 
 group :test do
   gem "timecop"
+  gem "pundit-matchers", "~> 1.1.0"
 end
 
 group :production do
@@ -69,3 +70,4 @@ gem "acts_as_votable"
 gem "rack-timeout"
 gem "sucker_punch", "~> 2.0"
 gem "textacular", "~> 3.0"
+gem "pundit"

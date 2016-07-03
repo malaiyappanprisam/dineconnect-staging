@@ -3,14 +3,17 @@ class RestaurantsController < ApplicationController
 
   def index
     @restaurants = Restaurant.order(updated_at: :desc).page(params[:page])
+    authorize @restaurants
   end
 
   def new
     @restaurant = Restaurant.new
+    authorize @restaurant
   end
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
+    authorize @restaurant
     if @restaurant.save
       redirect_to restaurant_path(@restaurant), info: "Success"
     else
@@ -20,14 +23,17 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
   end
 
   def edit
     @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
   end
 
   def update
     @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
     if @restaurant.update(restaurant_params)
       redirect_to restaurant_path(@restaurant), info: "Success"
     else
@@ -37,6 +43,7 @@ class RestaurantsController < ApplicationController
 
   def destroy
     @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
     @restaurant.destroy
     redirect_to restaurants_path, info: "Success"
   end
