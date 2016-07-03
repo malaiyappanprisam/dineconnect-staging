@@ -82,6 +82,7 @@ describe Api::ProfileController do
     let!(:user) { create :user, email: "email@example.org" }
 
     it "returns ok and send email" do
+      sign_out
       expect_any_instance_of(Api::ProfileController).to receive(:deliver_email)
       post :forgot_password, format: :json, password: { email: "email@example.org" }
 
