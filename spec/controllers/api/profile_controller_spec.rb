@@ -78,6 +78,17 @@ describe Api::ProfileController do
     end
   end
 
+  describe "POST /profile/forgot_password.json" do
+    let!(:user) { create :user, email: "email@example.org" }
+
+    it "returns ok and send email" do
+      expect_any_instance_of(Api::ProfileController).to receive(:deliver_email)
+      post :forgot_password, format: :json, password: { email: "email@example.org" }
+
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
   describe "PATCH /profile/password.json" do
     context "success" do
       let(:user_params) do

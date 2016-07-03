@@ -49,6 +49,7 @@ Rails.application.routes.draw do
     post "/check_auth", to: "tokens#check", as: "check_auth"
     patch "/profile/detail", to: "profile#detail", as: "profile_detail"
     patch "/profile/avatar", to: "profile#avatar", as: "profile_avatar"
+    post "/profile/forgot_password", to: "profile#forgot_password", as: "profile_forgot_password"
     patch "/profile/password", to: "profile#password", as: "profile_password"
     post "/profile/photos", to: "profile/photos#create", as: "profile_photos"
     delete "/profile/photos/:id", to: "profile/photos#destroy", as: "destroy_profile_photos"

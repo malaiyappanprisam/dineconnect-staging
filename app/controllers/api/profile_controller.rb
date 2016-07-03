@@ -1,6 +1,6 @@
 class Api::ProfileController < ApiController
   skip_before_action :verify_authenticity_token
-  before_action :authenticate_token!
+  before_action :authenticate_token!, except: [:forgot_password]
 
   def detail
     @user = current_user
@@ -18,6 +18,14 @@ class Api::ProfileController < ApiController
     else
       render json: { errors: @user.errors }.to_json, status: :unprocessable_entity
     end
+  end
+
+  def forgot_password
+    if user = find_user_for_create
+      user.forgot_password!
+      deliver_email(user)
+    end
+    render json: {}, status: :ok
   end
 
   def password
@@ -49,5 +57,20 @@ class Api::ProfileController < ApiController
 
   def current_user
     @current_user
+  end
+
+  def find_user_for_create
+    Clearance.configuration.user_model.
+      find_by_normalized_email params[:password][:email]
+  end
+
+  def deliver_email(user)
+    mail = ::ClearanceMailer.change_password(user)
+
+    if mail.respond_to?(:deliver_later)
+      mail.deliver_later
+    else
+      mail.deliver
+    end
   end
 end
