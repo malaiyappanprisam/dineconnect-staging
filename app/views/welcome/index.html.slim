@@ -4,7 +4,7 @@
   h1
     = t :welcome
 
-  - if signed_in?
+  - if signed_in? && current_user.admin?
 
     .table-responsive
       table.table.tile.table-striped
@@ -30,6 +30,9 @@
 
     = paginate @users
 
+  - elsif signed_in?
+    p
+      |Please go to the application.
   - else
     p
       = link_to sign_in_path, class: 'btn btn-primary btn-lg' do

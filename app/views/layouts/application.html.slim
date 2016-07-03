@@ -19,7 +19,7 @@ html
             .glyphicon.glyphicon-scale
             | Dineconnect
         #navbar.navbar-collapse.collapse
-          - if signed_in?
+          - if signed_in? && current_user.admin?
             ul.nav.navbar-nav
               li
                 a.dropdown-toggle data-toggle='dropdown' role='button' aria-expanded='false'
@@ -43,6 +43,7 @@ html
                     = link_to facilities_path do
                       .glyphicon.glyphicon-list
                       = Facility.model_name.human
+          - if signed_in?
             ul.nav.navbar-nav.pull-right
               li
                 = link_to sign_out_path, method: :delete do
