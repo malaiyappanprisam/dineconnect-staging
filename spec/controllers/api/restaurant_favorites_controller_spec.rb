@@ -13,23 +13,25 @@ describe Api::RestaurantFavoritesController do
 
   describe "POST /create.json" do
     context "success" do
-      it "returns 200" do
-        expect {
-          post :create, format: :json, restaurant_id: restaurant.id
-        }.to change(restaurant.get_likes, :size).by(1)
+      context "not favorited yet" do
+        it "returns 200" do
+          expect {
+            post :create, format: :json, restaurant_id: restaurant.id
+          }.to change(restaurant.get_likes, :size).by(1)
 
-        expect(response).to have_http_status(:ok)
+          expect(response).to have_http_status(:ok)
+        end
       end
-    end
 
-    context "failure" do
-      it "returns 422" do
-        user.likes restaurant
-        expect {
-          post :create, format: :json, restaurant_id: restaurant.id
-        }.to change(restaurant.get_likes, :size).by(0)
+      context "already favorited" do
+        it "returns 200" do
+          user.likes restaurant
+          expect {
+            post :create, format: :json, restaurant_id: restaurant.id
+          }.to change(restaurant.get_likes, :size).by(-1)
 
-        expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:ok)
+        end
       end
     end
   end

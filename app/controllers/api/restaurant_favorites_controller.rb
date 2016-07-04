@@ -4,12 +4,12 @@ class Api::RestaurantFavoritesController < ApiController
 
   def create
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @restaurant.liked_by current_user
-    if @restaurant.vote_registered?
-      render nothing: true, status: :ok
+    if current_user.voted_for? @restaurant
+      @restaurant.unliked_by current_user
     else
-      render nothing: true, status: :unprocessable_entity
+      @restaurant.liked_by current_user
     end
+    render nothing: true, status: :ok
   end
 
   def destroy
