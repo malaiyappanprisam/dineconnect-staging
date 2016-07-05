@@ -8,5 +8,7 @@
       .form-actions
         .form-group
           .col-sm-offset-3.col-sm-9
-            = f.button :submit, class: 'btn btn-primary' do
-              Save
+            - if @food_type.new_record?
+              = f.button :submit, t(:create_food_type), class: 'btn btn-primary'
+            - else
+              = f.button :submit, t(:update_food_type), class: 'btn btn-primary'

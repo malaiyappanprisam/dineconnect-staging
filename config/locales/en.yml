@@ -21,3 +21,5 @@ en:
   create_user: "Create Member"
   update_user: "Update Member"
   reset_password: "Reset Password"
+  create_food_type: "Create Food Type"
+  update_food_type: "Update Food Type"
