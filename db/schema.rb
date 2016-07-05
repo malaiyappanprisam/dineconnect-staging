@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160704232817) do
+ActiveRecord::Schema.define(version: 20160705092725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 20160704232817) do
     t.datetime  "updated_at",                                                            null: false
     t.string    "area"
     t.integer   "people_count"
-    t.decimal   "average_cost"
+    t.integer   "average_cost"
     t.string    "cover_id"
     t.geography "location",     limit: {:srid=>4326, :type=>"point", :geographic=>true}
   end
