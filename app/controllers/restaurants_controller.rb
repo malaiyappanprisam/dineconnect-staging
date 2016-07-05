@@ -6,7 +6,9 @@ class RestaurantsController < ApplicationController
     if params[:search].present?
       @restaurants = @restaurants.fuzzy_search(params[:search])
     end
-    @restaurants = @restaurants.order(updated_at: :desc).page(params[:page])
+    @q = @restaurants.ransack(params[:q])
+    @restaurants = @q.result(distinct: true)
+    @restaurants = @restaurants.order(created_at: :desc).page(params[:page])
     authorize @restaurants
   end
 
