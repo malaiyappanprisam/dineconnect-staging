@@ -7,6 +7,8 @@
   h1
     = Restaurant.model_name.human
 
+= render 'filter', url: restaurants_path
+
 .table-responsive
   table.table.tile.table-striped
     thead

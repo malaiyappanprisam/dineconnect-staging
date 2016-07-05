@@ -20,6 +20,8 @@ en:
         known_for_list: "Known For"
         food_types: "Food Types"
         photos_files: "Images"
+  filter: "Filter"
+  reset: "Reset"
   add_user: "Add Member"
   new_user: "New Members"
   edit_user: "Edit Member"

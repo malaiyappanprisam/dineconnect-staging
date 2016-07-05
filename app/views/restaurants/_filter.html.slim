@@ -1,0 +1,15 @@
+= simple_form_for(:search, url: url, class: "form-horizontal", method: :get) do |f|
+  .col
+    .col-sm-6
+      = f.input :name
+
+      br
+
+      .form-actions
+        .form-group
+          .col-sm-offset-3.col-sm-9
+            = f.button :submit, t(:filter), class: 'btn btn-primary'
+            = link_to t(:reset), url, class: 'btn'
+
+.clearfix
+hr

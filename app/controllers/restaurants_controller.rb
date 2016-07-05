@@ -2,7 +2,11 @@ class RestaurantsController < ApplicationController
   before_action :require_login
 
   def index
-    @restaurants = Restaurant.order(updated_at: :desc).page(params[:page])
+    @restaurants = Restaurant
+    if params[:search].present?
+      @restaurants = @restaurants.fuzzy_search(params[:search])
+    end
+    @restaurants = @restaurants.order(updated_at: :desc).page(params[:page])
     authorize @restaurants
   end
 

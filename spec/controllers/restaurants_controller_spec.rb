@@ -17,6 +17,17 @@ describe RestaurantsController do
       expect(response).to render_template(:index)
       expect(assigns(:restaurants)).to be_present
     end
+
+    it "returns search results" do
+      burger_restaurant = create :restaurant, name: "Burger King"
+      get :index, search: { name: "burger" }
+
+      expect(response).to have_http_status(:ok)
+      expect(response).to render_template(:index)
+      expect(assigns(:restaurants)).to be_present
+      expect(assigns(:restaurants)).to include burger_restaurant
+      expect(assigns(:restaurants)).not_to include restaurant
+    end
   end
 
   describe "GET /new" do
