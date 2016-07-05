@@ -14,6 +14,12 @@ en:
         residence_status: "Residence Status"
         interested_to_meet: "Interested To Meet"
         payment_preference: "Payment Preference"
+      restaurant:
+        people_count: "# People"
+        average_cost: "Average Cost"
+        known_for_list: "Known For"
+        food_types: "Food Types"
+        photos_files: "Images"
   add_user: "Add Member"
   new_user: "New Members"
   edit_user: "Edit Member"
