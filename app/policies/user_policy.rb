@@ -27,6 +27,14 @@ class UserPolicy < ApplicationPolicy
     index?
   end
 
+  def activate?
+    index?
+  end
+
+  def deactivate?
+    index?
+  end
+
   def destroy?
     index?
   end

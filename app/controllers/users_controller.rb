@@ -52,6 +52,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def activate
+    @user = User.find(params[:id])
+    authorize @user
+    @user.update(active: true)
+    redirect_to user_path(@user), info: "User activated"
+  end
+
+  def deactivate
+    @user = User.find(params[:id])
+    authorize @user
+    @user.update(active: false)
+    redirect_to user_path(@user), info: "User deactivated"
+  end
+
   def destroy
     @user = User.find(params[:id])
     authorize @user

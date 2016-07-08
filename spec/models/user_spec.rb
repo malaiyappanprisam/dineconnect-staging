@@ -40,6 +40,21 @@ describe User do
 
       expect(user.full_name).to eq("first last")
     end
+
+    it "removes all associations when inactive" do
+      user = create :user
+      other_user = create :user
+      restaurant = create :restaurant
+      user.generate_access_token("abcde")
+      Invite.create!(user: user, invitee: other_user)
+      restaurant.liked_by(user)
+
+      user.update(active: false)
+
+      expect(UserToken.count).to eq 0
+      expect(Invite.count).to eq 0
+      expect(restaurant.reload.find_votes_for.size).to eq 0
+    end
   end
 
   describe "after_create" do
@@ -48,6 +63,18 @@ describe User do
 
       user.save
       expect(user.reload.channel_group).to be_present
+    end
+  end
+
+  describe "scope" do
+    describe "#general" do
+      it "returns only active users" do
+        active_user = create :user, active: true
+        inactive_user = create :user, active: false
+
+        expect(User.general).to include(active_user)
+        expect(User.general).not_to include(inactive_user)
+      end
     end
   end
 

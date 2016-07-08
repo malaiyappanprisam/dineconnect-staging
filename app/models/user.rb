@@ -20,6 +20,9 @@ class User < ActiveRecord::Base
   enum payment_preference: [:anything_goes, :paying, :not_paying, :split_bill]
   enum role: [:user, :admin]
 
+  scope :general, -> { where(active: true) }
+
+  before_save :delete_all_associations_when_inactive
   before_save :combine_first_and_last_name
   after_create :generate_channel_group
 
@@ -29,7 +32,7 @@ class User < ActiveRecord::Base
       restaurant.find_votes_for.limit(limit).pluck(:voter_id)
     end.flatten
     if !favorited_user_ids.empty?
-      users = User.where(id: favorited_user_ids)
+      users = User.general.where(id: favorited_user_ids)
     end
     users
   end
@@ -67,7 +70,8 @@ class User < ActiveRecord::Base
   end
 
   def recommended_users
-    User.where.not(id: self.id)
+    User.general
+      .where.not(id: self.id)
       .where(gender: gender_preferences)
       .where(interested_to_meet: interested_to_meet_preferences)
       .order(created_at: :desc)
@@ -77,7 +81,8 @@ class User < ActiveRecord::Base
                      interested_in: :both_male_and_female,
                      age_from: 1, age_to: 100)
     age_range = age_to.to_i.years.ago.to_date..age_from.to_i.years.ago.to_date
-    User.where.not(id: self.id)
+    User.general
+      .where.not(id: self.id)
       .where(payment_preference: user_payment_preferences(payment_preference))
       .where(gender: interested_in_preferences(interested_in))
       .where(date_of_birth: age_range)
@@ -96,6 +101,12 @@ class User < ActiveRecord::Base
   private
   def combine_first_and_last_name
     self.full_name = "#{self.first_name} #{self.last_name}"
+  end
+
+  def delete_all_associations_when_inactive
+    UserToken.where(user: self).destroy_all
+    Invite.where("user_id = ? OR invitee_id = ?", self.id, self.id).destroy_all
+    ActsAsVotable::Vote.where(voter_id: self.id).destroy_all
   end
 
   def interested_in_preferences(preference)

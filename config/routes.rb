@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get :reset_password
+      patch :activate
+      patch :deactivate
     end
   end
   resources :restaurants do

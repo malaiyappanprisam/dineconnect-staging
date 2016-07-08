@@ -2,7 +2,7 @@ class Api::SessionsController < ApiController
   include Clearance::Authentication
 
   def create
-    @user = User.authenticate(session_params[:email], session_params[:password])
+    @user = User.general.authenticate(session_params[:email], session_params[:password])
     if @user
       @token = @user.access_token(params[:device_id])
       @token = @user.generate_access_token(params[:device_id]) unless @token

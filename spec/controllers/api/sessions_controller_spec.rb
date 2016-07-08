@@ -6,11 +6,11 @@ describe Api::SessionsController do
     stub_const("ENV", ENV.to_hash.merge("API_AUTH_KEY" => "abcdefg"))
     @request.headers["X-API-AUTH"] = "abcdefg"
 
-    create :user, password: "12345", email: "example@example.com"
   end
 
   describe "POST /login" do
     context "Success" do
+      let!(:user) { create :user, password: "12345", email: "example@example.com" }
       before do 
         json = {
           session: {
@@ -38,6 +38,7 @@ describe Api::SessionsController do
     end
 
     context "Failed" do
+      let!(:user) { create :user, password: "12345", email: "example@example.com" }
       before do
         json = {
           session: {
@@ -53,6 +54,24 @@ describe Api::SessionsController do
         expect(response).to have_http_status :unauthorized
       end
     end
-  end
 
+    context "user inactive" do
+      let!(:user) { create :user, active: false, password: "12345", email: "example@example.com" }
+      before do
+        json = {
+          session: {
+            email: "example@example.com",
+            password: "12345"
+          }
+        }
+        post :create, json.to_json, json.merge(format: :json)
+      end
+
+      subject { response }
+
+      it "return 400" do
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+  end
 end

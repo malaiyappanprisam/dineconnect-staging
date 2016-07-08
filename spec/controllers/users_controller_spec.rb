@@ -18,7 +18,7 @@ describe UsersController do
 
     it "returns search results" do
       new_user = create :user, first_name: "First", last_name: "Last"
-      get :index, search: { name: "first" }
+      get :index, search: { full_name: "first" }
 
       expect(response).to have_http_status(:ok)
       expect(response).to render_template(:index)
@@ -138,6 +138,29 @@ describe UsersController do
         patch :update, id: user.id, user: { email: "a" }
 
         expect(response).to render_template(:edit)
+      end
+    end
+  end
+
+  describe "PATCH /activate" do
+    context "success" do
+      it "update user to active" do
+        user.update(active: false)
+        patch :activate, id: user.id
+
+        expect(response).to redirect_to(user_path(user))
+        expect(user.reload.active).to be_truthy
+      end
+    end
+  end
+
+  describe "PATCH /deactivate" do
+    context "success" do
+      it "update user to inactive" do
+        patch :deactivate, id: user.id
+
+        expect(response).to redirect_to(user_path(user))
+        expect(user.reload.active).to be_falsey
       end
     end
   end
