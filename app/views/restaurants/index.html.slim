@@ -6,6 +6,8 @@
         = t :add_restaurant
   h1
     = Restaurant.model_name.human
+    span.label.label-default
+      = Restaurant.count
 
 = render 'filter', url: restaurants_path
 

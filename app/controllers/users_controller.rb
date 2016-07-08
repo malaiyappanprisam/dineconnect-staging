@@ -2,7 +2,13 @@ class UsersController < ApplicationController
   before_action :require_login
 
   def index
-    @users = User.page(params[:page])
+    @users = User
+    if params[:search].present?
+      @users = @users.fuzzy_search(params[:search])
+    end
+    @q = @users.ransack(params[:q])
+    @users = @q.result(distinct: true)
+    @users = @users.order(created_at: :desc).page(params[:page])
     authorize @users
   end
 

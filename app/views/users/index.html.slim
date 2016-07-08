@@ -6,14 +6,22 @@
         = t :add_user
   h1
     = User.model_name.human
+    span.label.label-default
+      = User.count
+
+= render 'filter', url: users_path
 
 .table-responsive
   table.table.tile.table-striped
     thead
       tr
-        th Last Name
-        th First Name
+        th
+          = sort_link(@q, :last_name)
+        th
+          = sort_link(@q, :first_name)
         th Email
+        th
+          = sort_link(@q, :created_at, "Member Since", default_order: :desc)
         th.actions Actions
     tbody
     - @users.each do |user|
@@ -24,6 +32,8 @@
           = user.first_name
         td
           = user.email
+        td
+          = I18n.l(user.created_at, format: :long)
         td.actions
           = link_to user, class: 'btn btn-info btn-xs' do
             span.glyphicon.glyphicon-eye-open

@@ -30,6 +30,18 @@ describe User do
     expect(user.favorite_food_list).to include("pasta")
   end
 
+  describe "before_save" do
+    it "combine first and last name to full name" do
+      user = build :user
+      user.first_name = "first"
+      user.last_name = "last"
+
+      user.save
+
+      expect(user.full_name).to eq("first last")
+    end
+  end
+
   describe "after_create" do
     it "generate channel_group" do
       user = build :user

@@ -6,6 +6,8 @@
         = t :add_facility
   h1
     = Facility.model_name.human
+    span.label.label-default
+      = Facility.count
 
 .table-responsive
   table.table.tile.table-striped

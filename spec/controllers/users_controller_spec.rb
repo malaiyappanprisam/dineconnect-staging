@@ -15,6 +15,17 @@ describe UsersController do
       expect(response).to render_template(:index)
       expect(assigns(:users)).to be_present
     end
+
+    it "returns search results" do
+      new_user = create :user, first_name: "First", last_name: "Last"
+      get :index, search: { name: "first" }
+
+      expect(response).to have_http_status(:ok)
+      expect(response).to render_template(:index)
+      expect(assigns(:users)).to be_present
+      expect(assigns(:users)).to include new_user
+      expect(assigns(:users)).not_to include user
+    end
   end
 
   describe "GET /new" do

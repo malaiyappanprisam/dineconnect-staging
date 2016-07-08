@@ -24,7 +24,7 @@ class ApiController < ActionController::Base
   end
 
   private
-  def json_request? 
+  def json_request?
     request.format.json?
   end
 

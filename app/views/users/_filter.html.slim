@@ -1,8 +1,8 @@
 = simple_form_for(:search, url: url, class: "form-horizontal", method: :get) do |f|
   .col
     .col-sm-6
-      = f.input :name, label: "Name",
-        input_html: { value: params.fetch(:search, {})[:name] }
+      = f.input :full_name, label: "Name",
+        input_html: { value: params.fetch(:search, {})[:full_name] }
 
       br
 

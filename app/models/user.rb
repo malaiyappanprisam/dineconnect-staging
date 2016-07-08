@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   enum payment_preference: [:anything_goes, :paying, :not_paying, :split_bill]
   enum role: [:user, :admin]
 
+  before_save :combine_first_and_last_name
   after_create :generate_channel_group
 
   def self.favorited_on(restaurants, limit = 6)
@@ -93,6 +94,10 @@ class User < ActiveRecord::Base
   end
 
   private
+  def combine_first_and_last_name
+    self.full_name = "#{self.first_name} #{self.last_name}"
+  end
+
   def interested_in_preferences(preference)
     user_gender_preferences(preference)
   end

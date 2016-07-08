@@ -6,6 +6,8 @@
         = t :add_food_type
   h1
     = FoodType.model_name.human
+    span.label.label-default
+      = FoodType.count
 
 .table-responsive
   table.table.tile.table-striped
