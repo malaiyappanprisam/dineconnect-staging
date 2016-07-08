@@ -104,9 +104,11 @@ class User < ActiveRecord::Base
   end
 
   def delete_all_associations_when_inactive
-    UserToken.where(user: self).destroy_all
-    Invite.where("user_id = ? OR invitee_id = ?", self.id, self.id).destroy_all
-    ActsAsVotable::Vote.where(voter_id: self.id).destroy_all
+    if active_changed? && self.active == false
+      UserToken.where(user: self).destroy_all
+      Invite.where("user_id = ? OR invitee_id = ?", self.id, self.id).destroy_all
+      ActsAsVotable::Vote.where(voter_id: self.id).destroy_all
+    end
   end
 
   def interested_in_preferences(preference)
