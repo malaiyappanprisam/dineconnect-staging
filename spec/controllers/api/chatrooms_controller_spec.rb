@@ -22,6 +22,16 @@ describe Api::ChatroomsController do
       expect(assigns(:users)).to be_present
       expect(assigns(:restaurants)).to be_present
       expect(assigns(:users)).to include(user)
+      expect(assigns(:users)).to include(another_user)
+    end
+
+    context "empty invites" do
+      it "returns 200" do
+        create :invite, user: another_user, invitee: user, restaurant: restaurant, status: :accept
+        get :index, format: :json
+
+        expect(response).to have_http_status(:ok)
+      end
     end
   end
 end
