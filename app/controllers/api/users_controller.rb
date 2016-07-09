@@ -16,7 +16,7 @@ class Api::UsersController < ApiController
   end
 
   def recommended_restaurants
-    @restaurants = Restaurant.order(id: :desc)
+    @restaurants = Restaurant.general.order(id: :desc)
     @users = User.favorited_on(@restaurants)
     @users.push(current_user)
   end

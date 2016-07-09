@@ -47,6 +47,21 @@ class RestaurantsController < ApplicationController
     end
   end
 
+
+  def activate
+    @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
+    @restaurant.update(active: true)
+    redirect_to restaurant_path(@restaurant), info: "Restaurant activated"
+  end
+
+  def deactivate
+    @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
+    @restaurant.update(active: false)
+    redirect_to restaurant_path(@restaurant), info: "Restaurant deactivated"
+  end
+
   def destroy
     @restaurant = Restaurant.find(params[:id])
     authorize @restaurant

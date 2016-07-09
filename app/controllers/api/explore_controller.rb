@@ -6,7 +6,7 @@ class Api::ExploreController < ApiController
   end
 
   def nearby
-    @restaurants = Restaurant
+    @restaurants = Restaurant.general
     if params[:lat].present? && params[:long].present?
       @restaurants = @restaurants.nearby(params[:lat], params[:long], params[:distance])
     else

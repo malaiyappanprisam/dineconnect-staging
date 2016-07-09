@@ -3,7 +3,7 @@ class Api::RestaurantFavoritesController < ApiController
   before_action :authenticate_token!
 
   def create
-    @restaurant = Restaurant.find(params[:restaurant_id])
+    @restaurant = Restaurant.general.find(params[:restaurant_id])
     if current_user.voted_for? @restaurant
       @restaurant.unliked_by current_user
     else

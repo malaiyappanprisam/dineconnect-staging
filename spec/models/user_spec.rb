@@ -49,6 +49,12 @@ describe User do
       Invite.create!(user: user, invitee: other_user)
       restaurant.liked_by(user)
 
+      user.update(active: true)
+
+      expect(UserToken.count).to eq 1
+      expect(Invite.count).to eq 1
+      expect(restaurant.reload.find_votes_for.size).to eq 1
+
       user.update(active: false)
 
       expect(UserToken.count).to eq 0

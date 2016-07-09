@@ -33,6 +33,20 @@
           = link_to edit_restaurant_path(restaurant), class: 'btn btn-warning btn-xs' do
             span.glyphicon.glyphicon-edit
             | Edit
+
+          - if !restaurant.active?
+            = link_to activate_restaurant_path(restaurant), method: :patch,
+              data: { confirm: 'Activate this restaurant?' },
+              class: 'btn btn-info btn-xs' do
+              span.glyphicon.glyphicon-edit
+              | Activate
+          - else
+            = link_to deactivate_restaurant_path(restaurant), method: :patch,
+              data: { confirm: 'Deactivate this restaurant?' },
+              class: 'btn btn-danger btn-xs' do
+              span.glyphicon.glyphicon-edit
+              | Deactivate
+
           = link_to restaurant, method: :delete, data: { confirm: 'Are you sure?' },
           class: 'btn btn-danger btn-xs' do
             span.glyphicon.glyphicon-trash

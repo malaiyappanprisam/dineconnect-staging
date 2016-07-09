@@ -13,13 +13,17 @@ class Restaurant < ActiveRecord::Base
   accepts_nested_attributes_for(:open_schedules)
   accepts_attachments_for :photos, attachment: :file, append: true
 
+  before_save :delete_all_associations_when_inactive
+
+  scope :general, -> { where(active: true) }
+
   scope :nearby, -> lat, long, distance = 10_000 do
     sql = <<-sql
     ST_Dwithin(restaurants.location::geography,
     ST_GeogFromText('POINT(#{long} #{lat})'), ?)
     sql
 
-    where(sql, distance)
+    where(sql, distance).where(active: true)
   end
 
   def location=(latlong)
@@ -46,7 +50,7 @@ class Restaurant < ActiveRecord::Base
   def self.explore_places(filter: nil,
                           food_type_ids: "",
                           facility_ids: "")
-    restaurants = Restaurant
+    restaurants = Restaurant.general
     if filter.present?
       restaurants = restaurants.fuzzy_search(name: filter)
     end
@@ -59,5 +63,14 @@ class Restaurant < ActiveRecord::Base
       restaurants = restaurants.joins(:facilities).where(facilities_restaurants: { facility_id: facility_ids_array })
     end
     restaurants = restaurants.limit(20).order(id: :desc)
+  end
+
+  private
+  def delete_all_associations_when_inactive
+    if active_changed? && self.active == false
+      food_types.destroy_all
+      facilities.destroy_all
+      ActsAsVotable::Vote.where(votable_id: self.id).destroy_all
+    end
   end
 end

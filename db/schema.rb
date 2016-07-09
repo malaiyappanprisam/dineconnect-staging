@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160708145450) do
+ActiveRecord::Schema.define(version: 20160709065254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,13 +89,14 @@ ActiveRecord::Schema.define(version: 20160708145450) do
   create_table "restaurants", force: :cascade do |t|
     t.string    "name"
     t.text      "address"
-    t.datetime  "created_at",                                                            null: false
-    t.datetime  "updated_at",                                                            null: false
+    t.datetime  "created_at",                                                                            null: false
+    t.datetime  "updated_at",                                                                            null: false
     t.string    "area"
     t.integer   "people_count"
     t.integer   "average_cost"
     t.string    "cover_id"
     t.geography "location",     limit: {:srid=>4326, :type=>"point", :geographic=>true}
+    t.boolean   "active",                                                                default: false, null: false
   end
 
   create_table "taggings", force: :cascade do |t|

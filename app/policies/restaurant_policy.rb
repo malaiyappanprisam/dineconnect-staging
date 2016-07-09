@@ -23,6 +23,14 @@ class RestaurantPolicy < ApplicationPolicy
     index?
   end
 
+  def activate?
+    index?
+  end
+
+  def deactivate?
+    index?
+  end
+
   def reset_password?
     index?
   end

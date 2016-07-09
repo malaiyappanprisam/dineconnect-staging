@@ -14,6 +14,8 @@ describe RestaurantPolicy do
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:reset_password) }
     it { is_expected.to forbid_action(:update) }
+    it { is_expected.to forbid_action(:activate) }
+    it { is_expected.to forbid_action(:deactivate) }
     it { is_expected.to forbid_action(:destroy) }
   end
 
@@ -26,6 +28,8 @@ describe RestaurantPolicy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:reset_password) }
     it { is_expected.to permit_action(:update) }
+    it { is_expected.to permit_action(:activate) }
+    it { is_expected.to permit_action(:deactivate) }
     it { is_expected.to permit_action(:destroy) }
   end
 end

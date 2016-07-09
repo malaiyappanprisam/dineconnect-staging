@@ -35,14 +35,38 @@ describe Restaurant do
     end
   end
 
+  describe "before_save" do
+    it "removes all associations when inactive" do
+      food_type_list = create_list :food_type, 1
+      facility_list = create_list :facility, 1
+      user = create :user
+      restaurant = create :restaurant, food_types: food_type_list, facilities: facility_list
+      restaurant.liked_by user
+
+      restaurant.update(active: true)
+      expect(restaurant.reload.food_types.count).to eq 1
+      expect(restaurant.reload.facilities.count).to eq 1
+      expect(user.reload.find_voted_items.size).to eq 1
+
+      restaurant.update(active: false)
+      expect(restaurant.reload.food_types.count).to eq 0
+      expect(restaurant.reload.facilities.count).to eq 0
+      expect(FoodType.count).to eq 1
+      expect(Facility.count).to eq 1
+      expect(user.reload.find_voted_items.size).to eq 0
+    end
+  end
+
   describe "#explore_places" do
     context "with filter" do
       let!(:restaurant) { create :restaurant, name: "Burger King" }
+      let!(:inactive_restaurant) { create :restaurant, active: false, name: "Burger Queen" }
       let!(:noise_restaurant) { create :restaurant, name: "Pizza King" }
 
       it "returns restaurant that contain that name" do
         expect(Restaurant.explore_places(filter: "burger")).to include(restaurant)
         expect(Restaurant.explore_places(filter: "burger")).not_to include(noise_restaurant)
+        expect(Restaurant.explore_places(filter: "burger")).not_to include(inactive_restaurant)
       end
     end
 

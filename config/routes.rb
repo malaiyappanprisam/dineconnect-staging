@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   end
   resources :restaurants do
     resources :photos, only: [:destroy]
+    member do
+      patch :activate
+      patch :deactivate
+    end
   end
   resources :food_types
   resources :facilities

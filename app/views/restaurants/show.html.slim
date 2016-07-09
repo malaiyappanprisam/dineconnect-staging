@@ -8,12 +8,32 @@
         class: 'btn btn-warning' do
         i.glyphicon.glyphicon-edit
         = t('button.edit')
+
+      - if !@restaurant.active?
+        = link_to activate_restaurant_path(@restaurant), method: :patch,
+          data: { confirm: 'Activate this restaurant?' },
+          class: 'btn btn-info' do
+          span.glyphicon.glyphicon-edit
+          | Activate
+      - else
+        = link_to deactivate_restaurant_path(@restaurant), method: :patch,
+          data: { confirm: 'Deactivate this restaurant?' },
+          class: 'btn btn-danger' do
+          span.glyphicon.glyphicon-edit
+          | Deactivate
+
       = link_to @restaurant, :method => :delete, :data => { :confirm => 'Are you sure?' },
         class: 'btn btn-danger' do
         span.glyphicon.glyphicon-trash
         = t(:delete)
   h1
     = t :show_restaurant
+
+dl.dl-horizontal
+  dt
+    = Restaurant.human_attribute_name('active')
+  dd
+    = @restaurant.active
 
 dl.dl-horizontal
   dt

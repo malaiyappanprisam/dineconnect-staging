@@ -130,6 +130,30 @@ describe RestaurantsController do
     end
   end
 
+
+  describe "PATCH /activate" do
+    context "success" do
+      it "update user to active" do
+        restaurant.update(active: false)
+        patch :activate, id: restaurant.id
+
+        expect(response).to redirect_to(restaurant_path(restaurant))
+        expect(restaurant.reload.active).to be_truthy
+      end
+    end
+  end
+
+  describe "PATCH /deactivate" do
+    context "success" do
+      it "update user to inactive" do
+        patch :deactivate, id: restaurant.id
+
+        expect(response).to redirect_to(restaurant_path(restaurant))
+        expect(restaurant.reload.active).to be_falsey
+      end
+    end
+  end
+
   describe "DELETE /destroy" do
     context "success" do
       it "delete restaurant and redirect to index page" do
