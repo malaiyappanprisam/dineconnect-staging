@@ -6,7 +6,9 @@ json.average_cost restaurant.average_cost.to_f
 json.people_count restaurant.people_count.to_s
 json.known_for restaurant.known_for_list.to_a
 json.food_types restaurant.food_types.pluck(:name)
+json.food_types_ids restaurant.food_types.pluck(:id)
 json.facilities restaurant.facilities.pluck(:name)
+json.facilities_ids restaurant.facilities.pluck(:id)
 json.location restaurant.location.to_s
 json.long restaurant.long.to_s
 json.lat restaurant.lat.to_s
