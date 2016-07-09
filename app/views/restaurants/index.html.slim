@@ -18,6 +18,8 @@
         th
           = sort_link(@q, :name)
         th Address
+        th
+          = sort_link(@q, :created_at, "Added Since", default_order: :desc)
         th.actions Actions
     tbody
     - @restaurants.each do |restaurant|
@@ -26,6 +28,8 @@
           = restaurant.name
         td
           = restaurant.address
+        td
+          = I18n.l(restaurant.created_at, format: :long)
         td.actions
           = link_to restaurant, class: 'btn btn-info btn-xs' do
             span.glyphicon.glyphicon-eye-open
