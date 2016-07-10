@@ -6,8 +6,10 @@
         = t :add_user
   h1
     = User.model_name.human
-    span.label.label-default
-      = User.count
+    |&nbsp;&nbsp;
+    small
+      span.label.label-default
+        = User.count
 
 = render 'filter', url: users_path
 
@@ -38,25 +40,30 @@
           = link_to user, class: 'btn btn-info btn-xs' do
             span.glyphicon.glyphicon-eye-open
             | Show
+          |&nbsp;
           = link_to edit_user_path(user), class: 'btn btn-warning btn-xs' do
             span.glyphicon.glyphicon-edit
             | Edit
+          |&nbsp;
           - if !user.active?
             = link_to activate_user_path(user), method: :patch,
               data: { confirm: 'Activate this user?' },
               class: 'btn btn-info btn-xs' do
               span.glyphicon.glyphicon-edit
               | Activate
+            |&nbsp;
           - else
             = link_to deactivate_user_path(user), method: :patch,
               data: { confirm: 'Deactivate this user?' },
               class: 'btn btn-danger btn-xs' do
               span.glyphicon.glyphicon-edit
               | Deactivate
+            |&nbsp;
 
           = link_to user, method: :delete, data: { confirm: 'Are you sure?' },
             class: 'btn btn-danger btn-xs' do
             span.glyphicon.glyphicon-trash
             | Delete
+          |&nbsp;
 
 = paginate @users

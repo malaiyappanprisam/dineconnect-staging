@@ -61,13 +61,13 @@ dl.dl-horizontal
 
 dl.dl-horizontal
   dt
-    = Restaurant.human_attribute_name('price')
+    = Restaurant.human_attribute_name('price_sgd')
   dd
     = "#{@restaurant.average_cost} for #{@restaurant.people_count} people"
 
 dl.dl-horizontal
   dt
-    = Restaurant.human_attribute_name('known_for')
+    = Restaurant.human_attribute_name('known_for_list')
   dd
     = @restaurant.known_for_list.to_a.join(", ")
 
@@ -91,7 +91,7 @@ dl.dl-horizontal
 
 dl.dl-horizontal
   dt
-    = Restaurant.human_attribute_name('photos')
+    = Restaurant.human_attribute_name('photos_files')
   dd
     - @restaurant.photos.each do |photo|
       .col-md-2.col-sm-3

@@ -148,7 +148,7 @@ describe UsersController do
         user.update(active: false)
         patch :activate, id: user.id
 
-        expect(response).to redirect_to(user_path(user))
+        expect(response).to redirect_to(users_path)
         expect(user.reload.active).to be_truthy
       end
     end
@@ -159,7 +159,7 @@ describe UsersController do
       it "update user to inactive" do
         patch :deactivate, id: user.id
 
-        expect(response).to redirect_to(user_path(user))
+        expect(response).to redirect_to(users_path)
         expect(user.reload.active).to be_falsey
       end
     end

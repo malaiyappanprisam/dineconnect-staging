@@ -6,8 +6,10 @@
         = t :add_food_type
   h1
     = FoodType.model_name.human
-    span.label.label-default
-      = FoodType.count
+    |&nbsp;&nbsp;
+    small
+      span.label.label-default
+        = FoodType.count
 
 .table-responsive
   table.table.tile.table-striped
@@ -24,12 +26,15 @@
           = link_to food_type, class: 'btn btn-info btn-xs' do
             span.glyphicon.glyphicon-eye-open
             | Show
+          |&nbsp;
           = link_to edit_food_type_path(food_type), class: 'btn btn-warning btn-xs' do
             span.glyphicon.glyphicon-edit
             | Edit
+          |&nbsp;
           = link_to food_type, method: :delete, data: { confirm: 'Are you sure?' },
           class: 'btn btn-danger btn-xs' do
             span.glyphicon.glyphicon-trash
             | Delete
+          |&nbsp;
 
 = paginate @food_types

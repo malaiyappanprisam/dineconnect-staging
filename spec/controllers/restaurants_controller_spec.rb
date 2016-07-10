@@ -137,7 +137,7 @@ describe RestaurantsController do
         restaurant.update(active: false)
         patch :activate, id: restaurant.id
 
-        expect(response).to redirect_to(restaurant_path(restaurant))
+        expect(response).to redirect_to(restaurants_path)
         expect(restaurant.reload.active).to be_truthy
       end
     end
@@ -148,7 +148,7 @@ describe RestaurantsController do
       it "update user to inactive" do
         patch :deactivate, id: restaurant.id
 
-        expect(response).to redirect_to(restaurant_path(restaurant))
+        expect(response).to redirect_to(restaurants_path)
         expect(restaurant.reload.active).to be_falsey
       end
     end

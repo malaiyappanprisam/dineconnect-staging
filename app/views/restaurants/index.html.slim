@@ -6,8 +6,10 @@
         = t :add_restaurant
   h1
     = Restaurant.model_name.human
-    span.label.label-default
-      = Restaurant.count
+    |&nbsp;&nbsp;
+    small
+      span.label.label-default
+        = Restaurant.count
 
 = render 'filter', url: restaurants_path
 
@@ -34,9 +36,11 @@
           = link_to restaurant, class: 'btn btn-info btn-xs' do
             span.glyphicon.glyphicon-eye-open
             | Show
+          |&nbsp;
           = link_to edit_restaurant_path(restaurant), class: 'btn btn-warning btn-xs' do
             span.glyphicon.glyphicon-edit
             | Edit
+          |&nbsp;
 
           - if !restaurant.active?
             = link_to activate_restaurant_path(restaurant), method: :patch,
@@ -44,16 +48,19 @@
               class: 'btn btn-info btn-xs' do
               span.glyphicon.glyphicon-edit
               | Activate
+            |&nbsp;
           - else
             = link_to deactivate_restaurant_path(restaurant), method: :patch,
               data: { confirm: 'Deactivate this restaurant?' },
               class: 'btn btn-danger btn-xs' do
               span.glyphicon.glyphicon-edit
               | Deactivate
+            |&nbsp;
 
           = link_to restaurant, method: :delete, data: { confirm: 'Are you sure?' },
           class: 'btn btn-danger btn-xs' do
             span.glyphicon.glyphicon-trash
             | Delete
+          |&nbsp;
 
 = paginate @restaurants

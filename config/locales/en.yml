@@ -15,12 +15,14 @@ en:
         interested_to_meet: "Interested To Meet"
         payment_preference: "Payment Preference"
       restaurant:
+        price_sgd: "Price SGD"
         people_count: "# People"
         average_cost: "Average Cost"
         known_for_list: "Known For"
         food_types: "Food Types"
         photos_files: "Images"
   filter: "Filter"
+  search: "Search"
   reset: "Reset"
   add_user: "Add Member"
   new_user: "New Members"
@@ -31,6 +33,8 @@ en:
   reset_password: "Reset Password"
   create_food_type: "Create Food Type"
   update_food_type: "Update Food Type"
+  create_facility: "Create Facility"
+  update_facility: "Update Facility"
 
   date:
     abbr_day_names:
