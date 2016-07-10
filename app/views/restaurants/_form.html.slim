@@ -10,7 +10,7 @@
           = attachment_image_tag(@restaurant, :cover, :fill, 300, 300, format: "jpg")
       = f.input :name
       = f.input :address
-      = f.input :area
+      = f.association :area, collection: Area.all
       = f.input :average_cost
       = f.input :people_count
       = f.input :location, as: :string

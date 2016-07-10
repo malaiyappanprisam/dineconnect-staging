@@ -84,12 +84,13 @@ describe RestaurantsController do
   describe "PATCH /update" do
     let(:food_type) { create :food_type, name: "western" }
     let(:facility) { create :facility, name: "wifi" }
+    let(:area) { create :area, name: "Orchard Rd." }
     context "success" do
       let(:restaurant_params) do
         {
           name: "abc",
           address: "address",
-          area: "area",
+          area_id: area.id,
           average_cost: "50",
           people_count: "2",
           known_for_list: "burger, pasta",
@@ -107,7 +108,7 @@ describe RestaurantsController do
         expect(response).to redirect_to(restaurant_path(restaurant.id))
         expect(restaurant.reload.name).to eq("abc")
         expect(restaurant.reload.address).to eq("address")
-        expect(restaurant.reload.area).to eq("area")
+        expect(restaurant.reload.area.name).to eq("Orchard Rd.")
         expect(restaurant.reload.average_cost).to eq(50.0)
         expect(restaurant.reload.people_count).to eq(2)
         expect(restaurant.reload.known_for_list).to include("burger")

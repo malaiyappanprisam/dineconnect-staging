@@ -35,6 +35,8 @@ en:
   update_food_type: "Update Food Type"
   create_facility: "Create Facility"
   update_facility: "Update Facility"
+  create_area: "Create Area"
+  update_area: "Update Area"
 
   date:
     abbr_day_names:

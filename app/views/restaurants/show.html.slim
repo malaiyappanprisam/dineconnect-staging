@@ -57,7 +57,7 @@ dl.dl-horizontal
   dt
     = Restaurant.human_attribute_name('area')
   dd
-    = @restaurant.area
+    = @restaurant.area.try(:name)
 
 dl.dl-horizontal
   dt

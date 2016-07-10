@@ -49,6 +49,11 @@ html
                       .glyphicon.glyphicon-list
                       |&nbsp;
                       = Facility.model_name.human
+                  li
+                    = link_to areas_path do
+                      .glyphicon.glyphicon-list
+                      |&nbsp;
+                      = Area.model_name.human
           - if signed_in?
             ul.nav.navbar-nav.pull-right
               li

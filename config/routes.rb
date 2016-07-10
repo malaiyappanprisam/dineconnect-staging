@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   end
   resources :food_types
   resources :facilities
+  resources :areas
 
   namespace :api, defaults: { format: :json } do
     resources :users, only: [:show, :update] do

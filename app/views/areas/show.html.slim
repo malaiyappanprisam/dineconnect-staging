@@ -1,0 +1,22 @@
+.page-header
+  .btn-toolbar.pull-right
+    .btn-group
+      = link_to areas_path, class: 'btn btn-warning' do
+        i.glyphicon.glyphicon-chevron-left
+        = t('button.back')
+      = link_to edit_area_path(@area),
+        class: 'btn btn-warning' do
+        i.glyphicon.glyphicon-edit
+        = t('button.edit')
+      = link_to @area, :method => :delete, :data => { :confirm => 'Are you sure?' },
+        class: 'btn btn-danger' do
+        span.glyphicon.glyphicon-trash
+        = t(:delete)
+  h1
+    = t :show_area
+
+dl.dl-horizontal
+  dt
+    = Area.human_attribute_name('name')
+  dd
+    = @area.name

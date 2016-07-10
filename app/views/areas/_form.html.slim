@@ -1,0 +1,14 @@
+= simple_form_for(@area, html: { class: 'form-horizontal' }) do |f|
+  = f.error_notification
+
+  .col
+    .col-sm-6
+      = f.input :name
+
+      .form-actions
+        .form-group
+          .col-sm-offset-3.col-sm-9
+            - if @area.new_record?
+              = f.button :submit, t(:create_area), class: 'btn btn-primary'
+            - else
+              = f.button :submit, t(:update_area), class: 'btn btn-primary'

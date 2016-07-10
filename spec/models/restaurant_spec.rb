@@ -5,6 +5,7 @@ describe Restaurant do
   it { should have_and_belong_to_many(:food_types) }
   it { should have_and_belong_to_many(:facilities) }
   it { should have_many(:photos) }
+  it { should belong_to(:area) }
 
   it { should accept_nested_attributes_for(:open_schedules) }
 

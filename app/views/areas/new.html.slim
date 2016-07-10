@@ -1,0 +1,10 @@
+.page-header
+  .btn-toolbar.pull-right
+    .btn-group
+      = link_to areas_path, class: 'btn btn-warning' do
+        i.glyphicon.glyphicon-chevron-left
+        = t('button.back')
+  h1
+    = t :new_area
+
+= render 'form'

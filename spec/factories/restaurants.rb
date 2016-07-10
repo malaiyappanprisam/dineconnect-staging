@@ -3,5 +3,6 @@ FactoryGirl.define do
     name "MyString"
     address "MyString"
     active true
+    area
   end
 end
