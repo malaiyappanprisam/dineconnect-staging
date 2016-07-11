@@ -60,6 +60,11 @@
               | Deactivate
             |&nbsp;
 
+          = link_to reset_password_user_path(user),
+            class: 'btn btn-warning btn-xs' do
+            span.glyphicon.glyphicon-edit
+            = t('button.reset_password')
+          |&nbsp;
           = link_to user, method: :delete, data: { confirm: 'Are you sure?' },
             class: 'btn btn-danger btn-xs' do
             span.glyphicon.glyphicon-trash

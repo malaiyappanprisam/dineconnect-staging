@@ -95,6 +95,8 @@ describe UsersController do
                                            first_name: "First",
                                            last_name: "Last",
                                            username: "username",
+                                           password: "test1234",
+                                           role: "user",
                                            gender: "female",
                                            about_me: "about me",
                                            date_of_birth: Date.today,
@@ -117,6 +119,7 @@ describe UsersController do
         expect(reloaded_user.first_name).to eq("First")
         expect(reloaded_user.last_name).to eq("Last")
         expect(reloaded_user.username).to eq("username")
+        expect(reloaded_user.role).to eq("user")
         expect(reloaded_user.gender).to eq("female")
         expect(reloaded_user.about_me).to eq("about me")
         expect(reloaded_user.date_of_birth).to eq(Date.today)

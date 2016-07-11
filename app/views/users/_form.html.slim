@@ -6,6 +6,7 @@
       - if user.new_record?
         = f.input :email
         = f.input :password, as: :password
+      = f.input :role, collection: User.roles.keys, include_blank: false
       = f.input :first_name
       = f.input :last_name
       = f.input :username
