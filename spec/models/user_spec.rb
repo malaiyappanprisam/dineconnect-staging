@@ -77,9 +77,11 @@ describe User do
       it "returns only active users" do
         active_user = create :user, active: true
         inactive_user = create :user, active: false
+        admin_user = create :user, active: true, role: :admin
 
         expect(User.general).to include(active_user)
         expect(User.general).not_to include(inactive_user)
+        expect(User.general).not_to include(admin_user)
       end
     end
   end

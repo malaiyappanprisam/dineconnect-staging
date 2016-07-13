@@ -20,7 +20,9 @@ class User < ActiveRecord::Base
   enum payment_preference: [:anything_goes, :paying, :not_paying, :split_bill]
   enum role: [:user, :admin]
 
-  scope :general, -> { where(active: true) }
+  scope :general, -> do
+    where(active: true).where("role <> ?", User.roles[:admin])
+  end
 
   before_save :delete_all_associations_when_inactive
   before_save :combine_first_and_last_name
