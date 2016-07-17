@@ -21,13 +21,17 @@
 //= require jquery.inputmask
 //= require inputmask.extensions
 //= require inputmask.date.extensions
+//= require select2
 //= require_tree .
 
 $(document).on("ready page:load", function() {
-  $('.datepicker').pickadate({
+  $('.js-datepicker').pickadate({
     format: "yyyy-mm-dd",
     selectMonths: true,
     selectYears: 60
   });
-  $('.time-input').inputmask("hh:mm");
+  $('.js-time-input').inputmask("hh:mm");
+  $('.js-select2-input').select2({
+    theme: 'bootstrap'
+  });
 });

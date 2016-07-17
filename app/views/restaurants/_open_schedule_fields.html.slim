@@ -5,9 +5,9 @@ tr.nested-fields
       label: false
   td
     = f.input :time_open, as: :string, label: false,
-      input_html: { class: "time-input", value: f.object.time_open.try(:strftime, "%H:%M") }
+      input_html: { class: "js-time-input", value: f.object.time_open.try(:strftime, "%H:%M") }
   td
     = f.input :time_close, as: :string, label: false,
-      input_html: { class: "time-input", value: f.object.time_close.try(:strftime, "%H:%M") }
+      input_html: { class: "js-time-input", value: f.object.time_close.try(:strftime, "%H:%M") }
   td
     = link_to_remove_association "remove", f, class: "btn btn-danger"

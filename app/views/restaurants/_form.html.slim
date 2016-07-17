@@ -18,8 +18,9 @@
       = f.input :location, as: :string
       = f.input :known_for_list,
         input_html: { value: f.object.known_for_list.to_a.join(", ") }
-      = f.association :food_types, as: :check_boxes,
-        collection: FoodType.all, label_method: :name, value_method: :id
+      = f.association :food_types, as: :select, multiple: true,
+        collection: FoodType.all, label_method: :name, value_method: :id,
+        input_html: { class: "js-select2-input" }
       = f.association :facilities, as: :check_boxes,
         collection: Facility.all, label_method: :name, value_method: :id
       = f.input :photos_files, as: :attachment, multiple: true

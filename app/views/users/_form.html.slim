@@ -13,7 +13,7 @@
       = f.input :gender, collection: User.genders.keys, include_blank: false
       = f.input :about_me
       = f.input :date_of_birth, as: :string,
-        input_html: { class: "datepicker" }
+        input_html: { class: "js-datepicker" }
       = f.input :profession
       = f.input :nationality, collection: Nationality.list.sort_by {|k,v| v }.map {|k,v| [v,k]}
       = f.input :residence_status, collection: User.residence_statuses.keys, include_blank: false
