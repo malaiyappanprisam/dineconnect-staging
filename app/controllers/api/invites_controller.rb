@@ -12,6 +12,7 @@ class Api::InvitesController < ApiController
   def create
     @invite = Invite.new(invite_params)
     if @invite.save
+      @invites = [@invite].compact
       render "api/invites/invite"
     else
       render nothing: true, status: :unprocessable_entity
