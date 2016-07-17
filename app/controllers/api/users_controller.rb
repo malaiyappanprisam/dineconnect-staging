@@ -22,9 +22,10 @@ class Api::UsersController < ApiController
   end
 
   def favorited_restaurants
-    @restaurants = current_user.get_voted(Restaurant)
+    @user = User.find(params[:id])
+    @restaurants = @user.get_voted(Restaurant)
     @users = User.favorited_on(@restaurants)
-    @users.push(current_user)
+    @users.push(@user)
   end
 
   def user_params

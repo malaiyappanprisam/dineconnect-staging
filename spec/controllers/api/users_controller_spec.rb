@@ -68,6 +68,8 @@ describe Api::UsersController do
 
       expect(response).to have_http_status(:ok)
       expect(assigns(:restaurants)).to be_present
+      expect(assigns(:user)).to eq(user)
+      expect(assigns(:users)).to include(user)
     end
   end
 end
