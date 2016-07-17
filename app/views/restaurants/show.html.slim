@@ -55,6 +55,18 @@ dl.dl-horizontal
 
 dl.dl-horizontal
   dt
+    = Restaurant.human_attribute_name('description')
+  dd
+    = simple_format(@restaurant.description)
+
+dl.dl-horizontal
+  dt
+    = Restaurant.human_attribute_name('phone_number')
+  dd
+    = @restaurant.phone_number
+
+dl.dl-horizontal
+  dt
     = Restaurant.human_attribute_name('area')
   dd
     = @restaurant.area.try(:name)

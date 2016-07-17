@@ -1,6 +1,8 @@
 json.id restaurant.id
 json.name restaurant.name.to_s
 json.address restaurant.address.to_s
+json.description restaurant.description.to_s
+json.phone_number restaurant.phone_number.to_s
 json.area restaurant.area.try(:name).to_s
 json.average_cost restaurant.average_cost.to_f
 json.people_count restaurant.people_count.to_s

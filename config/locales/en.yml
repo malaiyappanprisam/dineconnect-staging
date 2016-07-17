@@ -15,6 +15,7 @@ en:
         interested_to_meet: "Interested To Meet"
         payment_preference: "Payment Preference"
       restaurant:
+        phone_number: "Phone Number"
         price_sgd: "Price SGD"
         people_count: "# People"
         average_cost: "Average Cost"

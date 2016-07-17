@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160710133001) do
+ActiveRecord::Schema.define(version: 20160717104344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,8 @@ ActiveRecord::Schema.define(version: 20160710133001) do
     t.geography "location",     limit: {:srid=>4326, :type=>"point", :geographic=>true}
     t.boolean   "active",                                                                default: false, null: false
     t.integer   "area_id"
+    t.text      "description"
+    t.string    "phone_number"
   end
 
   create_table "taggings", force: :cascade do |t|

@@ -90,6 +90,8 @@ describe RestaurantsController do
         {
           name: "abc",
           address: "address",
+          description: "description",
+          phone_number: "+6285694858677",
           area_id: area.id,
           average_cost: "50",
           people_count: "2",
@@ -108,6 +110,8 @@ describe RestaurantsController do
         expect(response).to redirect_to(restaurant_path(restaurant.id))
         expect(restaurant.reload.name).to eq("abc")
         expect(restaurant.reload.address).to eq("address")
+        expect(restaurant.reload.description).to eq("description")
+        expect(restaurant.reload.phone_number).to eq("+6285694858677")
         expect(restaurant.reload.area.name).to eq("Orchard Rd.")
         expect(restaurant.reload.average_cost).to eq(50.0)
         expect(restaurant.reload.people_count).to eq(2)
