@@ -24,7 +24,7 @@ class Api::InvitesController < ApiController
     if invite.update(status: :accept)
       render nothing: true, status: :ok
     else
-      render nothing: true, status: :unprocessable_entity
+      render json: { errors: invite.errors }, status: :unprocessable_entity
     end
   end
 
@@ -33,7 +33,7 @@ class Api::InvitesController < ApiController
     if invite.update(status: :reject)
       render nothing: true, status: :ok
     else
-      render nothing: true, status: :unprocessable_entity
+      render json: { errors: invite.errors }, status: :unprocessable_entity
     end
   end
 
