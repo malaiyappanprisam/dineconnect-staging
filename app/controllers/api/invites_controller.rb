@@ -15,7 +15,7 @@ class Api::InvitesController < ApiController
       @invites = [@invite].compact
       render "api/invites/invite"
     else
-      render nothing: true, status: :unprocessable_entity
+      render json: { errors: @invite.errors }, status: :unprocessable_entity
     end
   end
 
