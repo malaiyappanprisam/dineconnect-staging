@@ -14,6 +14,11 @@ class Restaurant < ActiveRecord::Base
   accepts_nested_attributes_for(:open_schedules)
   accepts_attachments_for :photos, attachment: :file, append: true
 
+  enum price: [
+    :"0_10", :"10_20", :"20_30", :"30_40", :"40_50", :"50_75",
+    :"75_100", :"100_150", :"150_200", :"200_above"
+  ]
+
   before_save :delete_all_associations_when_inactive
 
   scope :general, -> { where(active: true) }

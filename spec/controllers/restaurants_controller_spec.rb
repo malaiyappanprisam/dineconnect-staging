@@ -95,6 +95,7 @@ describe RestaurantsController do
           area_id: area.id,
           average_cost: "50",
           people_count: "2",
+          price: "10_20",
           known_for_list: "burger, pasta",
           food_type_ids: [food_type.id],
           facility_ids: [facility.id],
@@ -115,6 +116,7 @@ describe RestaurantsController do
         expect(restaurant.reload.area.name).to eq("Orchard Rd.")
         expect(restaurant.reload.average_cost).to eq(50.0)
         expect(restaurant.reload.people_count).to eq(2)
+        expect(restaurant.reload.price).to eq("10_20")
         expect(restaurant.reload.known_for_list).to include("burger")
         expect(restaurant.reload.known_for_list).to include("pasta")
         expect(restaurant.reload.food_types.map(&:name)).to include("western")

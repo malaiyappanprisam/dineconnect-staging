@@ -75,7 +75,7 @@ dl.dl-horizontal
   dt
     = Restaurant.human_attribute_name('price_sgd')
   dd
-    = "#{@restaurant.average_cost} for #{@restaurant.people_count} people"
+    = @restaurant.price.to_s.split("_").join(" - ")
 
 dl.dl-horizontal
   dt

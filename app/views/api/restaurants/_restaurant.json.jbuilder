@@ -6,6 +6,7 @@ json.phone_number restaurant.phone_number.to_s
 json.area restaurant.area.try(:name).to_s
 json.average_cost restaurant.average_cost.to_f
 json.people_count restaurant.people_count.to_s
+json.price restaurant.price.to_s.split("_").join(" - ")
 json.known_for restaurant.known_for_list.to_a
 json.food_types restaurant.food_types.pluck(:name)
 json.food_types_ids restaurant.food_types.pluck(:id)
