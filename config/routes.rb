@@ -29,7 +29,7 @@ Rails.application.routes.draw do
         get :favorited_restaurants
       end
     end
-    resources :restaurants, only: [] do
+    resources :restaurants, only: [:show] do
       member do
         get :recommended_users
       end
