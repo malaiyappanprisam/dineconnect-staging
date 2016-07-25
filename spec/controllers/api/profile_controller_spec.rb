@@ -12,6 +12,16 @@ describe Api::ProfileController do
     @request.headers["X-API-Device"] = user_token.device_id
   end
 
+  describe "GET /profile/me.json" do
+    it "returns ok" do
+      get :me, format: :json
+
+      expect(response).to have_http_status(:ok)
+      expect(assigns(:users)).to be_present
+      expect(assigns(:users)).to include(user)
+    end
+  end
+
   describe "PATCH /profile/detail.json" do
     let(:user_params) do
       {

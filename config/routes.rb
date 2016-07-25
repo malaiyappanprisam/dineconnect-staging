@@ -54,6 +54,7 @@ Rails.application.routes.draw do
     get "/explore/places_options", to: "explore#places_options", as: "explore_places_options"
 
     post "/check_auth", to: "tokens#check", as: "check_auth"
+    get "/profile/me", to: "profile#me", as: "profile_me"
     patch "/profile/detail", to: "profile#detail", as: "profile_detail"
     patch "/profile/avatar", to: "profile#avatar", as: "profile_avatar"
     post "/profile/forgot_password", to: "profile#forgot_password", as: "profile_forgot_password"

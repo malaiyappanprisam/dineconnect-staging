@@ -2,6 +2,10 @@ class Api::ProfileController < ApiController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_token!, except: [:forgot_password]
 
+  def me
+    @users = [current_user].compact
+  end
+
   def detail
     @user = current_user
     if @user.update(user_params)
