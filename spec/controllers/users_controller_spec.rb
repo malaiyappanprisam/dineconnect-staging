@@ -106,8 +106,8 @@ describe UsersController do
                                            interested_to_meet: "only_male",
                                            payment_preference: "paying",
                                            interested_in_list: "burger, pizza",
-                                           favorite_food_list: "burger, pizza",
-                                           location: "Jakarta") }
+                                           location: "-6.214432, 106.813197",
+                                           favorite_food_list: "burger, pizza") }
     let(:reloaded_user) { user.reload }
 
     context "success" do
@@ -132,7 +132,7 @@ describe UsersController do
         expect(reloaded_user.interested_in_list).to include("pizza")
         expect(reloaded_user.favorite_food_list).to include("burger")
         expect(reloaded_user.favorite_food_list).to include("pizza")
-        expect(reloaded_user.location).to eq("Jakarta")
+        expect(reloaded_user.location).to eq("-6.214432, 106.813197")
       end
     end
 

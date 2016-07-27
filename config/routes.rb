@@ -61,6 +61,7 @@ Rails.application.routes.draw do
     patch "/profile/password", to: "profile#password", as: "profile_password"
     post "/profile/photos", to: "profile/photos#create", as: "profile_photos"
     delete "/profile/photos/:id", to: "profile/photos#destroy", as: "destroy_profile_photos"
+    patch "/profile/location", to: "profile#location", as: "profile_location"
   end
 
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]

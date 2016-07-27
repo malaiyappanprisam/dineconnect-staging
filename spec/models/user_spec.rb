@@ -30,6 +30,22 @@ describe User do
     expect(user.favorite_food_list).to include("pasta")
   end
 
+  it "accepts location" do
+    user = User.new(location: "-6.214432, 106.813197")
+    expect(user.location_original).to eq("POINT (106.813197 -6.214432)")
+    expect(user.location).to eq("-6.214432, 106.813197")
+    expect(user.lat).to eq("-6.214432")
+    expect(user.long).to eq("106.813197")
+  end
+
+  it "accepts latitude longitude" do
+    user = User.new(latitude: "-6.214432", longitude: "106.813197")
+    expect(user.location_original).to eq("POINT (106.813197 -6.214432)")
+    expect(user.location).to eq("-6.214432, 106.813197")
+    expect(user.lat).to eq("-6.214432")
+    expect(user.long).to eq("106.813197")
+  end
+
   describe "before_save" do
     it "combine first and last name to full name" do
       user = build :user

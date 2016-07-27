@@ -132,4 +132,16 @@ describe Api::ProfileController do
 
     end
   end
+
+  describe "PATCH /profile/location.json" do
+    let!(:user) { create :user, email: "email@example.org" }
+    let(:location_params) { { latitude: "-6.214432", longitude: "106.813197" } }
+
+    it "returns ok and change the user location" do
+      patch :location, format: :json, user: location_params
+
+      expect(response).to have_http_status(:ok)
+      expect(user.reload.location).to eq "-6.214432, 106.813197"
+    end
+  end
 end

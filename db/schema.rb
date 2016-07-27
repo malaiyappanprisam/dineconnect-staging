@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719145820) do
+ActiveRecord::Schema.define(version: 20160727152125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,29 +137,29 @@ ActiveRecord::Schema.define(version: 20160719145820) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
-    t.string   "email",                                         null: false
-    t.string   "encrypted_password", limit: 128,                null: false
-    t.string   "confirmation_token", limit: 128
-    t.string   "remember_token",     limit: 128,                null: false
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "username"
-    t.integer  "gender",                         default: 0,    null: false
-    t.date     "date_of_birth"
-    t.string   "profession"
-    t.string   "location"
-    t.string   "nationality"
-    t.integer  "residence_status",               default: 0,    null: false
-    t.integer  "interested_to_meet",             default: 0,    null: false
-    t.integer  "payment_preference",             default: 0,    null: false
-    t.text     "about_me"
-    t.string   "avatar_id"
-    t.string   "channel_group"
-    t.integer  "role",                           default: 0
-    t.string   "full_name"
-    t.boolean  "active",                         default: true, null: false
+    t.datetime  "created_at",                                                                                 null: false
+    t.datetime  "updated_at",                                                                                 null: false
+    t.string    "email",                                                                                      null: false
+    t.string    "encrypted_password", limit: 128,                                                             null: false
+    t.string    "confirmation_token", limit: 128
+    t.string    "remember_token",     limit: 128,                                                             null: false
+    t.string    "first_name"
+    t.string    "last_name"
+    t.string    "username"
+    t.integer   "gender",                                                                      default: 0,    null: false
+    t.date      "date_of_birth"
+    t.string    "profession"
+    t.string    "nationality"
+    t.integer   "residence_status",                                                            default: 0,    null: false
+    t.integer   "interested_to_meet",                                                          default: 0,    null: false
+    t.integer   "payment_preference",                                                          default: 0,    null: false
+    t.text      "about_me"
+    t.string    "avatar_id"
+    t.string    "channel_group"
+    t.integer   "role",                                                                        default: 0
+    t.string    "full_name"
+    t.boolean   "active",                                                                      default: true, null: false
+    t.geography "location",           limit: {:srid=>4326, :type=>"point", :geographic=>true}
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree

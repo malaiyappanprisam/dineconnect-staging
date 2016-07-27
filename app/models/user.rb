@@ -39,6 +39,37 @@ class User < ActiveRecord::Base
     users
   end
 
+  def location=(latlong)
+    longlat = latlong.to_s.gsub(/\s+/, "").split(",").reverse.join(" ")
+    self[:location] = "POINT (#{longlat})"
+  end
+
+  def location
+    self[:location].to_s.gsub("POINT (", "").gsub(")", "").split(" ").reverse.join(", ")
+  end
+
+  def location_original
+    self[:location].to_s
+  end
+
+  def long
+    self[:location].to_s.gsub("POINT (", "").gsub(")", "").split(" ").first
+  end
+
+  def lat
+    self[:location].to_s.gsub("POINT (", "").gsub(")", "").split(" ").second
+  end
+
+  def latitude=(latitude_coordinate)
+    longitude_coordinate = long.presence || 0
+    self[:location] = "POINT (#{longitude_coordinate} #{latitude_coordinate})"
+  end
+
+  def longitude=(longitude_coordinate)
+    latitude_coordinate = lat.presence || 0
+    self[:location] = "POINT (#{longitude_coordinate} #{latitude_coordinate})"
+  end
+
   def age
     if date_of_birth
       ((Date.today - date_of_birth) / 365).to_i

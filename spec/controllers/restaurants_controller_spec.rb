@@ -99,6 +99,7 @@ describe RestaurantsController do
           known_for_list: "burger, pasta",
           food_type_ids: [food_type.id],
           facility_ids: [facility.id],
+          location: "-6.214432, 106.813197",
           open_schedules_attributes: [
             { day: "sunday", time_open: "9:30", time_close: "23:30" }
           ]
@@ -121,6 +122,7 @@ describe RestaurantsController do
         expect(restaurant.reload.known_for_list).to include("pasta")
         expect(restaurant.reload.food_types.map(&:name)).to include("western")
         expect(restaurant.reload.facilities.map(&:name)).to include("wifi")
+        expect(restaurant.reload.location).to eq("-6.214432, 106.813197")
         expect(restaurant.reload.open_schedules.first).to have_attributes(
           day: "sunday", time_open: Tod::TimeOfDay.parse("09:30"),
           time_close: Tod::TimeOfDay.parse("23:30")
