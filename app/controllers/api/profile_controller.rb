@@ -68,7 +68,7 @@ class Api::ProfileController < ApiController
   end
 
   def location_params
-    params.require(:user).permit(:latitude, :longitude)
+    params.require(:user).permit(:latitude, :longitude, :district)
   end
 
   def current_user
