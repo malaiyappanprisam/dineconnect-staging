@@ -19,5 +19,7 @@ json.avatar_url user.avatar_id ? attachment_url(user, :avatar, :fill, 300, 300, 
 json.interested_in_list user.interested_in_list.to_a
 json.favorite_food_list user.favorite_food_list.to_a
 json.location user.location.to_s
+json.longitude user.long.to_f
+json.latitude user.lat.to_f
 json.channel_group user.channel_group.to_s
 json.photos user.photos, partial: "api/photos/photo", as: :photo
