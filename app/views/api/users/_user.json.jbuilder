@@ -21,5 +21,6 @@ json.favorite_food_list user.favorite_food_list.to_a
 json.location user.location.to_s
 json.longitude user.long.to_f
 json.latitude user.lat.to_f
+json.district user.district
 json.channel_group user.channel_group.to_s
 json.photos user.photos, partial: "api/photos/photo", as: :photo
