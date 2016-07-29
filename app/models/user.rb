@@ -24,6 +24,15 @@ class User < ActiveRecord::Base
     where(active: true).where("role <> ?", User.roles[:admin])
   end
 
+  scope :nearby, -> lat, long, distance = 10_000 do
+    sql = <<-sql
+    ST_Dwithin(users.location::geography,
+    ST_GeogFromText('POINT(#{long} #{lat})'), ?)
+    sql
+
+    where(sql, distance).where(active: true)
+  end
+
   before_save :delete_all_associations_when_inactive
   before_save :combine_first_and_last_name
   after_create :generate_channel_group

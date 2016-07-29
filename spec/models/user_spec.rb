@@ -100,6 +100,15 @@ describe User do
         expect(User.general).not_to include(admin_user)
       end
     end
+
+    describe "#nearby" do
+      let!(:user) { create :user, location: "-6.214432, 106.813197" }
+      it "returns nearby restaurant" do
+        nearby_user = User.nearby("-6.214432", "106.813198")
+
+        expect(nearby_user).to include(user)
+      end
+    end
   end
 
   describe ".favorited_on" do

@@ -5,6 +5,7 @@ describe Api::ExploreController do
   let!(:user_token) { create :user_token, user: user }
   let!(:restaurants) { create_list :restaurant, 2, location: "-6.214432, 106.813197" }
   let!(:users) { create_list :user, 2 }
+  let!(:nearby_user) { create :user, location: "-6.214432, 106.813197" }
   before do
     stub_const("ENV", ENV.to_hash.merge("API_AUTH_KEY" => "abcdefg"))
     @request.headers["X-API-AUTH"] = "abcdefg"
@@ -26,17 +27,19 @@ describe Api::ExploreController do
       get :nearby, format: :json
 
       expect(response).to have_http_status(:ok)
-      expect(assigns(:users)).to be_present
+      expect(assigns(:users)).to be_blank
       expect(assigns(:restaurants)).to be_blank
     end
 
     context "with lat long" do
-      it "returns nearby restaurant" do
+      it "returns nearby restaurant and user" do
         get :nearby, format: :json, lat: "-6.214432", long: "106.813198", distance: 10_000
 
         expect(response).to have_http_status(:ok)
         expect(assigns(:users)).to be_present
+        expect(assigns(:users)).to include(nearby_user)
         expect(assigns(:restaurants)).to be_present
+        expect(assigns(:restaurants)).to include(restaurants.first)
       end
     end
   end

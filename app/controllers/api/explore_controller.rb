@@ -7,14 +7,16 @@ class Api::ExploreController < ApiController
 
   def nearby
     @restaurants = Restaurant.general
+    @users = User.general
     if params[:lat].present? && params[:long].present?
       @restaurants = @restaurants.nearby(params[:lat], params[:long], params[:distance])
+      @users = @users.nearby(params[:lat], params[:long], params[:distance])
     else
       @restaurants = @restaurants.none
+      @users = @users.none
     end
     @restaurants = @restaurants.limit(20).order(id: :desc)
 
-    @users = current_user.explore_people
     @users.push(*User.favorited_on(@restaurants))
   end
 
