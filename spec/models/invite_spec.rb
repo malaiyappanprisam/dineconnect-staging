@@ -26,6 +26,14 @@ describe Invite do
 
         expect(invite).not_to be_valid
       end
+
+      it "should change from accept to block" do
+        invite = create :invite, user: another_user, invitee: user, status: :accept
+        invite.status = "block"
+
+        expect(invite).to be_valid
+      end
+
     end
   end
 

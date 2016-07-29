@@ -1,5 +1,5 @@
 class Invite < ActiveRecord::Base
-  enum status: [:pending, :accept, :reject]
+  enum status: [:pending, :accept, :reject, :block]
   enum payment_preference: [:anything_goes, :paying, :not_paying, :split_bill]
 
   belongs_to :user
@@ -23,7 +23,7 @@ class Invite < ActiveRecord::Base
   end
 
   def freeze_status_accept_or_reject
-    if status_changed? && (status_was == "accept" || status_was == "reject")
+    if status_changed? && ((status_was == "accept" && status != "block") || status_was == "reject")
       errors.add(:status, "Can't change accepted or rejected status")
     end
   end

@@ -37,6 +37,17 @@ class Api::InvitesController < ApiController
     end
   end
 
+  def block
+    invite = Invite.find(params[:id])
+    if invite.status == "accept"
+      invite.update(status: :block)
+      render nothing: true, status: :ok
+    elsif invite.status == "block"
+      invite.update(status: :accept)
+      render nothing: true, status: :ok
+    end
+  end
+
   def destroy
     invite = Invite.find(params[:id])
     invite.destroy

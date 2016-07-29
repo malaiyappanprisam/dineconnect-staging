@@ -100,6 +100,28 @@ describe Api::InvitesController do
     end
   end
 
+  describe "POST /block.json" do
+    context "status is accept" do
+      let(:invite) { create :invite, user: another_user, invitee: user, status: :accept }
+      it "returns ok and change status to block" do
+          post :block, format: :json, id: invite.id
+
+        expect(response).to have_http_status(:ok)
+        expect(invite.reload.status).to eq("block")
+      end
+    end
+
+    context "status is block" do
+      let(:invite) { create :invite, user: another_user, invitee: user, status: :block }
+      it "returns ok and change status to accept" do
+          post :block, format: :json, id: invite.id
+
+        expect(response).to have_http_status(:ok)
+        expect(invite.reload.status).to eq("accept")
+      end
+    end
+  end
+
   describe "DELETE /destroy.json" do
     context "success" do
       let(:invite) { create :invite, user: another_user, invitee: user }
