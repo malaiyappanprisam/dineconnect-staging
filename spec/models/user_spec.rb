@@ -191,10 +191,12 @@ describe User do
       invite_1 = create :invite, user: user, status: :accept
       invite_2 = create :invite, invitee: user, status: :accept
       invite_3 = create :invite, invitee: user, status: :pending
+      invite_4 = create :invite, invitee: user, status: :block
 
       expect(user.reload.chatrooms).to include(invite_1)
       expect(user.reload.chatrooms).to include(invite_2)
       expect(user.reload.chatrooms).not_to include(invite_3)
+      expect(user.reload.chatrooms).to include(invite_4)
     end
   end
 

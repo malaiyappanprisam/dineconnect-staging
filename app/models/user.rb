@@ -108,7 +108,7 @@ class User < ActiveRecord::Base
 
   def chatrooms
     Invite.where("user_id = ? OR invitee_id = ?", self.id, self.id)
-      .where("status = ?", Invite.statuses[:accept])
+      .where(status: [Invite.statuses[:accept], Invite.statuses[:block]])
   end
 
   def recommended_users
