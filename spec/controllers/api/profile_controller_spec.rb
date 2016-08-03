@@ -146,4 +146,16 @@ describe Api::ProfileController do
       expect(user.reload.district).to eq "orchard rd"
     end
   end
+
+  describe "PATCH /deactivate" do
+    context "success" do
+      it "update user to inactive" do
+        patch :deactivate, format: :json
+
+        expect(response).to have_http_status(:ok)
+        expect(user.reload.active).to be_falsey
+      end
+    end
+  end
+
 end
