@@ -22,8 +22,7 @@ class Api::ExploreController < ApiController
 
   def places
     @restaurants = Restaurant.explore_places(explore_places_params)
-    @users = current_user.explore_people
-    @users.push(*User.favorited_on(@restaurants))
+    @users = User.favorited_on(@restaurants)
   end
 
   def places_options

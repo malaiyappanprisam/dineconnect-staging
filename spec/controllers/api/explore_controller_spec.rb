@@ -3,7 +3,7 @@ require "rails_helper"
 describe Api::ExploreController do
   let(:user) { create :user }
   let!(:user_token) { create :user_token, user: user }
-  let!(:restaurants) { create_list :restaurant, 2, location: "-6.214432, 106.813197" }
+  let!(:restaurants) { create_list :restaurant, 2, name: "Burger", location: "-6.214432, 106.813197" }
   let!(:users) { create_list :user, 2 }
   let!(:nearby_user) { create :user, location: "-6.214432, 106.813197" }
   before do
@@ -46,7 +46,9 @@ describe Api::ExploreController do
 
   describe "GET /places.json" do
     it "returns ok" do
-      get :places, format: :json
+      restaurants.first.liked_by(users.first)
+
+      get :places, format: :json, filter: "burger"
 
       expect(response).to have_http_status(:ok)
       expect(assigns(:restaurants)).to be_present
