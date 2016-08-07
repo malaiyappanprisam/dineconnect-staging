@@ -26,7 +26,7 @@ class Api::ExploreController < ApiController
   end
 
   def places_options
-    @food_types = FoodType.all
+    @food_types = FoodType.none
     @facilities = Facility.all
   end
 

@@ -64,7 +64,7 @@ describe Api::ExploreController do
       get :places_options, format: :json
 
       expect(response).to have_http_status(:ok)
-      expect(assigns(:food_types)).to be_present
+      expect(assigns(:food_types)).to be_empty
       expect(assigns(:facilities)).to be_present
     end
   end
