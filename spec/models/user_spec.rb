@@ -111,6 +111,19 @@ describe User do
     end
   end
 
+  describe ".create_from_fb_response" do
+    let(:fb_response) { { "id" => "abcdefghijklmno", "gender" => "male" } }
+    let(:email) { "tito@pandubrahmanto.com" }
+    it "create from fb response" do
+      user = User.create_from_fb_response(fb_response, email)
+
+      expect(user).to be_valid
+      expect(user.uid).to eq("abcdefghijklmno")
+      expect(user.gender).to eq("male")
+      expect(user.interested_to_meet).to eq("only_female")
+    end
+  end
+
   describe ".favorited_on" do
     let(:user_1) { create :user }
     let(:user_2) { create :user }

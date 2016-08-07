@@ -49,6 +49,8 @@ Rails.application.routes.draw do
     resources :registrations, path: "register", only: [:create]
     resources :sessions, path: "login", only: [:create]
 
+    post "/facebooks/auth", to: "facebooks#auth", as: "facebooks_auth"
+
     get "/explore/people", to: "explore#people", as: "explore_people"
     get "/explore/nearby", to: "explore#nearby", as: "explore_nearby"
     get "/explore/places", to: "explore#places", as: "explore_places"

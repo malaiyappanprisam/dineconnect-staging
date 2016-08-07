@@ -1,4 +1,4 @@
-class Api::SessionsController < ApiController 
+class Api::SessionsController < ApiController
   include Clearance::Authentication
 
   def create

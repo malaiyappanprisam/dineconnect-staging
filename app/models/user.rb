@@ -37,6 +37,23 @@ class User < ActiveRecord::Base
   before_save :combine_first_and_last_name
   after_create :generate_channel_group
 
+  def self.create_from_fb_response(fb_response, email)
+    user = User.new
+    user.uid = fb_response["id"].to_s
+    user.first_name = fb_response["name"].to_s.split(" ").first
+    user.last_name = fb_response["name"].to_s.split(" ").second
+    user.email = email
+    user.gender = fb_response["gender"].to_s
+    user.password = SecureRandom.hex(8)
+    user.interested_to_meet = if user.gender.to_s == "male"
+                                "only_female"
+                              else
+                                "only_male"
+                              end
+    user.save
+    user
+  end
+
   def self.favorited_on(restaurants, limit = 6)
     users = []
     favorited_user_ids = restaurants.map do |restaurant|
