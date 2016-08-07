@@ -52,6 +52,27 @@ describe Invite do
         end
       end
     end
+
+    describe "#create_invite_mirror" do
+      let(:user) { create :user }
+      let(:another_user) { create :user }
+
+      context "change status to accept" do
+        it "create invite back" do
+          invite = create :invite, user: user, invitee: another_user
+
+          expect do
+            invite.update(status: :accept)
+          end.to change(Invite, :count).by(1)
+        end
+
+        it "doesn't create if created as accepted" do
+          expect do
+            create :invite, user: user, invitee: another_user, status: :accept
+          end.to change(Invite, :count).by(1)
+        end
+      end
+    end
   end
 
   describe "#channel_name" do
@@ -59,6 +80,11 @@ describe Invite do
       invite = create :invite
 
       expect(invite.channel_name).to eq("#{invite.user_id}_#{invite.invitee_id}")
+
+      invite.update(status: :accept)
+
+      mirror_invite = Invite.where(user: invite.invitee, invitee: invite.user).first
+      expect(mirror_invite.channel_name).to eq("#{invite.user_id}_#{invite.invitee_id}")
     end
   end
 end

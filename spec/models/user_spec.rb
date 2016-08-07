@@ -201,15 +201,18 @@ describe User do
   describe "#chatrooms" do
     it "returns all accepted invitation for logged in user" do
       user = create :user
-      invite_1 = create :invite, user: user, status: :accept
-      invite_2 = create :invite, invitee: user, status: :accept
+      invite_1 = create :invite, :accepted, user: user
+      invite_2 = create :invite, :accepted, invitee: user
+      invite_2_mirror = Invite.where(user: invite_2.invitee, invitee: invite_2.user).first
       invite_3 = create :invite, invitee: user, status: :pending
-      invite_4 = create :invite, invitee: user, status: :block
+      invite_4 = create :invite, :accepted, invitee: user
+      invite_4_mirror = Invite.where(user: invite_4.invitee, invitee: invite_4.user).first
+      invite_4_mirror.update!(status: :block)
 
       expect(user.reload.chatrooms).to include(invite_1)
-      expect(user.reload.chatrooms).to include(invite_2)
+      expect(user.reload.chatrooms).to include(invite_2_mirror)
       expect(user.reload.chatrooms).not_to include(invite_3)
-      expect(user.reload.chatrooms).to include(invite_4)
+      expect(user.reload.chatrooms).to include(invite_4_mirror)
     end
   end
 

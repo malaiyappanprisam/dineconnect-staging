@@ -14,7 +14,7 @@ describe Api::ChatroomsController do
 
   describe "GET /index.json" do
     it "returns 200" do
-      create :invite, user: another_user, invitee: user, restaurant: restaurant, status: :accept
+      create :invite, :accepted, user: another_user, invitee: user, restaurant: restaurant
       get :index, format: :json
 
       expect(response).to have_http_status(:ok)

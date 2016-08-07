@@ -124,7 +124,7 @@ class User < ActiveRecord::Base
   end
 
   def chatrooms
-    Invite.where("user_id = ? OR invitee_id = ?", self.id, self.id)
+    Invite.where("user_id = ?", self.id)
       .where(status: [Invite.statuses[:accept], Invite.statuses[:block]])
   end
 
