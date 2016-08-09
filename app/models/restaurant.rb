@@ -57,6 +57,7 @@ class Restaurant < ActiveRecord::Base
                           food_type_ids: "",
                           facility_ids: "")
     restaurants = Restaurant.general
+    food_type_restaurants = Restaurant.none
     if filter.present?
       restaurants = restaurants.fuzzy_search(name: filter)
       food_type_ids_array = FoodType.fuzzy_search(name: filter).map(&:id)
@@ -65,12 +66,10 @@ class Restaurant < ActiveRecord::Base
     if food_type_ids.present?
       food_type_ids_array = food_type_ids.split(",").map(&:to_i)
       restaurants = restaurants.joins(:food_types).where(food_types_restaurants: { food_type_id: food_type_ids_array })
-      food_type_restaurants = Restaurant.none
     end
     if facility_ids.present?
       facility_ids_array = facility_ids.split(",").map(&:to_i)
       restaurants = restaurants.joins(:facilities).where(facilities_restaurants: { facility_id: facility_ids_array })
-      food_type_restaurants = Restaurant.none
     end
     restaurants = restaurants.limit(20).order(id: :desc)
     restaurants.concat(food_type_restaurants)
