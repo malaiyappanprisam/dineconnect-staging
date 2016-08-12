@@ -13,12 +13,16 @@ README
 * Install heroku toolbelt on your machine, follow this instructions https://toolbelt.heroku.com/
 
 When development of a feature is done
+--
+
 * Add all file to git `git add .`
 * Commit them `git commit -m "your commit message"`
 * Push to github `git push`
 * If the push fail because there is an update on github, then do pull rebase `git pull --rebase` then continue with push
 
 Deployment
+--
+
 * Login to Heroku
 * Go to `https://dashboard.heroku.com/pipelines/110b9f4e-1dfd-4ca6-a7e1-89fdefcdd71b`
 * Staging
@@ -37,6 +41,8 @@ Deployment
   * Run command `heroku run rake db:migrate --app dineconnect`
 
 Detail Requirements
+--
+
 * Ruby 2.3.1
 * Rails 4.2.6
 * Postgres 9.5.3 with PostGIS extension
