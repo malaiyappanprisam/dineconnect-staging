@@ -138,14 +138,17 @@ class User < ActiveRecord::Base
 
   def explore_people(payment_preference: :anything_goes,
                      interested_in: :both_male_and_female,
-                     age_from: 1, age_to: 100)
+                     age_from: 1, age_to: 100, interest: nil)
     age_range = age_to.to_i.years.ago.to_date..age_from.to_i.years.ago.to_date
-    User.general
+    user = User.general
       .where.not(id: self.id)
       .where(payment_preference: user_payment_preferences(payment_preference))
       .where(gender: interested_in_preferences(interested_in))
       .where(date_of_birth: age_range)
-      .order(created_at: :desc)
+    if interest.present?
+      user = user.tagged_with(interest, on: :interested_ins, any: true, wild: true)
+    end
+    user.order(created_at: :desc)
   end
 
   def update_password_with_confirmation(password_params)

@@ -395,6 +395,14 @@ describe User do
         end
       end
     end
+
+    context "interest" do
+      let!(:sushi_guy) { create :user, interested_in_list: "sushi, rendang" }
+
+      it "returns user with specified interested in" do
+        expect(user.explore_people(interest: "ushi")).to include(sushi_guy)
+      end
+    end
   end
 
   describe "#update_password_with_confirmation" do

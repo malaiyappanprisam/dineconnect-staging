@@ -36,7 +36,8 @@ class Api::ExploreController < ApiController
       payment_preference: params[:payment_preference],
       interested_in: params[:interested_in],
       age_from: params[:age_from],
-      age_to: params[:age_to]
+      age_to: params[:age_to],
+      interest: params[:interest]
     }.delete_if { |k, v| v.blank? }
   end
 
