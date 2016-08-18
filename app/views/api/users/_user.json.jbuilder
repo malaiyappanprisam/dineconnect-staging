@@ -24,3 +24,4 @@ json.latitude user.lat.to_f
 json.district user.district
 json.channel_group user.channel_group.to_s
 json.photos user.photos, partial: "api/photos/photo", as: :photo
+json.validated_with_facebook user.validated_with_facebook

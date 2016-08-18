@@ -419,4 +419,22 @@ describe User do
       end.to change(user, :encrypted_password)
     end
   end
+
+  describe "#validated_with_facebook" do
+    let(:user) { create :user, uid: uid }
+
+    context "with uid" do
+      let(:uid) { "somerandomuidfromfacebook" }
+      it "returns true" do
+        expect(user.validated_with_facebook).to be_truthy
+      end
+    end
+
+    context "without uid" do
+      let(:uid) { nil }
+      it "returns true" do
+        expect(user.validated_with_facebook).to be_falsey
+      end
+    end
+  end
 end

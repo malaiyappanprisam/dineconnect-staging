@@ -157,6 +157,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def validated_with_facebook
+    !!(uid)
+  end
+
   private
   def combine_first_and_last_name
     self.full_name = "#{self.first_name} #{self.last_name}"
