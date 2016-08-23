@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160807132818) do
+ActiveRecord::Schema.define(version: 20160820132226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20160807132818) do
     t.string   "name"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "foursquare_id"
   end
 
   add_index "food_types", ["restaurant_id"], name: "index_food_types_on_restaurant_id", using: :btree
@@ -96,17 +97,18 @@ ActiveRecord::Schema.define(version: 20160807132818) do
   create_table "restaurants", force: :cascade do |t|
     t.string    "name"
     t.text      "address"
-    t.datetime  "created_at",                                                                            null: false
-    t.datetime  "updated_at",                                                                            null: false
+    t.datetime  "created_at",                                                                             null: false
+    t.datetime  "updated_at",                                                                             null: false
     t.integer   "people_count"
     t.integer   "average_cost"
     t.string    "cover_id"
-    t.geography "location",     limit: {:srid=>4326, :type=>"point", :geographic=>true}
-    t.boolean   "active",                                                                default: false, null: false
+    t.geography "location",      limit: {:srid=>4326, :type=>"point", :geographic=>true}
+    t.boolean   "active",                                                                 default: false, null: false
     t.integer   "area_id"
     t.text      "description"
     t.string    "phone_number"
     t.integer   "price"
+    t.string    "foursquare_id"
   end
 
   create_table "taggings", force: :cascade do |t|
