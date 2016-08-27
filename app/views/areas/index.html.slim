@@ -16,12 +16,15 @@
     thead
       tr
         th Name
+        th Digit of Postal Code
         th.actions Actions
     tbody
     - @areas.each do |area|
       tr
         td
           = area.name
+        td
+          = area.digit_of_postal_code
         td.actions
           = link_to area, class: 'btn btn-info btn-xs' do
             span.glyphicon.glyphicon-eye-open

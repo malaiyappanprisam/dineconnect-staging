@@ -75,6 +75,7 @@ describe AreasController do
       let(:area_params) do
         {
           name: "abc",
+          digit_of_postal_code: "01"
         }
       end
 
@@ -83,6 +84,7 @@ describe AreasController do
 
         expect(response).to redirect_to(areas_path)
         expect(area.reload.name).to eq("abc")
+        expect(area.reload.digit_of_postal_code).to eq("01")
       end
     end
 

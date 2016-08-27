@@ -50,7 +50,7 @@ class AreasController < ApplicationController
 
   private
   def area_params
-    params.require(:area).permit(:name)
+    params.require(:area).permit(:name, :digit_of_postal_code)
   end
 end
 
