@@ -6,7 +6,7 @@ describe User do
     should have_many(:invites_by_other)
       .class_name("Invite")
       .with_foreign_key("invitee_id")
-      .order("updated_at desc, status asc")
+      .order("created_at desc, status asc")
       .dependent(:destroy)
   end
   it do
