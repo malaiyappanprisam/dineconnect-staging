@@ -17,6 +17,11 @@ class FoursquareImporter
         food_type_ids: food_types(venue),
         open_schedules_attributes: open_schedules(venue.id),
       }
+      if venue.location.try(:postalCode).present?
+        restaurant_hash = restaurant_hash.merge({
+          area: Area.where("digit_of_postal_code LIKE ?", "%#{venue.location.postalCode[0..1]}%")
+        })
+      end
       if venue.bestPhoto.present?
         restaurant_hash = restaurant_hash.merge({
           remote_cover_url: [
