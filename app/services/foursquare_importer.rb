@@ -19,7 +19,7 @@ class FoursquareImporter
       }
       if venue.location.try(:postalCode).present?
         restaurant_hash = restaurant_hash.merge({
-          area: Area.where("digit_of_postal_code LIKE ?", "%#{venue.location.postalCode[0..1]}%")
+          area: Area.where("digit_of_postal_code LIKE ?", "%#{venue.location.postalCode[0..1]}%").first
         })
       end
       if venue.bestPhoto.present?
