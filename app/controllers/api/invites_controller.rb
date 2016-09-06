@@ -48,6 +48,17 @@ class Api::InvitesController < ApiController
     end
   end
 
+  def hide
+    invite = Invite.find(params[:id])
+    if invite.showing?
+      invite.update(showing: false)
+      render nothing: true, status: :ok
+    else
+      invite.update(showing: true)
+      render nothing: true, status: :ok
+    end
+  end
+
   def destroy
     invite = Invite.find(params[:id])
     invite.destroy

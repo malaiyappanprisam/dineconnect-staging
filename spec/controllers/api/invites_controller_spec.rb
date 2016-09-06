@@ -104,7 +104,7 @@ describe Api::InvitesController do
     context "status is accept" do
       let(:invite) { create :invite, user: another_user, invitee: user, status: :accept }
       it "returns ok and change status to block" do
-          post :block, format: :json, id: invite.id
+        post :block, format: :json, id: invite.id
 
         expect(response).to have_http_status(:ok)
         expect(invite.reload.status).to eq("block")
@@ -114,10 +114,32 @@ describe Api::InvitesController do
     context "status is block" do
       let(:invite) { create :invite, user: another_user, invitee: user, status: :block }
       it "returns ok and change status to accept" do
-          post :block, format: :json, id: invite.id
+        post :block, format: :json, id: invite.id
 
         expect(response).to have_http_status(:ok)
         expect(invite.reload.status).to eq("accept")
+      end
+    end
+  end
+
+  describe "POST /hide.json" do
+    context "showing is true" do
+      let(:invite) { create :invite, user: another_user, invitee: user, showing: true }
+      it "returns ok and change status to block" do
+        post :hide, format: :json, id: invite.id
+
+        expect(response).to have_http_status(:ok)
+        expect(invite.reload.showing).to eq(false)
+      end
+    end
+
+    context "showing is false" do
+      let(:invite) { create :invite, user: another_user, invitee: user, showing: false }
+      it "returns ok and change status to accept" do
+        post :hide, format: :json, id: invite.id
+
+        expect(response).to have_http_status(:ok)
+        expect(invite.reload.showing).to eq(true)
       end
     end
   end

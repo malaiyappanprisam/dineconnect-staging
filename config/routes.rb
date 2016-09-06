@@ -42,6 +42,7 @@ Rails.application.routes.draw do
         post :accept
         post :reject
         post :block
+        post :hide
       end
     end
     resources :restaurant_favorites, only: [:create, :destroy]
