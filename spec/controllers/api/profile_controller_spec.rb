@@ -103,9 +103,12 @@ describe Api::ProfileController do
   end
 
   describe "PATCH /profile/password.json" do
+    let(:user) { create :user, password: "somepassword" }
+
     context "success" do
       let(:user_params) do
         {
+          current_password: "somepassword",
           password: "somenewpassword",
           password_confirmation: "somenewpassword",
         }
@@ -121,6 +124,7 @@ describe Api::ProfileController do
     context "failure" do
       let(:user_params) do
         {
+          current_password: "notsamepassword",
           password: "somenewpassword",
           password_confirmation: "abcsomenewpassword",
         }

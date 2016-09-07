@@ -34,10 +34,14 @@ class Api::ProfileController < ApiController
 
   def password
     @user = current_user
-    if @user.update_password_with_confirmation(password_params)
-      render json: {}, status: :ok
+    if authenticate({ email: @user.email, password: params[:user][:current_password] })
+      if @user.update_password_with_confirmation(password_params)
+        render json: {}, status: :ok
+      else
+        render json: { errors: @user.errors.full_messages }.to_json, status: :unprocessable_entity
+      end
     else
-      render json: { errors: @user.errors.full_messages }.to_json, status: :unprocessable_entity
+      render json: { errors: { current_password: ["is wrong"] } }.to_json, status: :unprocessable_entity
     end
   end
 
@@ -93,5 +97,11 @@ class Api::ProfileController < ApiController
     else
       mail.deliver
     end
+  end
+
+  def authenticate(parameters)
+    Clearance.configuration.user_model.authenticate(
+      parameters[:email], parameters[:password]
+    )
   end
 end
