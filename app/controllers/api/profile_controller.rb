@@ -61,7 +61,7 @@ class Api::ProfileController < ApiController
                                  :nationality, :residence_status,
                                  :interested_to_meet, :payment_preference,
                                  :location, :about_me, :interested_in_list,
-                                 :favorite_food_list)
+                                 :favorite_food_list, :onboard)
   end
 
   def avatar_params

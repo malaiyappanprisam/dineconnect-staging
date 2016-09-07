@@ -28,7 +28,8 @@ describe Api::ProfileController do
         first_name: "Test",
         last_name: "User",
         interested_in_list: "burger, pizza",
-        favorite_food_list: "tempe, tahu"
+        favorite_food_list: "tempe, tahu",
+        onboard: true
       }
     end
 
@@ -45,6 +46,7 @@ describe Api::ProfileController do
         expect(reloaded_user.interested_in_list).to include("burger")
         expect(reloaded_user.favorite_food_list).to include("tempe")
         expect(reloaded_user.favorite_food_list).to include("tahu")
+        expect(reloaded_user.onboard).to eq(true)
       end
     end
 
