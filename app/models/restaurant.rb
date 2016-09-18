@@ -24,12 +24,16 @@ class Restaurant < ActiveRecord::Base
   scope :general, -> { where(active: true) }
 
   scope :nearby, -> lat, long, distance = 10_000 do
+    sql_select = <<-sql_select
+    restaurants.*,
+    ST_Distance(ST_GeogFromText('POINT(#{long} #{lat})'), restaurants.location) AS distance
+    sql_select
     sql = <<-sql
     ST_Dwithin(restaurants.location::geography,
     ST_GeogFromText('POINT(#{long} #{lat})'), ?)
     sql
 
-    where(sql, distance).where(active: true)
+    select(sql_select).where(sql, distance).where(active: true).order('distance')
   end
 
   def location=(latlong)

@@ -5,5 +5,8 @@ class Api::RecommendedRestaurantsController < ApiController
     @restaurants = Restaurant.general.limit(20).order(id: :desc)
     @users = User.favorited_on(@restaurants)
     @users.push(current_user)
+    @food_types = @restaurants.flat_map do |restaurant|
+      restaurant.food_types
+    end
   end
 end
