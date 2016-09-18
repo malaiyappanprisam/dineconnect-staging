@@ -25,12 +25,16 @@ class User < ActiveRecord::Base
   end
 
   scope :nearby, -> lat, long, distance = 10_000 do
+    sql_select = <<-sql_select
+    users.*,
+    ST_Distance(ST_GeogFromText('POINT(#{long} #{lat})'), users.location) AS distance
+    sql_select
     sql = <<-sql
     ST_Dwithin(users.location::geography,
     ST_GeogFromText('POINT(#{long} #{lat})'), ?)
     sql
 
-    where(sql, distance).where(active: true)
+    select(sql_select).where(sql, distance).where(active: true).order('distance')
   end
 
   before_save :delete_all_associations_when_inactive
