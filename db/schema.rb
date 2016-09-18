@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907155515) do
+ActiveRecord::Schema.define(version: 20160918070911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,8 @@ ActiveRecord::Schema.define(version: 20160907155515) do
     t.string    "foursquare_id"
   end
 
+  add_index "restaurants", ["location"], name: "index_restaurants_on_location", using: :gist
+
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -171,6 +173,7 @@ ActiveRecord::Schema.define(version: 20160907155515) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["location"], name: "index_users_on_location", using: :gist
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
   create_table "votes", force: :cascade do |t|
