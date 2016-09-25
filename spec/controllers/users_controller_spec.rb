@@ -99,7 +99,7 @@ describe UsersController do
                                            role: "user",
                                            gender: "female",
                                            about_me: "about me",
-                                           date_of_birth: Date.today,
+                                           date_of_birth: 19.years.ago,
                                            profession: "developer",
                                            nationality: "indonesia",
                                            residence_status: "local",
@@ -122,7 +122,7 @@ describe UsersController do
         expect(reloaded_user.role).to eq("user")
         expect(reloaded_user.gender).to eq("female")
         expect(reloaded_user.about_me).to eq("about me")
-        expect(reloaded_user.date_of_birth).to eq(Date.today)
+        expect(reloaded_user.date_of_birth).to eq(19.years.ago.to_date)
         expect(reloaded_user.profession).to eq("developer")
         expect(reloaded_user.nationality).to eq("indonesia")
         expect(reloaded_user.residence_status).to eq("local")

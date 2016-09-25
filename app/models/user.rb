@@ -20,6 +20,9 @@ class User < ActiveRecord::Base
   enum payment_preference: [:anything_goes, :paying, :not_paying, :split_bill]
   enum role: [:user, :admin]
 
+  validates_date :date_of_birth, on_or_before: lambda { 18.years.ago },
+    on_or_before_message: "must be at least 18 years old"
+
   scope :general, -> do
     where(active: true).where("role <> ?", User.roles[:admin])
   end
@@ -54,6 +57,7 @@ class User < ActiveRecord::Base
                               else
                                 "only_male"
                               end
+    user.date_of_birth = 18.years.ago
     user.save
     user
   end

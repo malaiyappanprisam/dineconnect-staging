@@ -46,6 +46,13 @@ describe User do
     expect(user.long).to eq("106.813197")
   end
 
+  describe "validations" do
+    it "reject user below age 18" do
+      user = build(:user, date_of_birth: 17.years.ago)
+      expect(user).to_not be_valid
+    end
+  end
+
   describe "before_save" do
     it "combine first and last name to full name" do
       user = build :user
