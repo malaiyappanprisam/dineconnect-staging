@@ -45,6 +45,7 @@ describe UsersController do
         end.to change(User, :count).by(1)
 
         expect(response).to redirect_to(user_path(User.last))
+        expect(User.last.email_confirmed_at).to be_present
       end
     end
 

@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   resources :facilities
   resources :areas
 
+  get "/confirm_email/:token", to: "email_confirmations#update", as: "confirm_email"
+
   namespace :api, defaults: { format: :json } do
     resources :users, only: [:show, :update] do
       member do

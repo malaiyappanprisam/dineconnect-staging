@@ -205,6 +205,20 @@ describe User do
     end
   end
 
+  describe "#confirm_email" do
+    it "sets email_confirmed_at value" do
+      user = create(
+        :user,
+        email_confirmation_token: "token",
+        email_confirmed_at: nil,
+      )
+
+      user.confirm_email
+
+      expect(user.email_confirmed_at).to be_present
+    end
+  end
+
   describe "#chatrooms" do
     it "returns all accepted invitation for logged in user" do
       user = create :user

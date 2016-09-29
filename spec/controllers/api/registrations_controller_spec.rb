@@ -45,6 +45,15 @@ describe Api::RegistrationsController do
         expect(user.favorite_food_list).to include("tempe")
         expect(user.favorite_food_list).to include("tahu")
       end
+
+      it "deliver confirmation email to user" do
+        expect(User.last.email_confirmation_token).to be_present
+        expect(ActionMailer::Base.deliveries).not_to be_empty
+
+        email = ActionMailer::Base.deliveries.last
+        expect(email).to deliver_to("email@email.com")
+        expect(email).to have_subject("Confirm your email to activate your account")
+      end
     end
   end
 end

@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_params.merge(email_confirmed_at: Time.current))
     authorize @user
     if @user.save
       redirect_to user_path(@user), info: "Success"

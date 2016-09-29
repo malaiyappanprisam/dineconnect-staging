@@ -3,7 +3,7 @@ class Api::SessionsController < ApiController
 
   def create
     @user = User.general.authenticate(session_params[:email], session_params[:password])
-    if @user
+    if @user && @user.email_confirmed_at.present?
       @token = @user.access_token(params[:device_id])
       @token = @user.generate_access_token(params[:device_id]) unless @token
       @user.save!

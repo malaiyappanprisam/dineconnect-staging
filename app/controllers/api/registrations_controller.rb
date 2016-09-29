@@ -2,7 +2,10 @@ class Api::RegistrationsController < ApiController
 
   def create
     user = User.new user_params
+    user.email_confirmation_token = Clearance::Token.new
+
     if user.save
+      UserMailer.registration_confirmation(user).deliver_later
       render nothing: true, status: :ok
     else
       render json: user.errors.to_json, status: :unprocessable_entity

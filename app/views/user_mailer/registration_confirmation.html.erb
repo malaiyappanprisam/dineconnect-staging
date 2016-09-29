@@ -1,0 +1,13 @@
+<p>Dear <%= "#{@user.first_name} #{@user.last_name}" %></p>
+
+<p>Thanks for signing up for a DineConnect account! To activate your account, click the button below to confirm your email address.</p>
+
+<div style="color: #ffffff;background-color: #4286f4;border-radius: 5px;width: 250px;height: 50px;display: block;position: relative;">
+  <%= link_to "Yes, this is my email address", confirm_email_url(token: @user.email_confirmation_token), target: "_blank", style: " text-decoration: none; color: #ffffff; font-size: 18px; display: table; text-align: center; height: 100%; width: 100%; vertical-align: middle; padding-top: 13px; " %>
+</div>
+
+<p>Sincerely,<br/>
+DineConnect
+</p>
+
+<p>Please do not reply to this email. To get in touch, go to the DineConnect website and click Contact.</p>

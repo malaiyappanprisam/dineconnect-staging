@@ -127,6 +127,11 @@ class User < ActiveRecord::Base
     update!(channel_group: "#{id}_#{Clearance::Token.new[0..5]}")
   end
 
+  def confirm_email
+    self.email_confirmed_at = Time.current
+    save
+  end
+
   def access_token(device_id)
     self.user_token.where(device_id: device_id).first
   end
