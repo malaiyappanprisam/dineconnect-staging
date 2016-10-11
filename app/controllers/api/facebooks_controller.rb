@@ -1,7 +1,7 @@
 class Api::FacebooksController < ApiController
   def auth
     graph = Koala::Facebook::API.new(params[:access_token])
-    facebook_user = graph.get_object("me", fields: "id,name,email,gender")
+    facebook_user = graph.get_object("me", fields: "id,name,email,gender,birthday,picture.width(640)")
     email = facebook_user["email"] || params[:email]
 
     return render nothing: true, status: :unauthorized unless facebook_user.present?

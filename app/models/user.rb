@@ -57,7 +57,12 @@ class User < ActiveRecord::Base
                               else
                                 "only_male"
                               end
-    user.date_of_birth = 18.years.ago
+    if fb_response["birthday"].present?
+      user.date_of_birth = Date.strptime(fb_response["birthday"].to_s, "%m/%d/%Y")
+    end
+    if fb_response.fetch("picture", {}).fetch("url", "").present?
+      user.remote_avatar_url = fb_response["picture"]["url"]
+    end
     user.save
     user
   end
