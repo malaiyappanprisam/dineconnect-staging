@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   before_save :combine_first_and_last_name
   after_create :generate_channel_group
 
-  def self.create_from_fb_response(fb_response, email)
+  def self.create_from_fb_response(fb_response, email, birthday, avatar, avatar_url)
     user = User.new
     user.uid = fb_response["id"].to_s
     user.first_name = fb_response["name"].to_s.split(" ").first
@@ -57,11 +57,11 @@ class User < ActiveRecord::Base
                               else
                                 "only_male"
                               end
-    if fb_response["birthday"].present?
-      user.date_of_birth = Date.strptime(fb_response["birthday"].to_s, "%m/%d/%Y")
-    end
-    if fb_response.fetch("picture", {}).fetch("url", "").present?
-      user.remote_avatar_url = fb_response["picture"]["url"]
+    user.date_of_birth = birthday
+    if avatar_url.present?
+      user.remote_avatar_url = avatar_url
+    elsif avatar.present?
+      user.avatar = avatar
     end
     user.save
     user

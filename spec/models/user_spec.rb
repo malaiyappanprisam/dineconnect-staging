@@ -121,8 +121,11 @@ describe User do
   describe ".create_from_fb_response" do
     let(:fb_response) { { "id" => "abcdefghijklmno", "gender" => "male" } }
     let(:email) { "tito@pandubrahmanto.com" }
+    let(:birthday) { Date.parse("1989-05-04") }
+    let(:avatar) { Refile::FileDouble.new("dummy", "logo.png", content_type: "image/png") }
+    let(:avatar_url) { "" }
     it "create from fb response" do
-      user = User.create_from_fb_response(fb_response, email)
+      user = User.create_from_fb_response(fb_response, email, birthday, avatar, avatar_url)
 
       expect(user).to be_valid
       expect(user.uid).to eq("abcdefghijklmno")
