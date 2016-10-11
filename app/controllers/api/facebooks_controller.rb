@@ -14,6 +14,8 @@ class Api::FacebooksController < ApiController
 
     return render nothing: true, status: :unauthorized unless facebook_user.present?
     return render nothing: true, status: :unauthorized unless email.present?
+    return render nothing: true, status: :unauthorized unless birthday.present?
+    return render nothing: true, status: :unauthorized unless avatar_url.present? || avatar.present?
 
     @user = User.general.where("email = ? OR uid = ?", params["email"], facebook_user["id"]).first
 
