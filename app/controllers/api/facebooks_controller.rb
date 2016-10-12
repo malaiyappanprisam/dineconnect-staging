@@ -21,7 +21,8 @@ class Api::FacebooksController < ApiController
       if facebook_user["birthday"].present?
         birthday = Date.strptime(facebook_user["birthday"], "%m/%d/%Y")
       else
-        birthday = Date.parse(params[:birthday])
+        birthday = nil
+        birthday = Date.parse(params[:birthday]) if params[:birthday].present?
       end
       avatar = params[:avatar]
       avatar_url = facebook_user.fetch("picture", {}).fetch("url", "")
