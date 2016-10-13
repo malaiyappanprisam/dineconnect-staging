@@ -25,9 +25,9 @@ class Api::FacebooksController < ApiController
         birthday = Date.parse(params[:birthday]) if params[:birthday].present?
       end
       avatar = params[:avatar]
-      avatar_url = facebook_user.fetch("picture", {}).fetch("url", "")
+      avatar_url = facebook_user.fetch("picture", {}).fetch("data", {}).fetch("url", "")
       return render json: { date_of_birth: ["can't be blank"] }.to_json, status: :unauthorized unless birthday.present?
-      return render json: { avatar: ["can't be blank"] }.to_json, status: :unauthorized unless avatar_url.present? || avatar.present?
+      return render json: { avatar: ["can't be blank"] }.to_json, status: :unauthorized unless (avatar_url.present? || avatar.present?)
       @user = User.create_from_fb_response(facebook_user, email, birthday, avatar, avatar_url)
       if @user.valid?
         @token = @user.access_token(params[:device_id])
