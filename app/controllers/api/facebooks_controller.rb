@@ -6,7 +6,7 @@ class Api::FacebooksController < ApiController
     email = facebook_user["email"] || params[:email]
 
     return render nothing: true, status: :unauthorized unless facebook_user.present?
-    return render nothing: true, status: :unauthorized unless email.present?
+    return render json: { email: ["can't be blank"] }.to_json, status: :unauthorized unless email.present?
 
     @user = User.general.where("email = ? OR uid = ?", params["email"], facebook_user["id"]).first
 
@@ -26,8 +26,8 @@ class Api::FacebooksController < ApiController
       end
       avatar = params[:avatar]
       avatar_url = facebook_user.fetch("picture", {}).fetch("url", "")
-      return render nothing: true, status: :unauthorized unless birthday.present?
-      return render nothing: true, status: :unauthorized unless avatar_url.present? || avatar.present?
+      return render json: { date_of_birth: ["can't be blank"] }.to_json, status: :unauthorized unless birthday.present?
+      return render json: { avatar: ["can't be blank"] }.to_json, status: :unauthorized unless avatar_url.present? || avatar.present?
       @user = User.create_from_fb_response(facebook_user, email, birthday, avatar, avatar_url)
       if @user.valid?
         @token = @user.access_token(params[:device_id])
