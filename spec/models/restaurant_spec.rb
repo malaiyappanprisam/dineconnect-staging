@@ -25,6 +25,13 @@ describe Restaurant do
     expect(restaurant.long).to eq("106.813197")
   end
 
+  it "will not add tag that is not unique" do
+    restaurant = create :restaurant, known_for_list: "Pizza, pizza"
+
+    expect(ActsAsTaggableOn::Tag.count).to eq 1
+    expect(restaurant.known_for_list.count).to eq 1
+  end
+
   describe "scope" do
     describe "#nearby" do
       let!(:restaurant) { create :restaurant, location: "-6.214432, 106.813197" }
