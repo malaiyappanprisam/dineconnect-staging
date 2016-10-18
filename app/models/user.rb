@@ -146,6 +146,11 @@ class User < ActiveRecord::Base
       .where(status: [Invite.statuses[:accept], Invite.statuses[:block]])
   end
 
+  def recommended_restaurants
+    Restaurant.general
+      .tagged_with(favorite_food_list.split(","), on: :known_fors)
+  end
+
   def recommended_users
     User.general
       .where.not(id: self.id)

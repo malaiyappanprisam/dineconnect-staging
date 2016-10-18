@@ -240,6 +240,15 @@ describe User do
     end
   end
 
+  describe "#recommended_restaurants" do
+    let!(:restaurant_rendang) { create :restaurant, known_for_list: "rendang" }
+    let!(:user_like_rendang) { create :user, favorite_food_list: "rendang" }
+
+    it "returns restaurants with known_fors match user favorite_foods" do
+      expect(user_like_rendang.recommended_restaurants).to include(restaurant_rendang)
+    end
+  end
+
   describe "#recommended_users" do
     let!(:male_user_in_both) { create :user, gender: :male, interested_to_meet: :both_male_and_female }
     let!(:male_user_in_male) { create :user, gender: :male, interested_to_meet: :only_male }
