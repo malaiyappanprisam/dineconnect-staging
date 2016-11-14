@@ -38,6 +38,8 @@ en:
   update_facility: "Update Facility"
   create_area: "Create Area"
   update_area: "Update Area"
+  add_restaurant_from_foursquare: "Add Restaurant from 4square"
+  new_restaurant_from_foursquare: "New Restaurant from 4square"
 
   date:
     abbr_day_names:

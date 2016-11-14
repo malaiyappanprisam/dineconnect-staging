@@ -1,0 +1,22 @@
+.page-header
+  .btn-toolbar.pull-right
+    .btn-group
+      = link_to restaurants_path, class: 'btn btn-warning' do
+        i.glyphicon.glyphicon-chevron-left
+        = t('button.back')
+  h1
+    = t :new_restaurant_from_foursquare
+
+= simple_form_for(:restaurant_batch, url: restaurant_batches_path, html: { class: 'form-horizontal' }) do |f|
+  = f.error_notification
+
+  .col
+    .col-sm-6
+      = f.input :latlong, label: "Latitude Longitude"
+      = f.input :radius
+
+      .form-actions
+        .form-group
+          .col-sm-offset-3.col-sm-9
+            = f.button :submit, class: 'btn btn-primary' do
+              Save

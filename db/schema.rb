@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161007125240) do
+ActiveRecord::Schema.define(version: 20161113133501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "postgis"
   enable_extension "pg_trgm"
+  enable_extension "postgis"
 
   create_table "areas", force: :cascade do |t|
     t.string   "name"
@@ -95,6 +95,22 @@ ActiveRecord::Schema.define(version: 20161007125240) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
+
+  create_table "restaurant_batches", force: :cascade do |t|
+    t.string   "latlong"
+    t.integer  "radius"
+    t.boolean  "finished",   default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  create_table "restaurant_batches_restaurants", id: false, force: :cascade do |t|
+    t.integer "restaurant_batch_id"
+    t.integer "restaurant_id"
+  end
+
+  add_index "restaurant_batches_restaurants", ["restaurant_batch_id"], name: "index_restaurant_batches_restaurants_on_restaurant_batch_id", using: :btree
+  add_index "restaurant_batches_restaurants", ["restaurant_id"], name: "index_restaurant_batches_restaurants_on_restaurant_id", using: :btree
 
   create_table "restaurants", force: :cascade do |t|
     t.string    "name"

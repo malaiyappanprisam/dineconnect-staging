@@ -1,7 +1,12 @@
 class FoursquareImporter
-  def self.run(ll, radius)
+  def self.run(ll, radius, batch_id=nil)
     @@client ||= Foursquare2::Client.new(client_id: "XE3XG1VMIFTWIHPTUPGFXAENDSR3WH45ZLRUCYKCH2RGSPCO", client_secret: "GE1O2XN5ME3L0RCRDMDW4Y40A4HPTX1U5DVRIGKSGDCQDTNM", api_version: "20160820")
     ids = @@client.search_venues(ll: ll, intent: "browse", radius: radius, categoryId: %w{4bf58dd8d48988d142941735 4bf58dd8d48988d10c941735 4bf58dd8d48988d110941735 4bf58dd8d48988d1cc941735 4bf58dd8d48988d1d3941735}.join(",")).venues.map { |v| v.id }
+    if batch_id.present?
+      batch = RestaurantBatch.find(batch_id)
+    else
+      batch = nil
+    end
     ids.map do |id|
       @@client.venue(id)
     end.each do |venue|
@@ -33,7 +38,17 @@ class FoursquareImporter
       end
 
       restaurant.update(restaurant_hash)
+      if batch.present?
+        batch.restaurants << restaurant
+      end
     end
+    if batch.present?
+      batch.update(finished: true)
+    end
+  # rescue
+  #   if batch.present?
+  #     batch.update(finished: true)
+  #   end
   end
 
   def self.price_category(venue)
@@ -56,7 +71,11 @@ class FoursquareImporter
   def self.open_schedules(venue_id)
     @@client.venue_hours(venue_id).popular.timeframes.to_a.flat_map do |timeframe|
       timeframe.open.map do |o|
-        { day: OpenSchedule.days.keys[timeframe.days.first - 1], time_open: o.start.insert(2, ":"), time_close: o.end.insert(2, ":") }
+        {
+          day: OpenSchedule.days.keys[timeframe.days.first - 1],
+          time_open: o.start.gsub("+", "").insert(2, ":"),
+          time_close: o.end.gsub("+", "").insert(2, ":")
+        }
       end
     end
   end

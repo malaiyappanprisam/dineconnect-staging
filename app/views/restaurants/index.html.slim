@@ -4,6 +4,10 @@
       = link_to new_restaurant_path, class: 'btn btn-primary' do
         span.glyphicon.glyphicon-plus
         = t :add_restaurant
+    .btn-group
+      = link_to new_restaurant_batch_path, class: 'btn btn-primary' do
+        span.glyphicon.glyphicon-plus
+        = t :add_restaurant_from_foursquare
   h1
     = Restaurant.model_name.human
     |&nbsp;&nbsp;

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       patch :deactivate
     end
   end
+  resources :restaurant_batches, only: [:new, :create, :show]
   resources :food_types
   resources :facilities
   resources :areas
