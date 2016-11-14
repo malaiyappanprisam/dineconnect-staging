@@ -10,7 +10,7 @@ class RestaurantBatchesController < ApplicationController
     if @restaurant_batch.save
       merged_params = restaurant_batch_params.merge(batch_id: @restaurant_batch.id)
       FoursquareImporterJob.perform_async(merged_params)
-      redirect_to restaurant_batch_path(@restaurant_batch), notice: "Please wait the process is running in background"
+      redirect_to restaurant_batch_path(@restaurant_batch), notice: "Please wait while the process is running in the background"
     else
       render :new
     end
