@@ -1,16 +1,22 @@
+area = Area.create(name: "Jakarta")
+
 if User.count < 20
   20.times do
     User.create!(
       {
         email: Faker::Internet.safe_email,
-        password: Faker::Internet.password
+        password: Faker::Internet.password,
+        role: :user,
+        active: true,
+        email_confirmed_at: DateTime.now,
+        date_of_birth: 20.years.ago
       }
     )
     Restaurant.create!(
       {
         name: Faker::Company.name,
         address: Faker::Address.street_address,
-        area: Faker::Address.city
+        area: area
       }
     )
   end
@@ -36,7 +42,7 @@ Restaurant.all.each do |restaurant|
     { day: day, hour_open: Faker::Number.between(7, 10),
       hour_close: Faker::Number.between(22, 23) }
   end
-  restaurant.update(area: Faker::Address.city,
+  restaurant.update(area: area,
                     average_cost: Faker::Commerce.price,
                     people_count: Faker::Number.between(1, 3),
                     known_for_list: "#{["western", "chinese"].sample}, #{["chicken", "steak", "fast food"].sample}",
