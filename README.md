@@ -6,8 +6,8 @@ README
 * Create database with `rake db:create`
 * Migrate database with `rake db:migrate`
 * Seed database with `rake db:seed`
-* Create user by running `rails console`, then `User.create(email: "youremail@example.com", password: "test2017")`
-* Create user by running `heroku run rails console`, then `User.create(email: "youremail@example.com", password: "test2017")` (on production)
+* Create user by running `rails console`, then `User.create(email: "youremail@example.com", password: "test2017", role: "admin", active: true, email_confirmed_at: DateTime.now, date_of_birth: 20.years.ago)`
+* Create user by running `heroku run rails console`, then `User.create(email: "youremail@example.com", password: "test2017", role: "admin", active: true, email_confirmed_at: DateTime.now, date_of_birth: 20.years.ago))` (on production)
 * Login as normal
 * Use `rspec spec` to run all spec
 * Install heroku toolbelt on your machine, follow this instructions https://toolbelt.heroku.com/
