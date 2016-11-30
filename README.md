@@ -85,9 +85,12 @@ README
   LC_TYPE=en_US.UTF-8
   ```
 
-* Source /etc/environment
+* Logout and ssh to vagrant
   ```bash
-  source /etc/environment
+  exit
+
+  #outside VM
+  vagrant ssh
   ```
 
 * Setup postgres user
