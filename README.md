@@ -10,11 +10,14 @@ README
 * `vagrant up` and wait until the download is done
 * `vagrant ssh`
 * Install dependencies with:
+
   ```bash
   sudo apt-get update
   sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
   ```
+
 * Install ruby with rbenv:
+
   ```bash
   cd
   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
@@ -30,11 +33,15 @@ README
   rbenv global 2.3.1
   ruby -v
   ```
+
 * Install bundler with:
+
   ```bash
   gem install bundler
   ```
+
 * Configuring git
+
   ```bash
   git config --global color.ui true
   git config --global user.name "YOUR NAME"
@@ -42,18 +49,25 @@ README
   ssh-keygen -t rsa -b 4096 -C "YOUR@EMAIL.com"
   ```
 * Copy and paste output of following commands to https://github.com/settings/ssh
+
   ```bash
   cat ~/.ssh/id_rsa.pub
   ```
+
 * Install Rails
+
   ```bash
   gem install rails -v 4.2.6
   ```
+
 * Rehash rbenv
+
   ```bash
   rbenv rehash
   ```
+
 * Install postgres
+
   ```bash
   sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
   wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
@@ -61,18 +75,24 @@ README
   sudo apt-get install postgresql-common
   sudo apt-get install postgresql-9.5-postgis-2.2 postgresql-contrib-9.5 libpq-dev
   ```
+
 * Edit /etc/environment, add at the end of it with this:
+
   ```bash
   LANGUAGE=en_US.UTF-8
   LC_ALL=en_US.UTF-8
   LANG=en_US.UTF-8
   LC_TYPE=en_US.UTF-8
   ```
+
 * Setup postgres user
+
   ```bash
   sudo -u postgres createuser ubuntu -s
   ```
+
 * Create database development and test
+
   ```bash
   psql -dpostgres
 
@@ -85,19 +105,26 @@ README
   CREATE EXTENSION postgis;
   \q
   ```
+
 * Change to vagrant directory
+
   ```bash
   cd /vagrant
   ```
+
 * Install nodejs
+
   ```bash
   curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
   sudo apt-get install -y nodejs
   ```
+
 * Run bundle install
+
   ```bash
   bundle install
   ```
+
 * Migrate database with `rake db:migrate`
 * Seed database with `rake db:seed`
 * Create user by running `rails console`, then `User.create(email: "youremail@example.com", password: "test2017", role: "admin", active: true, email_confirmed_at: DateTime.now, date_of_birth: 20.years.ago)`
