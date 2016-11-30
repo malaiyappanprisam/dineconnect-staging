@@ -137,6 +137,14 @@ README
 * Seed database with `rake db:seed`
 * Create user by running `rails console`, then `User.create(email: "youremail@example.com", password: "test2017", role: "admin", active: true, email_confirmed_at: DateTime.now, date_of_birth: 20.years.ago)`
 * Create user by running `heroku run rails console`, then `User.create(email: "youremail@example.com", password: "test2017", role: "admin", active: true, email_confirmed_at: DateTime.now, date_of_birth: 20.years.ago))` (on production)
+
+* Start rails server
+  ```bash
+  rails s -b 0.0.0.0
+  ```
+
+* On the host machine, open browser to `http://192.168.33.10:3000`
+
 * Login as normal
 * Use `rspec spec` to run all spec
 * Install heroku toolbelt on your machine, follow this instructions https://toolbelt.heroku.com/
