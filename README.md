@@ -85,6 +85,11 @@ README
   LC_TYPE=en_US.UTF-8
   ```
 
+* Source /etc/environment
+  ```bash
+  source /etc/environment
+  ```
+
 * Setup postgres user
 
   ```bash
