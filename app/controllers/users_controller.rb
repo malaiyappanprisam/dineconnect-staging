@@ -78,6 +78,11 @@ class UsersController < ApplicationController
     render json: {:available => user ? "Email already exist" : false}, status: :ok
   end
 
+  def zodiac_people
+    @users = User.find_by_zodiac_sign(params[:zodiac_sign])
+    render json: { :users => @users}
+  end
+
   private
   def user_params
     params.require(:user).permit(:email, :password, :role, :first_name,
