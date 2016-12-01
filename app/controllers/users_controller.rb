@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_login
+  before_action :require_login, :except => [:already_available]
 
   def index
     @users = User
@@ -73,6 +73,11 @@ class UsersController < ApplicationController
     redirect_to users_path, info: "Success"
   end
 
+  def already_available
+    user = User.find_by_email(params[:email])
+    render json: {:available => user ? "Email already exist" : false}, status: :ok
+  end
+
   private
   def user_params
     params.require(:user).permit(:email, :password, :role, :first_name,
@@ -81,6 +86,6 @@ class UsersController < ApplicationController
                                  :nationality, :residence_status,
                                  :interested_to_meet, :payment_preference,
                                  :interested_in_list, :favorite_food_list,
-                                 :location, :avatar)
+                                 :location, :avatar, :zodiac_sign)
   end
 end
