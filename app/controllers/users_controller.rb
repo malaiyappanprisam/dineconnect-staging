@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_login, :except => [:already_available]
-
+  
   def index
     @users = User
     if params[:search].present?
@@ -91,6 +91,6 @@ class UsersController < ApplicationController
                                  :nationality, :residence_status,
                                  :interested_to_meet, :payment_preference,
                                  :interested_in_list, :favorite_food_list,
-                                 :location, :avatar, :zodiac_sign)
-  end
+                                 :location, :avatar, :zodiac_sign, :last_seen_at)
+  end 
 end
