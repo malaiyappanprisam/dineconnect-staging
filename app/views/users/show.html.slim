@@ -134,3 +134,9 @@ dl.dl-horizontal
     = User.human_attribute_name('zodiac_sign')
   dd
     = @user.zodiac_sign
+
+dl.dl-horizontal
+  dt
+    = User.human_attribute_name('last_seen_at')
+  dd
+    = @user.last_seen_at    

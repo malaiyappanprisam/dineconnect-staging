@@ -16,10 +16,9 @@ class ApiController < ActionController::Base
     token = request.headers["X-API-Token"]
     device_id = request.headers["X-API-Device"]
     user_token = UserToken.find_by(token: token, device_id: device_id)
-    puts"=== token #{token}================="
-    puts"#{token.present? && device_id.present? && user_token.present? && user_token.user.present?}==============trueorfalse"
     if token.present? && device_id.present? && user_token.present? && user_token.user.present?
       @current_user = user_token.user
+      @current_user.touch :last_seen_at 
     else
       raise AuthenticationError
     end
@@ -31,8 +30,7 @@ class ApiController < ActionController::Base
   end
 
   def check_api_auth_key!
-
-    puts"#{ENV["API_AUTH_KEY"]}====================#{request.headers["X-API-AUTH"]}==================api auth key"
+    puts"=================#{request.headers}==================request parameters"
     unless request.headers["X-API-AUTH"] == ENV["API_AUTH_KEY"]
       head :unauthorized
     end
