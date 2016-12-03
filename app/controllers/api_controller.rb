@@ -29,6 +29,7 @@ class ApiController < ActionController::Base
   end
 
   def check_api_auth_key!
+    puts"#{ENV["API_AUTH_KEY"]}====================#{request.headers["X-API-AUTH"]}==================api auth key"
     unless request.headers["X-API-AUTH"] == ENV["API_AUTH_KEY"]
       head :unauthorized
     end
