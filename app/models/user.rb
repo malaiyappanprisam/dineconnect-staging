@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   before_save :delete_all_associations_when_inactive
   before_save :combine_first_and_last_name
   after_create :generate_channel_group
+  before_save :generate_zodiac_sign, if: :date_of_birth_changed?
 
   def self.create_from_fb_response(fb_response, email, birthday, avatar, avatar_url)
     user = User.new
@@ -190,6 +191,14 @@ class User < ActiveRecord::Base
   private
   def combine_first_and_last_name
     self.full_name = "#{self.first_name} #{self.last_name}"
+  end
+
+  def generate_zodiac_sign
+    if self.date_of_birth
+      self.zodiac_sign = Zodiac.where(" ? between to_char(start_date, 'MM-DD') 
+                                and to_char(end_date, 'MM-DD')", 
+                                self.date_of_birth.strftime("%m-%d")).first.sign
+    end
   end
 
   def delete_all_associations_when_inactive

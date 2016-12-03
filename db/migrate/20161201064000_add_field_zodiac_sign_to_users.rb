@@ -3,7 +3,9 @@ class AddFieldZodiacSignToUsers < ActiveRecord::Migration
     add_column :users, :zodiac_sign, :string
     users = User.where("date_of_birth is not null")
     users.each do |user|
-      user.zodiac_sign = ["aries", "taurus", "gemini", "cancer", "leo", "virgo", "libro", "scorpio", "sagittarius", "capricorn", "aquarius", "pisces"].sample	
+      user.zodiac_sign = Zodiac.where(" ? between to_char(start_date, 'MM-DD') 
+                                and to_char(end_date, 'MM-DD')", 
+                                self.date_of_birth.strftime("%m-%d")).first.sign	
       user.save
     end
   end

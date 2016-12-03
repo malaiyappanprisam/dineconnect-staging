@@ -14,7 +14,8 @@ class CreateZodiacs < ActiveRecord::Migration
             "libro" => {"from_month" => 9, "from_date" => 23, "to_month" => 10, "to_date"=> 22},
         	"scorpio" => {"from_month" => 10, "from_date" => 23, "to_month" => 11, "to_date"=> 21},
         	"sagittarius" => {"from_month" => 11, "from_date" => 22, "to_month" => 12, "to_date"=> 21},
-        	"capricorn" => {"from_month" => 12, "from_date" => 22, "to_month" => 1, "to_date"=> 19},
+        	"capricorn" => {"from_month" => 12, "from_date" => 22, "to_month" => 12, "to_date"=> 31},
+          "capricorn" => {"from_month" => 1, "from_date" => 1, "to_month" => 1, "to_date"=> 19},
         	"aquarius" => {"from_month" => 1, "from_date" => 20, "to_month" => 2, "to_date"=> 18},
             "pisces" => {"from_month" => 2, "from_date" => 19, "to_month" => 3, "to_date"=> 19}}
     
