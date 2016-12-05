@@ -5,14 +5,14 @@ class Restaurant < ActiveRecord::Base
 
   acts_as_taggable_on :known_fors
   validates :name, presence: true
-  has_many :open_schedules, -> { order(:day).order(:time_open) }
+  has_many :open_schedules, -> { order(:day).order(:time_open) } , :dependent => :destroy
 
   has_and_belongs_to_many :food_types
   has_and_belongs_to_many :facilities
   has_many :photos, as: :photoable
   belongs_to :area
 
-  accepts_nested_attributes_for(:open_schedules, reject_if: :reject_open_schedules)
+  accepts_nested_attributes_for(:open_schedules, reject_if: :reject_open_schedules, allow_destroy: :true)
   accepts_attachments_for :photos, attachment: :file, append: true
 
   enum price: [
