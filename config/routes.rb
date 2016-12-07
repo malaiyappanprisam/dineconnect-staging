@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
   match '/api/users/zodiac_people' => 'users#zodiac_people', :as => :zodiac_people, :via => :get
-  match '/api/users/already_available' => 'users#already_available', :as => :already_available, :via => :get
+  match '/api/users/already_available' => 'users#already_available', :as => :already_available, :via => :get 
   
   resources :users do
     member do
