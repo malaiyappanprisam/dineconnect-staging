@@ -75,7 +75,7 @@ class UsersController < ApplicationController
 
   def already_available
     user = User.find_by_email(params[:email])
-    render json: {:available => user ? "Email already exist" : false}, status: :ok
+    render json: {:available => user ? true : false}, status: :ok
   end
 
   def zodiac_people
